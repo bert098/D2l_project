@@ -15,25 +15,22 @@ public class ProfessorView extends JFrame{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	private JFrame frame;
+	private static final long serialVersionUID = -4498875227121382873L;
 	
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	CreateCourseView createCourseView = new CreateCourseView();
-	ProfessorCoursesView professorCoursesView = new ProfessorCoursesView();
+	ProfessorCoursesPanel professorCoursesView = new ProfessorCoursesPanel();
 	
-	public ProfessorView() {
+	public ProfessorView()
+	{
 		
-		frame = new JFrame();
-		//frame.setBounds(100, 100, 450, 300);
-		frame.setSize(500, 500);
-		frame.setMinimumSize(new Dimension(500, 500));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		setSize(500, 500);
+		setMinimumSize(new Dimension(500, 500));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
+		getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel mainLabel = new JLabel("D4L");
@@ -43,11 +40,11 @@ public class ProfessorView extends JFrame{
 		JLabel professorLabel = new JLabel("Professor Label");
 		panel.add(professorLabel);
 		
-		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.addTab("View Courses", null, professorCoursesView, null);
 		tabbedPane.addTab("Create New Course", null, createCourseView, null);
 		
-		frame.setVisible(true);
+		setVisible(true);
 	}
 	
 	public static void main(String[] args) {

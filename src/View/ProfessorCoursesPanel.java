@@ -11,7 +11,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ProfessorCoursesView extends JPanel{
+public class ProfessorCoursesPanel extends JPanel{
 
 	private JList courseList = new JList();
 	private JScrollPane scrollPane = new JScrollPane();
@@ -20,7 +20,8 @@ public class ProfessorCoursesView extends JPanel{
 	private JButton activateCourseButton = new JButton("Activate");
 	private JButton deactivateCourseButton = new JButton("Deactivate");
 	
-	public ProfessorCoursesView() {
+	public ProfessorCoursesPanel()
+	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 276, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
