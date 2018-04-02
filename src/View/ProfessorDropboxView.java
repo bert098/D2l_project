@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ public class ProfessorDropboxView extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 8673038957037574746L;
+	
 	private JPanel contentPane;
 	private JTextField gradeField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
@@ -29,6 +31,12 @@ public class ProfessorDropboxView extends JFrame{
 	private JTextArea commentsArea = new JTextArea();
 	private JButton submitGradeButton = new JButton("Submit Grade");
 	private JButton downloadAssignmentButton = new JButton("Download");
+	
+	public String getGradeText() {return gradeField.getText();}
+	public String getCommentsText() {return commentsArea.getText();}
+	
+	public void addSubmitGradeButtonActionListener(ActionListener a) {submitGradeButton.addActionListener(a);}
+	public void addDownloadAssignmentButtonActionListener(ActionListener a) {downloadAssignmentButton.addActionListener(a);}
 	
 	public ProfessorDropboxView()
 	{

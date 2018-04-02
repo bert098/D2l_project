@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,14 +14,22 @@ import javax.swing.JTextField;
 
 public class CreateCourseView extends JPanel{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1424663512425310103L;
+	
 	private JTextField courseNumField = new JTextField();
 	private JTextField courseNameField = new JTextField();
 	private JCheckBox courseActiveBox = new JCheckBox("Set Active");
 	private JButton createCourseButton = new JButton("Create Course");
+	
+	public String getCourseNum() {return courseNumField.getText();}
+	public String getCourseName() { return courseNameField.getText();}
+	public boolean getCourseIsActive() {return courseActiveBox.isSelected();}
+	
+	public void addCreateCourseButtonActionListener(ActionListener a) {createCourseButton.addActionListener(a);}
 	
 	public CreateCourseView()
 	{

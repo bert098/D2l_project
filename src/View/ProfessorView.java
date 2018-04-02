@@ -17,9 +17,12 @@ public class ProfessorView extends JFrame{
 	 */
 	private static final long serialVersionUID = -4498875227121382873L;
 	
-	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	CreateCourseView createCourseView = new CreateCourseView();
-	ProfessorCoursesPanel professorCoursesView = new ProfessorCoursesPanel();
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private CreateCourseView createCourseView = new CreateCourseView();
+	private ProfessorCoursesPanel professorCoursesPanel = new ProfessorCoursesPanel();
+	
+	public CreateCourseView getRreateCourseView() {return createCourseView;}
+	public ProfessorCoursesPanel getProfessorCoursesPanel() {return professorCoursesPanel;}
 	
 	public ProfessorView()
 	{
@@ -41,7 +44,7 @@ public class ProfessorView extends JFrame{
 		panel.add(professorLabel);
 		
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		tabbedPane.addTab("View Courses", null, professorCoursesView, null);
+		tabbedPane.addTab("View Courses", null, professorCoursesPanel, null);
 		tabbedPane.addTab("Create New Course", null, createCourseView, null);
 		
 		setVisible(true);

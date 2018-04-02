@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -30,6 +31,15 @@ public class SearchStudentsPanel extends JPanel {
 	private JList resultsList = new JList();
 	private JButton unenrollButton = new JButton("Unenroll");
 	private JButton enrollButton = new JButton("Enroll");
+	
+	public String getSearchText() {return searchField.getText();}
+	
+	public boolean idSelected() {return idRadioButton.isSelected();}
+	public boolean lastNameSelected() {return lastNameRadioButton.isSelected();}
+	
+	public void addSearchButtonActionListener(ActionListener a) {searchButton.addActionListener(a);}
+	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
+	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
 	
 	public SearchStudentsPanel()
 	{

@@ -9,6 +9,14 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
 public class ProfessorCourseView extends JFrame{
+	
+	ProfessorAssignmentsPanel professorAssignmentsPanel = new ProfessorAssignmentsPanel();
+	SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
+	ProfessorEmailPanel professorEmailView = new ProfessorEmailPanel();
+	
+	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return professorAssignmentsPanel;}
+	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}
+	public ProfessorEmailPanel getProfessorEmailPanel() {return professorEmailView;}
 
 	public ProfessorCourseView()
 	{
@@ -24,13 +32,8 @@ public class ProfessorCourseView extends JFrame{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		ProfessorAssignmentsPanel professorAssignmentsPanel = new ProfessorAssignmentsPanel();
 		tabbedPane.addTab("Assignments", null, professorAssignmentsPanel, null);
-		
-		SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
 		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
-		
-		ProfessorEmailPanel professorEmailView = new ProfessorEmailPanel();
 		tabbedPane.addTab("Send Email", null, professorEmailView, null);
 		
 		setVisible(true);

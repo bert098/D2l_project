@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,6 +20,10 @@ public class ProfessorCoursesPanel extends JPanel{
 	private JButton openCourseButton = new JButton("Open");
 	private JButton activateCourseButton = new JButton("Activate");
 	private JButton deactivateCourseButton = new JButton("Deactivate");
+	
+	public void addOpenCourseButtonActionListener(ActionListener a) {openCourseButton.addActionListener(a);}
+	public void addActivateCourseButtonActionListener(ActionListener a) {activateCourseButton.addActionListener(a);}
+	public void addDeactivateCourseButtonActionListener(ActionListener a) {deactivateCourseButton.addActionListener(a);}
 	
 	public ProfessorCoursesPanel()
 	{

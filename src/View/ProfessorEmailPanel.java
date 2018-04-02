@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,6 +25,11 @@ public class ProfessorEmailPanel extends JPanel{
 	private JButton sendButton = new JButton("Send");
 	private JButton clearButton = new JButton("Clear");
 	
+	public String getTitle() {return titleField.getText();}
+	public String getMessage() {return messageArea.getText();}
+	
+	public void addSendButtonActionListener(ActionListener a) {sendButton.addActionListener(a);}
+	public void addClearButtonActionListener(ActionListener a) {clearButton.addActionListener(a);}
 	
 	public ProfessorEmailPanel()
 	{

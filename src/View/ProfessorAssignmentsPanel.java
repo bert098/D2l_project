@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,12 +18,18 @@ public class ProfessorAssignmentsPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = -158630035274134969L;
+	
 	JScrollPane scrollPane = new JScrollPane();
 	JList assignmentList = new JList();
 	JButton openDropboxButton = new JButton("Open Dropbox");
 	JButton uploadAssignmentButton = new JButton("Upload New Assignment");
 	JButton activateAssignButton = new JButton("Activate");
 	JButton deactivateAssignButton = new JButton("Deactivate");
+	
+	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
+	public void addUploadButtonActionListener(ActionListener a) {uploadAssignmentButton.addActionListener(a);}
+	public void addActivateAssignButtonActionListener(ActionListener a) {activateAssignButton.addActionListener(a);}
+	public void addDeactivateAssignButtonActionListener(ActionListener a) {deactivateAssignButton.addActionListener(a);}
 	
 	
 	public ProfessorAssignmentsPanel()
