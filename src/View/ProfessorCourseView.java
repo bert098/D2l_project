@@ -10,9 +10,14 @@ import javax.swing.JTabbedPane;
 
 public class ProfessorCourseView extends JFrame{
 	
-	ProfessorAssignmentsPanel professorAssignmentsPanel = new ProfessorAssignmentsPanel();
-	SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
-	ProfessorEmailPanel professorEmailView = new ProfessorEmailPanel();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -195895691490358230L;
+
+	private ProfessorAssignmentsPanel professorAssignmentsPanel = new ProfessorAssignmentsPanel();
+	private SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
+	private ProfessorEmailPanel professorEmailView = new ProfessorEmailPanel();
 	
 	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return professorAssignmentsPanel;}
 	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}

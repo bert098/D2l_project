@@ -19,12 +19,12 @@ public class ProfessorAssignmentsPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = -158630035274134969L;
 	
-	JScrollPane scrollPane = new JScrollPane();
-	JList assignmentList = new JList();
-	JButton openDropboxButton = new JButton("Open Dropbox");
-	JButton uploadAssignmentButton = new JButton("Upload New Assignment");
-	JButton activateAssignButton = new JButton("Activate");
-	JButton deactivateAssignButton = new JButton("Deactivate");
+	private JScrollPane scrollPane = new JScrollPane();
+	private JList assignmentList = new JList();
+	private JButton openDropboxButton = new JButton("Open Dropbox");
+	private JButton uploadAssignmentButton = new JButton("Upload New Assignment");
+	private JButton activateAssignButton = new JButton("Activate");
+	private JButton deactivateAssignButton = new JButton("Deactivate");
 	
 	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	public void addUploadButtonActionListener(ActionListener a) {uploadAssignmentButton.addActionListener(a);}

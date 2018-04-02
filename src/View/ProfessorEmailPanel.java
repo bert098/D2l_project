@@ -19,6 +19,7 @@ public class ProfessorEmailPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 4136642203510606453L;
+	
 	private JTextField titleField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
 	private JTextArea messageArea = new JTextArea();

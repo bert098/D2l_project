@@ -14,6 +14,11 @@ import javax.swing.JScrollPane;
 
 public class ProfessorCoursesPanel extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3962664310003782620L;
+	
 	private JList courseList = new JList();
 	private JScrollPane scrollPane = new JScrollPane();
 	
