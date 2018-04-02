@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 public class LoginWindow extends JFrame {
 	private String userName;
@@ -23,7 +24,7 @@ public class LoginWindow extends JFrame {
 		JLabel usName = new JLabel("Username");
 		JLabel pass = new JLabel("Password");
 		TextField userNameText = new TextField(20);
-		TextField passwordText = new TextField(20);
+		JPasswordField passwordText = new JPasswordField(20);
 		JButton enter = new JButton("Enter");
 		setLayout(new BorderLayout());
 		JPanel subPanel = new JPanel();
