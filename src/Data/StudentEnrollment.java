@@ -1,6 +1,8 @@
 package Data;
 
-public class StudentEnrollment {
+import java.io.Serializable;
+
+public class StudentEnrollment implements Serializable{
 	private Integer id;
 	private Integer studentId;
 	private Integer courseId;
