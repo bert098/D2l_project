@@ -1,11 +1,11 @@
 package Database;
-import Data.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserTable {
+public class CourseTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
 	
@@ -14,7 +14,7 @@ public class UserTable {
 				  login          = "root",
 				  password       = "hi";
 
-	public UserTable()
+	public CourseTable()
 	{
 		try{
 			// If this throws an error, make sure you have added the mySQL connector JAR to the project
@@ -31,17 +31,13 @@ public class UserTable {
 	
 
 	// Create a data table inside of the database to hold tools
-	public void createUserTable()
+	public void createCourseTable()
 	{
-		String tableName = "UserTable";
-		String sql =   "CREATE TABLE " + tableName + "(" +
+		String sql =   "CREATE TABLE " + "CourseTable" + "(" +
 				     "ID INT(8) NOT NULL, " +
-				     "PASSWORD VARCHAR(20) NOT NULL, " + 
-				     "USERNAME VARCHAR(30) NOT NULL, " + 
-				     "EMAIL VARCHAR(50) NOT NULL, " + 
-				     "FIRSTNAME VARCHAR(30) NOT NULL, " + 
-				     "LASTNAME VARCHAR(30) NOT NULL, " + 
-				     "TYPE CHAR(1) NOT NULL, " +
+				     "PROF_ID INT(8) NOT NULL, " + 
+				     "NAME VARCHAR(50) NOT NULL, " + 
+				     "ACTIVE CHAR(1) NOT NULL, " + 
 				     "PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
@@ -52,32 +48,20 @@ public class UserTable {
 			e.printStackTrace();
 		}
 	}
-	public void addUser(User user)
+	public static void main(String args[])
 	{
-		String sql = "INSERT INTO " + "UserTable" +
-				" VALUES (? " +  ",? " + 
-				 ",? " + 
-				 ",? " + 
-				 ",? " + 
-				 ",? " + 
-				 ",? " + 
-				 ");";
-		try{
-			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, user.getId());
-			statement.setString(2, user.getPassword());
-			statement.setString(3, user.getUsername());
-			statement.setString(4, user.getEmail());
-			statement.setString(5, user.getFirstName());
-			statement.setString(6, user.getLastName());
-			statement.setString(7, String.valueOf(user.getType()));
-			
-			
-			statement.executeUpdate();
-		}
-		catch(SQLException e)
+		CourseTable inventory = new CourseTable();
+		//inventory.createDB();
+		inventory.createCourseTable();
+		
+		try {
+			inventory.statement.close();
+			inventory.jdbc_connection.close();
+		} 
+		catch (SQLException e) { e.printStackTrace(); }
+		finally
 		{
-			e.printStackTrace();
+			System.out.println("\nThe program is finished running");
 		}
 	}
 }
