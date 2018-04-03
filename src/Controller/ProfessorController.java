@@ -3,6 +3,8 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Data.Course;
+import Data.Professor;
 import View.*;
 
 public class ProfessorController {
@@ -46,7 +48,7 @@ public class ProfessorController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Open Course");
-				ProfessorCourseView courseView = new ProfessorCourseView();
+				ProfessorCourseView courseView = new ProfessorCourseView(new Course(new Professor(1, "", "", 'P', "", "", ""), 1, "", true));
 				addProfessorCourseViewListeners(courseView);
 			}
 		});
@@ -146,7 +148,7 @@ public class ProfessorController {
 	
 	private void addEmailPanelListeners(ProfessorCourseView courseView)
 	{
-		ProfessorEmailPanel panel = courseView.getProfessorEmailPanel();
+		UserEmailPanel panel = courseView.getUserEmailPanel();
 		
 		panel.addSendButtonActionListener(new ActionListener(){
 			@Override
@@ -188,7 +190,7 @@ public class ProfessorController {
 	
 	public static void main(String[] args)
 	{
-		ProfessorView professorView = new ProfessorView();
+		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
 		ProfessorController professorController = new ProfessorController(professorView);
 	}
 

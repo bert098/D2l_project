@@ -13,12 +13,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ProfessorEmailPanel extends JPanel{
-	
+public class UserEmailPanel extends JPanel{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4136642203510606453L;
+	private static final long serialVersionUID = -6727002174304116141L;
 	
 	private JTextField titleField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
@@ -32,7 +32,7 @@ public class ProfessorEmailPanel extends JPanel{
 	public void addSendButtonActionListener(ActionListener a) {sendButton.addActionListener(a);}
 	public void addClearButtonActionListener(ActionListener a) {clearButton.addActionListener(a);}
 	
-	public ProfessorEmailPanel()
+	public UserEmailPanel()
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -95,5 +95,4 @@ public class ProfessorEmailPanel extends JPanel{
 		gbc_clearButton.gridy = 4;
 		add(clearButton, gbc_clearButton);
 	}
-
 }
