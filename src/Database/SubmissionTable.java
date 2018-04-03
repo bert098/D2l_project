@@ -56,7 +56,7 @@ public class SubmissionTable {
 			e.printStackTrace();
 		}
 	}
-	public void addUSubmission(Assignment assign, Student student, int grade, String comment)
+	public void addSubmission(Dropbox d)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -71,12 +71,12 @@ public class SubmissionTable {
 				 ");";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, assign.getId());
-			statement.setInt(2, student.getId());
-			statement.setString(3, assign.getPath());
-			statement.setString(4, assign.getTitle());
-			statement.setInt(5, grade);
-			statement.setString(6, comment);
+			statement.setInt(1, d.getAssignId());
+			statement.setInt(2, d.getStudentId());
+			statement.setString(3, d.getPath());
+			statement.setString(4, d.getTitle());
+			statement.setInt(5, d.getGrade());
+			statement.setString(6, d.getComment());
 			statement.setString(7, dateFormat.format(cal.getTime()));
 			
 			

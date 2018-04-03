@@ -1,8 +1,9 @@
 package Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Email {
+public class Email implements Serializable{
 	private String from;
 	private ArrayList<String> to;
 	private String subject;
