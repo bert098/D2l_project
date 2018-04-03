@@ -59,12 +59,11 @@ public class MainServer {
 			while (true) 
 			{
 				socket = serverSocket.accept(); 
-				stringIn = new BufferedReader (new InputStreamReader(socket.getInputStream()));
-				System.out.println("test1");
-				stringOut = new PrintWriter((socket.getOutputStream())); 
-				System.out.println("test2");
+				stringIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				stringOut = new PrintWriter((socket.getOutputStream()), true); 
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
-				System.out.println("test4");
+				objectOut.flush();
+				objectIn = new ObjectInputStream(socket.getInputStream());
 				LoginThread thread = new LoginThread(objectIn, objectOut, stringIn, stringOut);
 				threadPool.execute(thread);
 			}

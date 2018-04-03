@@ -25,11 +25,10 @@ public class LoginThread implements Runnable {
 		try { 
 			System.out.println("Client and server connected");
 			String userName = null, userPassword = null; 
-			
 			userName = stringIn.readLine();
 			userPassword = stringIn.readLine();
-			userName = userName.substring(4);
-			System.out.println(userName + userPassword);
+			//userName = userName.substring(4);
+			System.out.println(userName + " " + userPassword);
 		}
 		catch (IOException e) {
 			e.printStackTrace();

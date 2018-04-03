@@ -2,17 +2,18 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 
 import View.LoginWindow;
 
 public class UserController {
-
+	private PrintWriter stringOut;
 	private LoginWindow loginWindow;  
 	private String userName;
 	private String password;
-	//private User user; 
 	
-	public UserController() { 
+	public UserController(PrintWriter out) { 
+		stringOut = out;
 		userName = ""; 
 		password = "";
 		loginWindow = new LoginWindow(); 
@@ -23,15 +24,9 @@ public class UserController {
 				loginWindow.updateUserNamePassword();
 				userName = loginWindow.getUserName();
 				password = loginWindow.getPassword();
+				stringOut.println(userName);
+				stringOut.println(password);
 			}
 		});
-	}
-	
-	public String getPassword() { 
-		return password; 
-	}
-	
-	public String getUserName() { 
-		return userName; 
 	}
 }
