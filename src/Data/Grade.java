@@ -1,6 +1,8 @@
 package Data;
 
-public class Grade {
+import java.io.Serializable;
+
+public class Grade implements Serializable{
 	private Integer id;
 	private Integer student_id;
 	private Integer grade;

@@ -15,6 +15,7 @@ public class Course implements Serializable {
 		this.name = name;
 		this.active = active;
 	}
+	
 	public Integer getId() {return id;}
 	public Integer getProfId() {return prof_id;}
 	public String getName() {return name;}
