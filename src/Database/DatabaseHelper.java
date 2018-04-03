@@ -3,7 +3,7 @@ package Database;
 import Data.*;
 
 public class DatabaseHelper {
-	private  UserTable userTable;
+	private UserTable userTable;
 	private CourseTable courseTable;
 	private AssignmentTable assignmentTable;
 	private StudentEnrollmentTable studentEnrollmentTable;
@@ -12,8 +12,8 @@ public class DatabaseHelper {
 	private String login;
 	private String password;
 	private String dataBaseName;
-	public  DatabaseHelper(String log, String pass, String dataBase)
 	
+	public DatabaseHelper(String log, String pass, String dataBase)
 	{
 		userTable = new UserTable();
 		courseTable = new CourseTable();
@@ -25,8 +25,8 @@ public class DatabaseHelper {
 		password = pass;
 		dataBaseName = dataBase;	
 	}
-public  DatabaseHelper()
 	
+	public  DatabaseHelper()
 	{
 		userTable = new UserTable();
 		courseTable = new CourseTable();
@@ -56,8 +56,6 @@ public  DatabaseHelper()
 	{
 		DatabaseHelper data = new DatabaseHelper();
 		data.createAllTables();
-		
-		
 	}
 	
 	

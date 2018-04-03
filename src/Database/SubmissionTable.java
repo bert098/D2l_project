@@ -17,7 +17,7 @@ public class SubmissionTable {
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root",
-				  password       = "hi";
+				  password       = "Chordatgh!234";
 
 	public SubmissionTable()
 	{
