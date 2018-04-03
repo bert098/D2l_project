@@ -3,6 +3,7 @@ import Data.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserTable {
@@ -79,5 +80,42 @@ public class UserTable {
 		{
 			e.printStackTrace();
 		}
+	}
+	public User search(int UserID)
+	{
+		String sql = "SELECT * FROM " + "UserTable" + " WHERE ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, UserID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer id = user.getInt("ID");
+				String password = user.getString("PASSWORD");
+				String username = user.getString("USERNAME");
+				String email = user.getString("EMAIL");
+				String firstName = user.getString("FIRSTNAME");
+				String lastName = user.getString("LASTNAME");
+				String type = user.getString("TYPE");
+				
+				
+				
+				if(user.getString("TYPE") == "P")
+				{
+					char chartype = type.charAt(0);
+					return new Professor(id, username, password, chartype, email, firstName, lastName);
+				}
+				else
+				{
+					char chartype = type.charAt(0);
+					return new Student(id, username, password, chartype, email, firstName, lastName);
+				}
+//				
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
 	}
 }

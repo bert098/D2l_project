@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import Data.Grade;
+import Data.User;
+
 public class GradeTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
@@ -49,20 +52,27 @@ public class GradeTable {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[])
+	
+	public void addGrade(Grade user)
 	{
-		GradeTable inventory = new GradeTable();
-		//inventory.createDB();
-		inventory.createGradeTable();
-		
-		try {
-			inventory.statement.close();
-			inventory.jdbc_connection.close();
-		} 
-		catch (SQLException e) { e.printStackTrace(); }
-		finally
+		String sql = "INSERT INTO " + "GradeTable" +
+				" VALUES (? " +  ",? " + 
+				 ",? " + 
+				 ",? " + 
+				 ",? " +  
+				 ");";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			statement.setInt(2, user.getAssignId());
+			statement.setInt(3, user.getStudentId());
+			statement.setInt(4, user.getCourseId());
+			statement.setInt(5, user.getGrade());
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
 		{
-			System.out.println("\nThe program is finished running");
+			e.printStackTrace();
 		}
 	}
 }

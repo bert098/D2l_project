@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import Data.Assignment;
+import Data.User;
+
 public class AssignmentTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
@@ -33,16 +36,50 @@ public class AssignmentTable {
 	// Create a data table inside of the database to hold tools
 	public void createAssignmentTable()
 	{
-		String sql =   "CREATE TABLE " + "AssignementTable" + "(" +
+		String sql =   "CREATE TABLE " + "AssignmentTable" + "(" +
 				     "ID INT(8) NOT NULL, " +
 				     "COURSEID INT(8) NOT NULL, " + 
 				     "TITLE VARCHAR(50) NOT NULL, " + 
 				     "PATH VARCHAR(100) NOT NULL, " + 
-				     "ACTIVE CHAR(1) NOT NULL, " + 
+				     "ACTIVE BIT(1) NOT NULL, " + 
 				     "DUE_DATE VARCHAR(16) NOT NULL, " +
 				     "PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void addAssignment(Assignment user)
+	{
+		String sql = "INSERT INTO " + "AssignmentTable" +
+				" VALUES (? " +  ",? " + 
+				 ",? " + 
+				 ",? " + 
+				 ",? " + 
+				 ",? " + 
+				 ");";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			statement.setInt(2, user.getCourseId());
+			statement.setString(3, user.getTitle());
+			statement.setString(4, user.getPath());
+			if(user.getActive() == true)
+			{
+			statement.setInt(5, 1);
+			}
+			else 
+			{
+				statement.setInt(5, 0);
+			}
+			statement.setString(6, user.getDate());
+			
+			
+			
 			statement.executeUpdate();
 		}
 		catch(SQLException e)

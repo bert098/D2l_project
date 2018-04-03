@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import Data.StudentEnrollment;
+import Data.User;
+
 public class StudentEnrollmentTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
@@ -47,20 +50,24 @@ public class StudentEnrollmentTable {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[])
+	public void addEnrollment(StudentEnrollment user)
 	{
-		StudentEnrollmentTable inventory = new StudentEnrollmentTable();
-		//inventory.createDB();
-		inventory.createStudentEnrollmentTable();
-		
-		try {
-			inventory.statement.close();
-			inventory.jdbc_connection.close();
-		} 
-		catch (SQLException e) { e.printStackTrace(); }
-		finally
+		String sql = "INSERT INTO " + "StudentEnrollmentTable" +
+				" VALUES (? " +  ",? " + 
+				 ",? " + 
+				 ");";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			statement.setInt(2, user.getStudentId());
+			statement.setInt(3, user.getCourseId());
+			
+			
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
 		{
-			System.out.println("\nThe program is finished running");
+			e.printStackTrace();
 		}
 	}
 
