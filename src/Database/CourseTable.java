@@ -14,10 +14,9 @@ public class CourseTable {
 	
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
-				  login          = "root",
-				  password       = "Chordatgh!234";
+				  login          = "root";
 
-	public CourseTable()
+	public CourseTable(String password)
 	{
 		try{
 			// If this throws an error, make sure you have added the mySQL connector JAR to the project

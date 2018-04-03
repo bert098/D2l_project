@@ -9,32 +9,17 @@ public class DatabaseHelper {
 	private StudentEnrollmentTable studentEnrollmentTable;
 	private SubmissionTable submissionTable;
 	private GradeTable gradeTable;
-	private String login;
-	private String password;
-	private String dataBaseName;
 	
-	public DatabaseHelper(String log, String pass, String dataBase)
+	public DatabaseHelper(String pass)
 	{
-		userTable = new UserTable();
-		courseTable = new CourseTable();
-		assignmentTable = new AssignmentTable();
-		studentEnrollmentTable = new StudentEnrollmentTable();
-		submissionTable= new SubmissionTable();
-		gradeTable = new GradeTable();
-		login = log;
-		password = pass;
-		dataBaseName = dataBase;	
+		userTable = new UserTable(pass);
+		courseTable = new CourseTable(pass);
+		assignmentTable = new AssignmentTable(pass);
+		studentEnrollmentTable = new StudentEnrollmentTable(pass);
+		submissionTable= new SubmissionTable(pass);
+		gradeTable = new GradeTable(pass);
 	}
 	
-	public  DatabaseHelper()
-	{
-		userTable = new UserTable();
-		courseTable = new CourseTable();
-		assignmentTable = new AssignmentTable();
-		studentEnrollmentTable = new StudentEnrollmentTable();
-		submissionTable= new SubmissionTable();
-		gradeTable = new GradeTable();
-	}
 	public void createAllTables()
 	{
 		userTable.createUserTable();
@@ -74,7 +59,9 @@ public class DatabaseHelper {
 	}
 	public static void main(String [] args)
 	{
-		DatabaseHelper data = new DatabaseHelper();
+		//Add password here 
+		String sqlPassword = "";
+		DatabaseHelper data = new DatabaseHelper(sqlPassword);
 		data.createAllTables();
 		Professor p = new Professor(69, "Lmao", "ILoveHentai", 'P', "hello@gmail.com", "Magnus", "Lyngberg");
 		//Course c = new Course(p, 420, "Ensf", true);
