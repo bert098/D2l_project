@@ -1,4 +1,4 @@
-package Controller;
+package Model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import View.LoginWindow;
+import Controller.*;
 
 public class ClientMain {
 	
