@@ -68,17 +68,24 @@ public  DatabaseHelper()
 	{
 		studentEnrollmentTable.addEnrollment(s);;
 	}
+	public User searchUser()
+	{
+		return userTable.search(69);
+	}
 	public static void main(String [] args)
 	{
 		DatabaseHelper data = new DatabaseHelper();
 		data.createAllTables();
 		Professor p = new Professor(69, "Lmao", "ILoveHentai", 'P', "hello@gmail.com", "Magnus", "Lyngberg");
-		Course c = new Course(p, 420, "Ensf", true);
+		//Course c = new Course(p, 420, "Ensf", true);
 //		Assignment a = new Assignment(200,  c, "Final", "C:\\Users\\Robert\\Desktop\\Folders", true, "April 3, 2017");
-		Student s = new Student(69, "Lmao", "ILovePokemon", 'S', "hello@gmail.com", "Robert", "Dumitru");
+		//Student s = new Student(69, "Lmao", "ILovePokemon", 'S', "hello@gmail.com", "Robert", "Dumitru");
 //		Grade g = new Grade(s, 100, c,  a , 69);
-	StudentEnrollment se = new StudentEnrollment(100, s, c);
-	data.insertStudentEnrollment(se);
+	//StudentEnrollment se = new StudentEnrollment(100, s, c);
+		data.insertUser(p);
+		User pr = data.searchUser();
+		System.out.println(pr.getFirstName() +  " " + pr.getLastName());
+
 		
 		
 	}
