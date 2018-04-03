@@ -21,7 +21,7 @@ public class ProfessorView extends JFrame{
 	private CreateCourseView createCourseView = new CreateCourseView();
 	private ProfessorCoursesPanel professorCoursesPanel = new ProfessorCoursesPanel();
 	
-	public CreateCourseView getRreateCourseView() {return createCourseView;}
+	public CreateCourseView getCreateCourseView() {return createCourseView;}
 	public ProfessorCoursesPanel getProfessorCoursesPanel() {return professorCoursesPanel;}
 	
 	public ProfessorView()

@@ -40,7 +40,7 @@ public class ProfessorDropboxView extends JFrame{
 	
 	public ProfessorDropboxView()
 	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
 		contentPane = new JPanel();

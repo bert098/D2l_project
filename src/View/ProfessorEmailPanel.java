@@ -79,6 +79,7 @@ public class ProfessorEmailPanel extends JPanel{
 		JLabel messageLabel = new JLabel("Message:");
 		scrollPane.setColumnHeaderView(messageLabel);
 		
+		messageArea.setLineWrap(true);
 		scrollPane.setViewportView(messageArea);
 		
 		GridBagConstraints gbc_sendButton = new GridBagConstraints();

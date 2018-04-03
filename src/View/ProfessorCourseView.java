@@ -28,7 +28,7 @@ public class ProfessorCourseView extends JFrame{
 		
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel courseLabel = new JLabel("courseName");
 		courseLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
