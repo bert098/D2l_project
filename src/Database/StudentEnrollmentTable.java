@@ -3,7 +3,14 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import Data.Course;
+import Data.Professor;
+import Data.Student;
+import Data.StudentEnrollment;
+import Data.User;
 
 public class StudentEnrollmentTable {
 	public Connection jdbc_connection;
@@ -47,21 +54,50 @@ public class StudentEnrollmentTable {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[])
+	public void addEnrollment(StudentEnrollment user)
 	{
-		StudentEnrollmentTable inventory = new StudentEnrollmentTable();
-		//inventory.createDB();
-		inventory.createStudentEnrollmentTable();
-		
-		try {
-			inventory.statement.close();
-			inventory.jdbc_connection.close();
-		} 
-		catch (SQLException e) { e.printStackTrace(); }
-		finally
-		{
-			System.out.println("\nThe program is finished running");
+		String sql = "INSERT INTO " + "StudentEnrollmentTable" +
+				" VALUES (? " +  ",? " + 
+				 ",? " + 
+				 ");";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			statement.setInt(2, user.getStudentId());
+			statement.setInt(3, user.getCourseId());
+			
+			
+			statement.executeUpdate();
 		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public StudentEnrollment searchID(int ID)
+	{
+		String sql = "SELECT * FROM " + "StudentEnrollmentTable" + " WHERE ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, ID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				Integer courseId = user.getInt("COURSE_ID");
+				UserTable s = new UserTable();
+				CourseTable c = new CourseTable();
+				Student st = (Student)s.searchID(studentId);
+				Course co = c.searchCourse(courseId);
+				return new StudentEnrollment(id, st, co);
+				
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
 	}
 
 }

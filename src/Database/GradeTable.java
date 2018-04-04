@@ -3,7 +3,15 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import Data.Assignment;
+import Data.Course;
+import Data.Grade;
+import Data.Professor;
+import Data.Student;
+import Data.User;
 
 public class GradeTable {
 	public Connection jdbc_connection;
@@ -49,20 +57,57 @@ public class GradeTable {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[])
+	
+	public void addGrade(Grade user)
 	{
-		GradeTable inventory = new GradeTable();
-		//inventory.createDB();
-		inventory.createGradeTable();
-		
-		try {
-			inventory.statement.close();
-			inventory.jdbc_connection.close();
-		} 
-		catch (SQLException e) { e.printStackTrace(); }
-		finally
-		{
-			System.out.println("\nThe program is finished running");
+		String sql = "INSERT INTO " + "GradeTable" +
+				" VALUES (? " +  ",? " + 
+				 ",? " + 
+				 ",? " + 
+				 ",? " +  
+				 ");";
+		try{
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			statement.setInt(2, user.getAssignId());
+			statement.setInt(3, user.getStudentId());
+			statement.setInt(4, user.getCourseId());
+			statement.setInt(5, user.getGrade());
+			statement.executeUpdate();
 		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public Grade searchID(int ID)
+	{
+		String sql = "SELECT * FROM " + "GradeTable" + " WHERE ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, ID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer assignId = user.getInt("ASSIGN_ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				Integer courseId = user.getInt("COURSE_ID");
+				Integer grade = user.getInt("GRADE");
+				
+				UserTable use = new UserTable();
+				CourseTable course = new CourseTable();
+				AssignmentTable assign = new AssignmentTable();
+				
+				Student s = (Student)use.searchID(studentId);
+				Course c = course.searchCourse(courseId);
+				Assignment a = assign.search(assignId);
+				return new Grade(s,grade,c,a,id);
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
 	}
 }

@@ -48,17 +48,51 @@ public  DatabaseHelper()
 	{
 		userTable.addUser(user);
 	}
-	public void insertSubmission(Assignment assign, Student student, int grade, String comment)
+	public void insertSubmission(Dropbox d)
 	{
-		submissionTable.addUSubmission(assign, student, grade, comment);
+		submissionTable.addSubmission(d);
 	}
-	public static void main(String [] args)
+	public void insertAssignment(Assignment user)
 	{
-		DatabaseHelper data = new DatabaseHelper();
-		data.createAllTables();
-		
-		
+		assignmentTable.addAssignment(user);
 	}
+	public void insertCourse(Course c)
+	{
+		courseTable.addCourse(c);
+	}
+	public void  insertGrade(Grade g)
+	{
+		gradeTable.addGrade(g);
+	}
+	public void insertStudentEnrollment(StudentEnrollment s)
+	{
+		studentEnrollmentTable.addEnrollment(s);;
+	}
+	public User searchUser(String use, String pass)
+	{
+		return userTable.search(use, pass);
+	}
+	public Course searchCourse(int id)
+	{
+		return courseTable.searchCourse(id);
+	}
+	public Assignment searchAssignment(int id)
+	{
+		return assignmentTable.search(id);
+	}
+	public Grade searchGrade(int id)
+	{
+		return gradeTable.searchID(id);
+	}
+	public StudentEnrollment searchStudentEnrollment(int id)
+	{
+		return studentEnrollmentTable.searchID(id);
+	}
+	public Dropbox searchDropBoxTable(int id)
+	{
+		return submissionTable.search(id);
+	}
+
 	
 	
 }

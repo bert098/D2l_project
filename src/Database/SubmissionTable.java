@@ -3,6 +3,7 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -56,7 +57,7 @@ public class SubmissionTable {
 			e.printStackTrace();
 		}
 	}
-	public void addUSubmission(Assignment assign, Student student, int grade, String comment)
+	public void addSubmission(Dropbox d)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -71,12 +72,12 @@ public class SubmissionTable {
 				 ");";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, assign.getId());
-			statement.setInt(2, student.getId());
-			statement.setString(3, assign.getPath());
-			statement.setString(4, assign.getTitle());
-			statement.setInt(5, grade);
-			statement.setString(6, comment);
+			statement.setInt(1, d.getAssignId());
+			statement.setInt(2, d.getStudentId());
+			statement.setString(3, d.getPath());
+			statement.setString(4, d.getTitle());
+			statement.setInt(5, d.getGrade());
+			statement.setString(6, d.getComment());
 			statement.setString(7, dateFormat.format(cal.getTime()));
 			
 			
@@ -86,6 +87,35 @@ public class SubmissionTable {
 		{
 			e.printStackTrace();
 		}
+	}
+	public Dropbox search(int ID)
+	{
+		String sql = "SELECT * FROM " + "SubmissionTable" + " WHERE ASSIGN_ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, ID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer assignId = user.getInt("ASSIGN_ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				String path = user.getString("PATH");
+				String title = user.getString("TITLE");
+				Integer grade = user.getInt("SUBMISSION_GRADE");
+				String comments = user.getString("COMMENTS");
+				String time = user.getString("TIMESTAMP");
+				AssignmentTable assign = new AssignmentTable();
+				UserTable use = new UserTable();
+				Assignment a = assign.search(assignId);
+				Student s = (Student)use.searchID(studentId);
+				return new Dropbox(a,s,grade,comments );
+			
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
 	}
 	
 	
