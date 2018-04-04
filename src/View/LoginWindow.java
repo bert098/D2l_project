@@ -64,4 +64,6 @@ public class LoginWindow extends JFrame {
 	public String getUserName() {return userName;}
 	public String getPassword() {return password;}
 	
+	public void closeWindow() {this.closeWindow();}
+	
 }
