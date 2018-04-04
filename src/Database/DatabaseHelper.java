@@ -57,22 +57,44 @@ public class DatabaseHelper {
 	{
 		return userTable.search(69);
 	}
-	public static void main(String [] args)
+	public void insertAssignment(Assignment user)
 	{
-		//Add password here 
-		String sqlPassword = "";
-		DatabaseHelper data = new DatabaseHelper(sqlPassword);
-		data.createAllTables();
-		Professor p = new Professor(69, "Lmao", "ILoveHentai", 'P', "hello@gmail.com", "Magnus", "Lyngberg");
-		//Course c = new Course(p, 420, "Ensf", true);
-		//Assignment a = new Assignment(200,  c, "Final", "C:\\Users\\Robert\\Desktop\\Folders", true, "April 3, 2017");
-		//Student s = new Student(69, "Lmao", "ILovePokemon", 'S', "hello@gmail.com", "Robert", "Dumitru");
-		//Grade g = new Grade(s, 100, c,  a , 69);
-		//StudentEnrollment se = new StudentEnrollment(100, s, c);
-		data.insertUser(p);
-		User pr = data.searchUser();
-		System.out.println(pr.getFirstName() +  " " + pr.getLastName());
+		assignmentTable.addAssignment(user);
 	}
-	
-	
+	public void insertCourse(Course c)
+	{
+		courseTable.addCourse(c);
+	}
+	public void  insertGrade(Grade g)
+	{
+		gradeTable.addGrade(g);
+	}
+	public void insertStudentEnrollment(StudentEnrollment s)
+	{
+		studentEnrollmentTable.addEnrollment(s);;
+	}
+	public User searchUser(String use, String pass)
+	{
+		return userTable.search(use, pass);
+	}
+	public Course searchCourse(int id)
+	{
+		return courseTable.searchCourse(id);
+	}
+	public Assignment searchAssignment(int id)
+	{
+		return assignmentTable.search(id);
+	}
+	public Grade searchGrade(int id)
+	{
+		return gradeTable.searchID(id);
+	}
+	public StudentEnrollment searchStudentEnrollment(int id)
+	{
+		return studentEnrollmentTable.searchID(id);
+	}
+	public Dropbox searchDropBoxTable(int id)
+	{
+		return submissionTable.search(id);
+	}
 }

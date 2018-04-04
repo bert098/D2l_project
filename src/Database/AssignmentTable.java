@@ -3,9 +3,13 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Data.Assignment;
+import Data.Course;
+import Data.Professor;
+import Data.Student;
 import Data.User;
 
 public class AssignmentTable {
@@ -52,6 +56,33 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 	}
+
+	public Assignment search(int ID)
+	{
+		String sql = "SELECT * FROM " + "AssignmentTable" + " WHERE ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, ID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer courseId = user.getInt("COURSEID");
+				String title = user.getString("TITLE");
+				String path = user.getString("PATH");
+				boolean active = user.getBoolean("ACTIVE");
+				String due_date = user.getString("DUE_DATE");
+				CourseTable c = new CourseTable();
+				Course course = c.searchCourse(courseId);
+				return new Assignment(id, course, title, path, active, due_date);
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
+	}
+
 	public void addAssignment(Assignment user)
 	{
 		String sql = "INSERT INTO " + "AssignmentTable" +
