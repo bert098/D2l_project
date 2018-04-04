@@ -11,11 +11,16 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import Database.DatabaseHelper;
+import Database.DatabaseSetterUpper;
+
 /**
  * Server class receives clients and executes login thread window.  
  * @author Justin
  */
 public class MainServer {
+	
+	private DatabaseHelper database;
 
 	// socket to connect to client 
 	private Socket socket;
@@ -40,8 +45,9 @@ public class MainServer {
 	/**
 	 * Construct a Server with Port 6969
 	 */
-	public MainServer() {
+	public MainServer(DatabaseHelper data) {
 		try {
+			database = data;
 			serverSocket = new ServerSocket(6969);
 			threadPool = Executors.newCachedThreadPool();
 			System.out.println("Server now running");
@@ -64,7 +70,7 @@ public class MainServer {
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
 				objectOut.flush();
 				objectIn = new ObjectInputStream(socket.getInputStream());
-				LoginThread thread = new LoginThread(objectIn, objectOut, stringIn, stringOut);
+				LoginThread thread = new LoginThread(objectIn, objectOut, stringIn, stringOut, database);
 				threadPool.execute(thread);
 			}
 		}
@@ -79,9 +85,8 @@ public class MainServer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		MainServer mainServer= new MainServer();
+		DatabaseSetterUpper setupDatabase = new DatabaseSetterUpper("Chordatgh!234");
+		MainServer mainServer= new MainServer(setupDatabase.getDatabase());
 		mainServer.run();
 	}
-	
-	
 }

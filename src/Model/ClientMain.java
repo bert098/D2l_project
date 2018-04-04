@@ -17,7 +17,6 @@ public class ClientMain {
 	private PrintWriter stringOut; 
 	private ObjectInputStream objectIn; 
 	private ObjectOutputStream objectOut; 
-	private UserController userController; 
 	
 	public ClientMain(String serverName, int portNumber) {
 		try { 
@@ -26,14 +25,25 @@ public class ClientMain {
 			stringOut = new PrintWriter((socket.getOutputStream()), true);
 			objectIn = new ObjectInputStream(socket.getInputStream());
 			objectOut = new ObjectOutputStream(socket.getOutputStream());
-			userController = new UserController(stringOut); 
 		}
 		catch (IOException e) {
 			System.err.println(e.getStackTrace());
 		}
 	}
 	
-	public static void main(String[] args) {
-		ClientMain theClient = new ClientMain("localhost", 6969); 
+	public ObjectOutputStream getObjectOut() {
+		return objectOut; 
+	}
+	
+	public ObjectInputStream getObjectIn() {
+		return objectIn;
+	}
+	
+	public PrintWriter getStringOut() {
+		return stringOut; 
+	}
+	
+	public BufferedReader getStringIn() {
+		return stringIn; 
 	}
 }

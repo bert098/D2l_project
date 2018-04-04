@@ -1,9 +1,12 @@
 package Database;
 import Data.*;
 public class DatabaseSetterUpper {
-	public static void main(String [] args)
+	
+	private DatabaseHelper data; 
+	
+	public DatabaseSetterUpper(String password)
 	{
-		DatabaseHelper data = new DatabaseHelper("hi");
+		data = new DatabaseHelper(password);
 		data.createAllTables();
 		Student u1 = new Student(1,"Roberto098", "Pokemon", 'S', "rob.fungi@gmail.com", "Robert", "Dumitru");
 		Professor u2 = new Professor(2,"Chrity09", "Justin", 'P', "chanchristyaaa@gmail.com", "Christy", "Chan");
@@ -17,8 +20,10 @@ public class DatabaseSetterUpper {
 		data.insertUser(u4);
 		data.insertUser(u5);
 		data.insertCourse(c1);
-		Course c2 = data.searchCourse(c1.getId());
-		System.out.println(c2.getActive());
+	}
+	
+	public DatabaseHelper getDatabase() {
+		return data;
 	}
 
 }
