@@ -14,6 +14,8 @@ import javax.swing.JTabbedPane;
 
 public abstract class UserCourseView extends JFrame{
 	
+	protected UserView userView;
+	
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	protected Course course;
@@ -23,8 +25,12 @@ public abstract class UserCourseView extends JFrame{
 //	public UserAssignmentsPanel getUserAssignmentsPanel() {return assignmentsPanel;}
 	public UserEmailPanel getUserEmailPanel() {return emailPanel;}
 	
-	protected UserCourseView(Course course)
+	public void deactivateWindow() {this.setEnabled(false);}
+	public void activateWindow() {this.setEnabled(true);}
+	
+	protected UserCourseView(Course course, UserView userView)
 	{
+		this.userView = userView;
 		this.course = course;
 		
 		setSize(500, 500);

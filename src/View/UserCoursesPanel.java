@@ -28,6 +28,8 @@ public abstract class UserCoursesPanel extends JPanel{
 
 	public void setCourses(ArrayList<Course> courses) {this.courses = courses;}
 	
+	public Course getSelectedCourse() {return courseList.getSelectedValue();}
+	
 	public UserCoursesPanel()
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();

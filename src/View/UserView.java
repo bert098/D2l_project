@@ -21,6 +21,9 @@ public abstract class UserView extends JFrame{
 	
 	public UserCourseView getUserCourseView() {return userCourseView;}
 	
+	public void deactivateWindow() {this.setEnabled(false);}
+	public void activateWindow() {this.setEnabled(true);}
+	
 	public UserView(User user)
 	{
 		this.user = user;

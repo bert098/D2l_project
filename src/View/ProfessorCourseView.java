@@ -16,15 +16,15 @@ public class ProfessorCourseView extends UserCourseView {
 	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}
 	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return assignmentsPanel;}
 	
-	public ProfessorCourseView(Course course)
+	public ProfessorCourseView(Course course, UserView userView)
 	{
-		super(course);
+		super(course, userView);
 		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
 		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
 	}
 	
 	public static void main(String[] args)
 	{
-		ProfessorCourseView test = new ProfessorCourseView(new Course(new Professor(1, "", "", 'P', "", "", ""), 1, "", true));
+		//ProfessorCourseView test = new ProfessorCourseView(new Course(new Professor(1, "", "", 'P', "", "", ""), 1, "", true), userView);
 	}
 }
