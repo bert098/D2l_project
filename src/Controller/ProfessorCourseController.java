@@ -2,6 +2,13 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
 
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -44,6 +51,35 @@ public class ProfessorCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Upload");
+				
+				JFileChooser fileBrowser = new JFileChooser();
+				
+				if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				{
+					File selectedFile = fileBrowser.getSelectedFile();
+					
+					long length = selectedFile.length();
+					byte[] content = new byte[(int)length];
+					
+					try
+					{
+						FileInputStream fis = new FileInputStream(selectedFile);
+						BufferedInputStream bos = new BufferedInputStream(fis);
+						bos.read(content, 0, (int)length);
+					}
+					catch (FileNotFoundException e)
+					{
+						e.printStackTrace();
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					
+					//Model(CONTENT)
+				}
+				
+				
 			}
 		});
 		

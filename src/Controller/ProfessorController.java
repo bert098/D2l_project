@@ -73,6 +73,7 @@ public class ProfessorController {
 	{
 		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
 		ProfessorController professorController = new ProfessorController(professorView);
+		
 	}
 
 }
