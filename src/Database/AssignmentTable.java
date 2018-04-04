@@ -18,10 +18,9 @@ public class AssignmentTable {
 	
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
-				  login          = "root",
-				  password       = "hi";
-
-	public AssignmentTable()
+				  login          = "root"; 
+	
+	public AssignmentTable(String password)
 	{
 		try{
 			// If this throws an error, make sure you have added the mySQL connector JAR to the project
@@ -57,6 +56,7 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 	}
+
 	public Assignment search(int ID)
 	{
 		String sql = "SELECT * FROM " + "AssignmentTable" + " WHERE ID=?";
@@ -82,6 +82,7 @@ public class AssignmentTable {
 		
 		return null;
 	}
+
 	public void addAssignment(Assignment user)
 	{
 		String sql = "INSERT INTO " + "AssignmentTable" +

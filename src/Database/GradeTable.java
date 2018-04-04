@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Data.Grade;
 import Data.Assignment;
 import Data.Course;
 import Data.Grade;
@@ -19,10 +20,9 @@ public class GradeTable {
 	
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
-				  login          = "root",
-				  password       = "hi";
+				  login          = "root";
 
-	public GradeTable()
+	public GradeTable(String password)
 	{
 		try{
 			// If this throws an error, make sure you have added the mySQL connector JAR to the project

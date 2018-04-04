@@ -3,38 +3,23 @@ package Database;
 import Data.*;
 
 public class DatabaseHelper {
-	private  UserTable userTable;
+	private UserTable userTable;
 	private CourseTable courseTable;
 	private AssignmentTable assignmentTable;
 	private StudentEnrollmentTable studentEnrollmentTable;
 	private SubmissionTable submissionTable;
 	private GradeTable gradeTable;
-	private String login;
-	private String password;
-	private String dataBaseName;
-	public  DatabaseHelper(String log, String pass, String dataBase)
 	
+	public DatabaseHelper(String pass)
 	{
-		userTable = new UserTable();
-		courseTable = new CourseTable();
-		assignmentTable = new AssignmentTable();
-		studentEnrollmentTable = new StudentEnrollmentTable();
-		submissionTable= new SubmissionTable();
-		gradeTable = new GradeTable();
-		login = log;
-		password = pass;
-		dataBaseName = dataBase;	
+		userTable = new UserTable(pass);
+		courseTable = new CourseTable(pass);
+		assignmentTable = new AssignmentTable(pass);
+		studentEnrollmentTable = new StudentEnrollmentTable(pass);
+		submissionTable= new SubmissionTable(pass);
+		gradeTable = new GradeTable(pass);
 	}
-public  DatabaseHelper()
 	
-	{
-		userTable = new UserTable();
-		courseTable = new CourseTable();
-		assignmentTable = new AssignmentTable();
-		studentEnrollmentTable = new StudentEnrollmentTable();
-		submissionTable= new SubmissionTable();
-		gradeTable = new GradeTable();
-	}
 	public void createAllTables()
 	{
 		userTable.createUserTable();
@@ -51,6 +36,26 @@ public  DatabaseHelper()
 	public void insertSubmission(Dropbox d)
 	{
 		submissionTable.addSubmission(d);
+	}
+	public void insertAssignment(Assignment user)
+	{
+		assignmentTable.addAssignment(user);
+	}
+	public void insertCourse(Course c)
+	{
+		courseTable.addCourse(c);
+	}
+	public void  insertGrade(Grade g)
+	{
+		gradeTable.addGrade(g);
+	}
+	public void insertStudentEnrollment(StudentEnrollment s)
+	{
+		studentEnrollmentTable.addEnrollment(s);;
+	}
+	public User searchUser()
+	{
+		return userTable.search(69);
 	}
 	public void insertAssignment(Assignment user)
 	{
@@ -92,7 +97,4 @@ public  DatabaseHelper()
 	{
 		return submissionTable.search(id);
 	}
-
-	
-	
 }
