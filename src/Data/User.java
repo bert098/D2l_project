@@ -21,8 +21,7 @@ public abstract class User implements Serializable{
 		emailAddress= email;
 		courses = new ArrayList<Course>();
 		firstName = first;
-		lastName = last;
-				
+		lastName = last;			
 	}
 	public abstract void sendEmail();
 	public Integer getId() {return id;}

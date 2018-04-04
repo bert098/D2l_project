@@ -6,6 +6,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
+import Data.User;
+import Database.DatabaseHelper;
+
 public class LoginThread implements Runnable {
 	
 //	private EmailHelper emailHelper; 
@@ -14,11 +17,11 @@ public class LoginThread implements Runnable {
 	private ObjectOutputStream objectOut;
 	private BufferedReader stringIn; 
 	private PrintWriter stringOut; 
+	private DatabaseHelper database; 
 
 	public LoginThread(ObjectInputStream oIn, ObjectOutputStream oOut, 
-				BufferedReader sIn, PrintWriter sOut) { 
-//		emailHelper = new EmailHelper(); 
-//		fileHelper = new FileHelper(); 
+				BufferedReader sIn, PrintWriter sOut, DatabaseHelper data) { 
+		database = data;
 		objectIn = oIn; 
 		objectOut = oOut; 
 		stringIn = sIn; 
@@ -26,12 +29,17 @@ public class LoginThread implements Runnable {
 	}
 	
 	public void run() { 
-		try { 
-			System.out.println("Client and server connected");
-			String userName = null, userPassword = null; 
-			userName = stringIn.readLine();
-			userPassword = stringIn.readLine();
-			System.out.println(userName + " " + userPassword);
+		try {
+			User user = null;
+			while (user==null) {
+				String userName = null, userPassword = null; 
+				userName = stringIn.readLine();
+				userPassword = stringIn.readLine();
+				System.out.println(userName + " " + userPassword);
+				user = database.searchUser(userName, userPassword);
+				objectOut.reset();
+				objectOut.writeObject(user);
+			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();

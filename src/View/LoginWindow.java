@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
@@ -59,6 +60,11 @@ public class LoginWindow extends JFrame {
 	public void updateUserNamePassword() { 
 		userName = userNameText.getText(); 
 		password = new String (passwordText.getPassword());
+	}
+	
+	public void displayWrongLogin() {
+		JOptionPane.showMessageDialog(null, "Wrong login Information.",
+				"Error", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	public String getUserName() {return userName;}
