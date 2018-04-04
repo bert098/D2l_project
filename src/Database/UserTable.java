@@ -43,7 +43,7 @@ public class UserTable {
 				     "FIRSTNAME VARCHAR(30) NOT NULL, " + 
 				     "LASTNAME VARCHAR(30) NOT NULL, " + 
 				     "TYPE CHAR(1) NOT NULL, " +
-				     "PRIMARY KEY ( id ))";
+				     "PRIMARY KEY ( username ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -81,13 +81,51 @@ public class UserTable {
 			e.printStackTrace();
 		}
 	}
-	public User search(int UserID)
+	public User search(String UserName, String Password)
+	{
+		String sql = "SELECT * FROM " + "UserTable" + " WHERE USERNAME=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setString(1, UserName);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				Integer id = user.getInt("ID");
+				String password = user.getString("PASSWORD");
+				String username = user.getString("USERNAME");
+				String email = user.getString("EMAIL");
+				String firstName = user.getString("FIRSTNAME");
+				String lastName = user.getString("LASTNAME");
+				String type = user.getString("TYPE");
+				
+				
+				if(password.equals(Password))
+				{
+				if(type.equals("P"))
+				{
+					char chartype = type.charAt(0);
+					return new Professor(id, username, password, chartype, email, firstName, lastName);
+				}
+				else
+				{
+					char chartype = type.charAt(0);
+					return new Student(id, username, password, chartype, email, firstName, lastName);
+				}
+			}
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
+	}
+	public User searchID(int ID)
 	{
 		String sql = "SELECT * FROM " + "UserTable" + " WHERE ID=?";
 		ResultSet user;
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, UserID);
+			statement.setInt(1, ID);
 			user = statement.executeQuery();
 			if(user.next())
 			{
@@ -101,7 +139,7 @@ public class UserTable {
 				
 				
 				
-				if(user.getString("TYPE") == "P")
+				if(type.equals("P"))
 				{
 					char chartype = type.charAt(0);
 					return new Professor(id, username, password, chartype, email, firstName, lastName);
@@ -111,7 +149,7 @@ public class UserTable {
 					char chartype = type.charAt(0);
 					return new Student(id, username, password, chartype, email, firstName, lastName);
 				}
-//				
+			
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }

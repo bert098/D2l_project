@@ -68,27 +68,31 @@ public  DatabaseHelper()
 	{
 		studentEnrollmentTable.addEnrollment(s);;
 	}
-	public User searchUser()
+	public User searchUser(String use, String pass)
 	{
-		return userTable.search(69);
+		return userTable.search(use, pass);
 	}
-	public static void main(String [] args)
+	public Course searchCourse(int id)
 	{
-		DatabaseHelper data = new DatabaseHelper();
-		data.createAllTables();
-		Professor p = new Professor(69, "Lmao", "ILoveHentai", 'P', "hello@gmail.com", "Magnus", "Lyngberg");
-		//Course c = new Course(p, 420, "Ensf", true);
-//		Assignment a = new Assignment(200,  c, "Final", "C:\\Users\\Robert\\Desktop\\Folders", true, "April 3, 2017");
-		//Student s = new Student(69, "Lmao", "ILovePokemon", 'S', "hello@gmail.com", "Robert", "Dumitru");
-//		Grade g = new Grade(s, 100, c,  a , 69);
-	//StudentEnrollment se = new StudentEnrollment(100, s, c);
-		data.insertUser(p);
-		User pr = data.searchUser();
-		System.out.println(pr.getFirstName() +  " " + pr.getLastName());
+		return courseTable.searchCourse(id);
+	}
+	public Assignment searchAssignment(int id)
+	{
+		return assignmentTable.search(id);
+	}
+	public Grade searchGrade(int id)
+	{
+		return gradeTable.searchID(id);
+	}
+	public StudentEnrollment searchStudentEnrollment(int id)
+	{
+		return studentEnrollmentTable.searchID(id);
+	}
+	public Dropbox searchDropBoxTable(int id)
+	{
+		return submissionTable.search(id);
+	}
 
-		
-		
-	}
 	
 	
 }

@@ -3,9 +3,11 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Data.Course;
+import Data.Professor;
 import Data.User;
 
 public class CourseTable {
@@ -40,7 +42,7 @@ public class CourseTable {
 				     "ID INT(8) NOT NULL, " +
 				     "PROF_ID INT(8) NOT NULL, " + 
 				     "NAME VARCHAR(50) NOT NULL, " + 
-				     "ACTIVE CHAR(1) NOT NULL, " + 
+				     "ACTIVE BIT(1) NOT NULL, " + 
 				     "PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
@@ -81,4 +83,29 @@ public class CourseTable {
 			e.printStackTrace();
 		}
 	}
+	public Course searchCourse(int toolID)
+	{
+		String sql = "SELECT * FROM " + "CourseTable" + " WHERE ID=?";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, toolID);
+			user = statement.executeQuery();
+			if(user.next())
+			{
+				UserTable userTab =  new UserTable();
+				Integer id = user.getInt("ID");
+				Integer 	prof_id = user.getInt("PROF_ID");
+				String name = user.getString("NAME");
+				boolean active = user.getBoolean("ACTIVE");
+				Professor p = (Professor)userTab.searchID(prof_id);
+				return new Course(p, id, name, active);
+				
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
+	}
+
 }
