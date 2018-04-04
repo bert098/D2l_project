@@ -1,51 +1,30 @@
 package View;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
+import Data.Course;
+import Data.Professor;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-
-public class ProfessorCourseView extends JFrame{
+public class ProfessorCourseView extends UserCourseView {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -195895691490358230L;
-
-	private ProfessorAssignmentsPanel professorAssignmentsPanel = new ProfessorAssignmentsPanel();
-	private SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
-	private ProfessorEmailPanel professorEmailView = new ProfessorEmailPanel();
 	
-	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return professorAssignmentsPanel;}
+	private SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
+	private ProfessorAssignmentsPanel assignmentsPanel = new ProfessorAssignmentsPanel();
+	
 	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}
-	public ProfessorEmailPanel getProfessorEmailPanel() {return professorEmailView;}
-
-	public ProfessorCourseView()
+	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return assignmentsPanel;}
+	
+	public ProfessorCourseView(Course course, UserView userView)
 	{
-		
-		setSize(500, 500);
-		setMinimumSize(new Dimension(500, 500));
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		JLabel courseLabel = new JLabel("courseName");
-		courseLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
-		getContentPane().add(courseLabel, BorderLayout.NORTH);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		tabbedPane.addTab("Assignments", null, professorAssignmentsPanel, null);
+		super(course, userView);
 		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
-		tabbedPane.addTab("Send Email", null, professorEmailView, null);
-		
-		setVisible(true);
+		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
 	}
 	
 	public static void main(String[] args)
 	{
-		ProfessorCourseView test = new ProfessorCourseView();
+		//ProfessorCourseView test = new ProfessorCourseView(new Course(new Professor(1, "", "", 'P', "", "", ""), 1, "", true), userView);
 	}
 }
