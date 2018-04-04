@@ -14,6 +14,7 @@ import Data.*;
 public class SubmissionTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
+	private String pass;
 	
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
@@ -27,6 +28,7 @@ public class SubmissionTable {
 			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
+			pass =  password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
@@ -104,8 +106,8 @@ public class SubmissionTable {
 				Integer grade = user.getInt("SUBMISSION_GRADE");
 				String comments = user.getString("COMMENTS");
 				String time = user.getString("TIMESTAMP");
-				AssignmentTable assign = new AssignmentTable();
-				UserTable use = new UserTable();
+				AssignmentTable assign = new AssignmentTable(pass);
+				UserTable use = new UserTable(pass);
 				Assignment a = assign.search(assignId);
 				Student s = (Student)use.searchID(studentId);
 				return new Dropbox(a,s,grade,comments );

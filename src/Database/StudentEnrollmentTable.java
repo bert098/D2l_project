@@ -15,7 +15,7 @@ import Data.User;
 public class StudentEnrollmentTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
-	
+	private String pass;
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root";
@@ -28,6 +28,7 @@ public class StudentEnrollmentTable {
 			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
+			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
@@ -86,8 +87,8 @@ public class StudentEnrollmentTable {
 				Integer id = user.getInt("ID");
 				Integer studentId = user.getInt("STUDENT_ID");
 				Integer courseId = user.getInt("COURSE_ID");
-				UserTable s = new UserTable();
-				CourseTable c = new CourseTable();
+				UserTable s = new UserTable(pass);
+				CourseTable c = new CourseTable(pass);
 				Student st = (Student)s.searchID(studentId);
 				Course co = c.searchCourse(courseId);
 				return new StudentEnrollment(id, st, co);

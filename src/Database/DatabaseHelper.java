@@ -37,26 +37,7 @@ public class DatabaseHelper {
 	{
 		submissionTable.addSubmission(d);
 	}
-	public void insertAssignment(Assignment user)
-	{
-		assignmentTable.addAssignment(user);
-	}
-	public void insertCourse(Course c)
-	{
-		courseTable.addCourse(c);
-	}
-	public void  insertGrade(Grade g)
-	{
-		gradeTable.addGrade(g);
-	}
-	public void insertStudentEnrollment(StudentEnrollment s)
-	{
-		studentEnrollmentTable.addEnrollment(s);;
-	}
-	public User searchUser()
-	{
-		return userTable.search(69);
-	}
+
 	public void insertAssignment(Assignment user)
 	{
 		assignmentTable.addAssignment(user);
@@ -97,4 +78,5 @@ public class DatabaseHelper {
 	{
 		return submissionTable.search(id);
 	}
+	
 }

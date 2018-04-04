@@ -13,7 +13,7 @@ import Data.User;
 public class CourseTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
-	
+	private String pass;
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root";
@@ -26,6 +26,7 @@ public class CourseTable {
 			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
+			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
@@ -92,7 +93,7 @@ public class CourseTable {
 			user = statement.executeQuery();
 			if(user.next())
 			{
-				UserTable userTab =  new UserTable();
+				UserTable userTab =  new UserTable(pass);
 				Integer id = user.getInt("ID");
 				Integer 	prof_id = user.getInt("PROF_ID");
 				String name = user.getString("NAME");

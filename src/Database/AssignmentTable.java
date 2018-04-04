@@ -15,7 +15,7 @@ import Data.User;
 public class AssignmentTable {
 	public Connection jdbc_connection;
 	public PreparedStatement statement;
-	
+	private String pass;
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root"; 
@@ -28,6 +28,7 @@ public class AssignmentTable {
 			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
+			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
@@ -73,7 +74,7 @@ public class AssignmentTable {
 				String path = user.getString("PATH");
 				boolean active = user.getBoolean("ACTIVE");
 				String due_date = user.getString("DUE_DATE");
-				CourseTable c = new CourseTable();
+				CourseTable c = new CourseTable(pass);
 				Course course = c.searchCourse(courseId);
 				return new Assignment(id, course, title, path, active, due_date);
 			}
