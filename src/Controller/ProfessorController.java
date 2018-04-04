@@ -3,6 +3,7 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Data.Professor;
 import View.*;
 
 public class ProfessorController {
@@ -46,8 +47,7 @@ public class ProfessorController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Open Course");
-				ProfessorCourseView courseView = new ProfessorCourseView();
-				addProfessorCourseViewListeners(courseView);
+				new ProfessorCourseController(new ProfessorCourseView(panel.getSelectedCourse(), view));
 			}
 		});
 		
@@ -69,126 +69,9 @@ public class ProfessorController {
 		});
 	}
 	
-	private void addProfessorCourseViewListeners(ProfessorCourseView courseView)
-	{
-		addAssignmentPanelListeners(courseView);
-		addSearchStudentsPanelListeners(courseView);
-		addEmailPanelListeners(courseView);
-	}
-	
-	private void addAssignmentPanelListeners(ProfessorCourseView courseView)
-	{
-		ProfessorAssignmentsPanel panel = courseView.getProfessorAssignmentsPanel();
-		
-		panel.addOpenDropboxButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Open Dropbox");
-				ProfessorDropboxView dropboxView = new ProfessorDropboxView();
-				addDropboxListeners(dropboxView);
-			}
-		});
-		
-		panel.addUploadButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Upload");
-			}
-		});
-		
-		panel.addActivateAssignButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Activate");
-			}
-		});
-		
-		panel.addDeactivateAssignButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Deactivate");
-			}
-		});
-	}
-	
-	private void addSearchStudentsPanelListeners(ProfessorCourseView courseView)
-	{
-		SearchStudentsPanel panel = courseView.getSearchStudentsPanel();
-		
-		panel.addSearchButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Search");
-			}
-		});
-		
-		panel.addEnrollButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Enroll");
-			}
-		});
-		
-		panel.addUnenrollButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Unenroll");
-			}
-		});
-	}
-	
-	private void addEmailPanelListeners(ProfessorCourseView courseView)
-	{
-		ProfessorEmailPanel panel = courseView.getProfessorEmailPanel();
-		
-		panel.addSendButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Send");
-			}
-		});
-		
-		panel.addClearButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Clear");
-			}
-		});
-	}
-	
-	private void addDropboxListeners(ProfessorDropboxView dropboxView)
-	{
-		ProfessorDropboxView view = dropboxView;
-		
-		view.addSubmitGradeButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Submit Grade");
-			}
-		});
-		
-		view.addDownloadAssignmentButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Download");
-			}
-		});
-	}
-	
 	public static void main(String[] args)
 	{
-		ProfessorView professorView = new ProfessorView();
+		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
 		ProfessorController professorController = new ProfessorController(professorView);
 	}
 

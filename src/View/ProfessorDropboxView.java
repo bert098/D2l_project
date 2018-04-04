@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Data.Dropbox;
+
 public class ProfessorDropboxView extends JFrame{
 	
 	/**
@@ -27,7 +29,7 @@ public class ProfessorDropboxView extends JFrame{
 	private JPanel contentPane;
 	private JTextField gradeField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
-	private JList submissionsList = new JList();
+	private JList<Dropbox> submissionsList = new JList<Dropbox>();
 	private JTextArea commentsArea = new JTextArea();
 	private JButton submitGradeButton = new JButton("Submit Grade");
 	private JButton downloadAssignmentButton = new JButton("Download");
