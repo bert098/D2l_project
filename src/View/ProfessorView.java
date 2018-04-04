@@ -1,57 +1,30 @@
 package View;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import Data.Professor;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
-public class ProfessorView extends JFrame{
+public class ProfessorView extends UserView{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4498875227121382873L;
 	
-	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private CreateCourseView createCourseView = new CreateCourseView();
 	private ProfessorCoursesPanel professorCoursesPanel = new ProfessorCoursesPanel();
 	
 	public CreateCourseView getCreateCourseView() {return createCourseView;}
 	public ProfessorCoursesPanel getProfessorCoursesPanel() {return professorCoursesPanel;}
 	
-	public ProfessorView()
+	public ProfessorView(Professor professor)
 	{
+		super(professor);
 		
-		setSize(500, 500);
-		setMinimumSize(new Dimension(500, 500));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout(0, 0));
-		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JLabel mainLabel = new JLabel("D4L");
-		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		panel.add(mainLabel);
-		
-		JLabel professorLabel = new JLabel("Professor Label");
-		panel.add(professorLabel);
-		
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.addTab("View Courses", null, professorCoursesPanel, null);
 		tabbedPane.addTab("Create New Course", null, createCourseView, null);
-		
-		setVisible(true);
 	}
 	
 	public static void main(String[] args) {
 		
-		ProfessorView professorView = new ProfessorView();
+		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
 	}
 }

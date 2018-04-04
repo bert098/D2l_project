@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 
 public class LoginThread implements Runnable {
 	
-	private EmailHelper emailHelper; 
-	private FileHelper fileHelper; 
+//	private EmailHelper emailHelper; 
+//	private FileHelper fileHelper; 
 	private ObjectInputStream objectIn;
 	private ObjectOutputStream objectOut;
 	private BufferedReader stringIn; 
@@ -17,8 +17,8 @@ public class LoginThread implements Runnable {
 
 	public LoginThread(ObjectInputStream oIn, ObjectOutputStream oOut, 
 				BufferedReader sIn, PrintWriter sOut) { 
-		emailHelper = new EmailHelper(); 
-		fileHelper = new FileHelper(); 
+//		emailHelper = new EmailHelper(); 
+//		fileHelper = new FileHelper(); 
 		objectIn = oIn; 
 		objectOut = oOut; 
 		stringIn = sIn; 
