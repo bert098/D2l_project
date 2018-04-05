@@ -25,7 +25,7 @@ public class CreateCourseView extends JPanel{
 	private JCheckBox courseActiveBox = new JCheckBox("Set Active");
 	private JButton createCourseButton = new JButton("Create Course");
 	
-	public String getCourseNum() {return courseNumField.getText();}
+	public Integer getCourseNum() {return Integer.parseInt(courseNumField.getText());}
 	public String getCourseName() { return courseNameField.getText();}
 	public boolean getCourseIsActive() {return courseActiveBox.isSelected();}
 	

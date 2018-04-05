@@ -63,7 +63,7 @@ public class MainServer {
 	public void run() {
 		try {
 			while (true) 
-			{
+			{    
 				socket = serverSocket.accept(); 
 				stringIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				stringOut = new PrintWriter((socket.getOutputStream()), true); 

@@ -8,6 +8,13 @@ public class Course implements Serializable {
 	private String name;
 	private boolean active;
 	
+	public Course(Integer i, Integer pId, String n, boolean a) {
+		id = i; 
+		prof_id = pId; 
+		name = n; 
+		active = a; 
+	}
+	
 	public Course(Professor p, Integer id, String name, boolean active)
 	{
 		this.id = id;
@@ -16,8 +23,15 @@ public class Course implements Serializable {
 		this.active = active;
 	}
 	
+	@Override
+	public String toString() { 
+		String line = "id: " + id + " professor id: " + prof_id + " name: " + name + " active: " + active; 
+		return line;
+	}
+	
 	public Integer getId() {return id;}
 	public Integer getProfId() {return prof_id;}
 	public String getName() {return name;}
 	public boolean getActive() {return active;}
+
 }

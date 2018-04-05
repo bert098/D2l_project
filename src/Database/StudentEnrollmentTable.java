@@ -92,7 +92,6 @@ public class StudentEnrollmentTable {
 				Student st = (Student)s.searchID(studentId);
 				Course co = c.searchCourse(courseId);
 				return new StudentEnrollment(id, st, co);
-				
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }

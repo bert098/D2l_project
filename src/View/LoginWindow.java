@@ -26,6 +26,8 @@ public class LoginWindow extends JFrame {
 		color = new Color(219, 245, 209);
 		setTitle("Login");
 		setSize(500, 200);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		JLabel welcome = new JLabel("Welcome to D2L, please login");
 		JLabel usName = new JLabel("Username");
 		JLabel pass = new JLabel("Password");
@@ -70,6 +72,6 @@ public class LoginWindow extends JFrame {
 	public String getUserName() {return userName;}
 	public String getPassword() {return password;}
 	
-	public void closeWindow() {this.closeWindow();}
+	public void closeWindow() {this.setVisible(false);}
 	
 }

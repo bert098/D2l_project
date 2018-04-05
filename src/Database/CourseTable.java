@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Data.Course;
 import Data.Professor;
@@ -106,6 +107,30 @@ public class CourseTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return null;
+	}
+	
+	public ArrayList<Course> courseTableToList() {
+		try { 
+			ArrayList<Course> courseList = new ArrayList<Course>(); 
+			String sql = "SELECT * FROM " + "CourseTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet courseSet = statement.executeQuery();
+			
+			while(courseSet.next()) 
+			{
+				Course theCourse = new Course(courseSet.getInt("ID"), 
+											  courseSet.getInt("PROF_ID"), 
+											  courseSet.getString("NAME"), 
+											  courseSet.getBoolean("ACTIVE"));
+				courseList.add(theCourse);
+			}
+			courseSet.close();
+			return courseList;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

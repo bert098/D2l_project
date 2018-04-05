@@ -2,22 +2,37 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import Data.Professor;
+import Model.ProfessorModel;
 import View.*;
+import Data.Course;
+import Data.Constants;
 
-public class ProfessorController {
-	
-	//private model ...
-
+public class ProfessorController implements Constants{
+	private ProfessorModel professorModel;
 	private ProfessorView view;
+	private ArrayList<Course> courseList;
 	
-	public ProfessorController(ProfessorView view)
+	public ProfessorController(ProfessorView view, ProfessorModel model) 
 	{
+		professorModel = model;
 		this.view = view;
+		addCourses();
 		addProfessorViewListeners();
 	}
 	
+	public void addCourses() {
+		professorModel.sendOperation(PROF_COURSES);
+		courseList = professorModel.readCourseList(); 
+		view.displayCourses(courseList);
+	}
 	
 	private void addProfessorViewListeners()
 	{
@@ -34,6 +49,10 @@ public class ProfessorController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Create course");
+				
+				Course newCourse = new Course(view.getUserId(), panel.getCourseNum(), panel.getCourseName(), panel.getCourseIsActive());
+				
+				//model.createCourse(newCourse);
 			}
 		});
 	}
@@ -47,6 +66,7 @@ public class ProfessorController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Open Course");
+				view.setVisible(false);
 				new ProfessorCourseController(new ProfessorCourseView(panel.getSelectedCourse(), view));
 			}
 		});
@@ -68,12 +88,4 @@ public class ProfessorController {
 			}
 		});
 	}
-	
-	public static void main(String[] args)
-	{
-		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
-		ProfessorController professorController = new ProfessorController(professorView);
-		
-	}
-
 }

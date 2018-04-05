@@ -14,12 +14,14 @@ public class DatabaseSetterUpper {
 		Student u4 = new Student(4,"MagMan", "CarsAreLife", 'S', "mglyngberg2@gmail.com", "Magnus", "Lyngberg");
 		Student u5 = new Student(5,"Tommy", "glasses", 'S', "123@hotmail.com", "Thomas", "Vy");
 		Course c1 = new Course( u2, 1, "ENSF 420", true);
+		Course c2 = new Course( u2, 271, "MATH", true);
 		data.insertUser(u1);
 		data.insertUser(u2);
 		data.insertUser(u3);
 		data.insertUser(u4);
 		data.insertUser(u5);
 		data.insertCourse(c1);
+		data.insertCourse(c2);
 	}
 	
 	public DatabaseHelper getDatabase() {

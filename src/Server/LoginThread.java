@@ -7,9 +7,10 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import Data.User;
+import Data.Constants;
 import Database.DatabaseHelper;
 
-public class LoginThread implements Runnable {
+public class LoginThread implements Runnable, Constants {
 	
 //	private EmailHelper emailHelper; 
 //	private FileHelper fileHelper; 
@@ -40,6 +41,14 @@ public class LoginThread implements Runnable {
 				objectOut.reset();
 				objectOut.writeObject(user);
 			}
+			if (user.getType() == PROFESSOR) {
+				ProfessorThread profThread = new ProfessorThread(stringIn, stringOut, objectOut, objectIn, database);
+				profThread.run(); 
+			}
+			if (user.getType() == STUDENT) {
+				//todo
+			}
+			
 		}
 		catch (IOException e) {
 			e.printStackTrace();
