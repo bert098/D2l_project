@@ -74,6 +74,8 @@ public class ProfessorModel implements Constants{
 			
 		} 
 		catch(IOException e) {
+		}
+}
 
 	
 	public void activateCourse(Integer courseId)
