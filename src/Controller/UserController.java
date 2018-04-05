@@ -13,21 +13,16 @@ import Data.User;
 import Data.Constants;
 import View.LoginWindow;
 import View.ProfessorView;
+import Model.ClientMain;
 
 public class UserController implements Constants {
-	private ObjectInputStream objectIn;
-	private ObjectOutputStream objectOut;
-	private PrintWriter stringOut;
-	private BufferedReader stringIn;
+	private ClientMain clientMain; 
 	private LoginWindow loginWindow;  
 	private String userName;
 	private String password;
 	
-	public UserController(PrintWriter out, BufferedReader in, ObjectInputStream oIn, ObjectOutputStream oOut) { 
-		objectIn = oIn; 
-		stringOut = out;
-		stringIn = in; 
-		objectOut = oOut; 
+	public UserController(ClientMain client) { 
+		clientMain = client;
 		userName = ""; 
 		password = "";
 		loginWindow = new LoginWindow(); 
@@ -38,28 +33,19 @@ public class UserController implements Constants {
 				loginWindow.updateUserNamePassword();
 				userName = loginWindow.getUserName();
 				password = loginWindow.getPassword();
-				stringOut.println(userName);
-				stringOut.println(password);
-				try { 
-					User user = (User) objectIn.readObject();
-					if (user == null) {
-						loginWindow.displayWrongLogin(); 
-					}
-					else if (user.getType()== PROFESSOR) { 
-						Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword()
-								,user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
-						ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor),
-																						  stringOut, stringIn, objectOut, objectIn);
-					}
-					else if (user.getType() == STUDENT) {
-						//todo
-					}
+				clientMain.sendUserName(userName);
+				clientMain.sendPassword(password);
+				User user = clientMain.readUser();
+				if (user == null) {
+					loginWindow.displayWrongLogin(); 
 				}
-				catch (ClassNotFoundException ex) {
-					ex.printStackTrace();
+				else if (user.getType()== PROFESSOR) { 
+					Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword()
+							,user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
+					ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor), clientMain.getProfessorModel());
 				}
-				catch (IOException ex) {
-					ex.printStackTrace();
+				else if (user.getType() == STUDENT) {
+					//todo
 				}
 			}
 		});

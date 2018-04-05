@@ -10,48 +10,28 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Data.Professor;
+import Model.ProfessorModel;
 import View.*;
 import Data.Course;
 import Data.Constants;
 
 public class ProfessorController implements Constants{
-	
-	private BufferedReader stringIn;
-	private PrintWriter stringOut;
-	private ObjectOutputStream objectOut;
-	private ObjectInputStream objectIn;
+	private ProfessorModel professorModel;
 	private ProfessorView view;
 	private ArrayList<Course> courseList;
 	
-	public ProfessorController(ProfessorView view, PrintWriter out, BufferedReader in, ObjectOutputStream oOut, ObjectInputStream oIn )
+	public ProfessorController(ProfessorView view, ProfessorModel model) 
 	{
-		stringOut = out ;
-		stringIn = in; 
-		objectOut = oOut;
-		objectIn = oIn;
+		professorModel = model;
 		this.view = view;
 		addCourses();
 		addProfessorViewListeners();
 	}
 	
 	public void addCourses() {
-		try {
-			System.out.println("test");
-			stringOut.println(PROF_COURSES);
-			courseList = (ArrayList<Course>) objectIn.readObject(); 
-			for (int i = 0; i < courseList.size(); i ++) 
-			{
-				System.out.println(courseList.get(i).toString());
-			}
-			view.displayCourses(courseList);
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-	
+		professorModel.sendOperation(PROF_COURSES);
+		courseList = professorModel.readCourseList(); 
+		view.displayCourses(courseList);
 	}
 	
 	private void addProfessorViewListeners()
