@@ -2,22 +2,57 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import Data.Professor;
 import View.*;
+import Data.Course;
+import Data.Constants;
 
-public class ProfessorController {
+public class ProfessorController implements Constants{
 	
-	//private model ...
-
+	private BufferedReader stringIn;
+	private PrintWriter stringOut;
+	private ObjectOutputStream objectOut;
+	private ObjectInputStream objectIn;
 	private ProfessorView view;
+	private ArrayList<Course> courseList;
 	
-	public ProfessorController(ProfessorView view)
+	public ProfessorController(ProfessorView view, PrintWriter out, BufferedReader in, ObjectOutputStream oOut, ObjectInputStream oIn )
 	{
+		stringOut = out ;
+		stringIn = in; 
+		objectOut = oOut;
+		objectIn = oIn;
 		this.view = view;
+		addCourses();
 		addProfessorViewListeners();
 	}
 	
+	public void addCourses() {
+		try {
+			System.out.println("test");
+			stringOut.println(PROF_COURSES);
+			courseList = (ArrayList<Course>) objectIn.readObject(); 
+			for (int i = 0; i < courseList.size(); i ++) 
+			{
+				System.out.println(courseList.get(i).toString());
+			}
+			view.displayCourses(courseList);
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
 	
 	private void addProfessorViewListeners()
 	{
@@ -68,11 +103,4 @@ public class ProfessorController {
 			}
 		});
 	}
-	
-	public static void main(String[] args)
-	{
-		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
-		ProfessorController professorController = new ProfessorController(professorView);
-	}
-
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import Data.Professor;
@@ -15,14 +16,18 @@ import View.ProfessorView;
 
 public class UserController implements Constants {
 	private ObjectInputStream objectIn;
+	private ObjectOutputStream objectOut;
 	private PrintWriter stringOut;
+	private BufferedReader stringIn;
 	private LoginWindow loginWindow;  
 	private String userName;
 	private String password;
 	
-	public UserController(PrintWriter out, ObjectInputStream in) { 
-		objectIn = in; 
+	public UserController(PrintWriter out, BufferedReader in, ObjectInputStream oIn, ObjectOutputStream oOut) { 
+		objectIn = oIn; 
 		stringOut = out;
+		stringIn = in; 
+		objectOut = oOut; 
 		userName = ""; 
 		password = "";
 		loginWindow = new LoginWindow(); 
@@ -43,7 +48,8 @@ public class UserController implements Constants {
 					else if (user.getType()== PROFESSOR) { 
 						Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword()
 								,user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
-						ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor));
+						ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor),
+																						  stringOut, stringIn, objectOut, objectIn);
 					}
 					else if (user.getType() == STUDENT) {
 						//todo

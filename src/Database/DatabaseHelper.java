@@ -1,5 +1,7 @@
 package Database;
 
+import java.util.ArrayList;
+
 import Data.*;
 
 public class DatabaseHelper {
@@ -28,6 +30,9 @@ public class DatabaseHelper {
 		studentEnrollmentTable.createStudentEnrollmentTable();
 		submissionTable.createSubmissionTable();
 		gradeTable.createGradeTable();
+	}
+	public ArrayList<Course> courseTableToList() {
+		return courseTable.courseTableToList();
 	}
 	public void insertUser(User user)
 	{

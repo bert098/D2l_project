@@ -2,6 +2,10 @@ package View;
 
 import Data.Professor;
 
+import java.util.ArrayList;
+
+import Data.Course; 
+
 public class ProfessorView extends UserView{
 
 	/**
@@ -21,6 +25,10 @@ public class ProfessorView extends UserView{
 		
 		tabbedPane.addTab("View Courses", null, professorCoursesPanel, null);
 		tabbedPane.addTab("Create New Course", null, createCourseView, null);
+	}
+	
+	public void displayCourses(ArrayList<Course> courseList) {
+		professorCoursesPanel.displayCourses(courseList);
 	}
 	
 	public static void main(String[] args) {

@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -15,6 +16,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import Data.Student;
+
 public class SearchStudentsPanel extends JPanel {
 
 	/**
@@ -22,13 +25,15 @@ public class SearchStudentsPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -7863274930372698496L;
 	
+	private ArrayList<Student> studentList;
+	
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField searchField = new JTextField();
 	private JRadioButton idRadioButton = new JRadioButton("ID");
 	private JRadioButton lastNameRadioButton = new JRadioButton("Last Name");
 	private JButton searchButton = new JButton("Search");
 	private JScrollPane scrollPane = new JScrollPane();
-	private JList resultsList = new JList();
+	private JList<Student> resultsList = new JList<Student>();
 	private JButton unenrollButton = new JButton("Unenroll");
 	private JButton enrollButton = new JButton("Enroll");
 	
@@ -40,6 +45,8 @@ public class SearchStudentsPanel extends JPanel {
 	public void addSearchButtonActionListener(ActionListener a) {searchButton.addActionListener(a);}
 	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
 	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
+	
+	public void setStudentList(ArrayList<Student> list) {studentList = list;}
 	
 	public SearchStudentsPanel()
 	{

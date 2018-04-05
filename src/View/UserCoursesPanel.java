@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -19,6 +20,7 @@ public abstract class UserCoursesPanel extends JPanel{
 	
 	protected ArrayList<Course> courses;
 	
+	protected DefaultListModel<Course> courseModel = new DefaultListModel<>(); 
 	protected JList<Course> courseList = new JList<Course>();
 	protected JScrollPane scrollPane = new JScrollPane();
 	
@@ -32,6 +34,7 @@ public abstract class UserCoursesPanel extends JPanel{
 	
 	public UserCoursesPanel()
 	{
+		courseList.setModel(courseModel);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 276, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -63,7 +66,6 @@ public abstract class UserCoursesPanel extends JPanel{
 		gbc_openCourseButton.insets = new Insets(0, 0, 0, 5);
 		gbc_openCourseButton.gridx = 0;
 		gbc_openCourseButton.gridy = 2;
-		add(openCourseButton, gbc_openCourseButton);
-		
+		add(openCourseButton, gbc_openCourseButton);	
 	}
 }

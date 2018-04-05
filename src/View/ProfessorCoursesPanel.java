@@ -5,12 +5,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import Data.Course;
 
 public class ProfessorCoursesPanel extends UserCoursesPanel{
 
@@ -41,5 +43,12 @@ public class ProfessorCoursesPanel extends UserCoursesPanel{
 		gbc_deactivateCourseButton.gridx = 2;
 		gbc_deactivateCourseButton.gridy = 2;
 		add(deactivateCourseButton, gbc_deactivateCourseButton);
+	}
+	
+	public void displayCourses(ArrayList<Course> courseArrayList) {
+		for (int i = 0; i < courseArrayList.size(); i++) {
+			courseModel.addElement(courseArrayList.get(i));
+		}
+		setVisible(true);
 	}
 }
