@@ -46,6 +46,7 @@ public class ProfessorCoursesPanel extends UserCoursesPanel{
 	}
 	
 	public void displayCourses(ArrayList<Course> courseArrayList) {
+		courseModel.removeAllElements();
 		for (int i = 0; i < courseArrayList.size(); i++) {
 			courseModel.addElement(courseArrayList.get(i));
 		}

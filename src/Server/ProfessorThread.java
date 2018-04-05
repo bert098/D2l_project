@@ -92,7 +92,7 @@ public class ProfessorThread implements Constants {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		courseList = database.courseTableToList();
 		try {
-			objectOut.reset();
+			objectOut.flush();
 			objectOut.writeObject(courseList); 
 		}
 		catch (IOException e) {
@@ -103,6 +103,22 @@ public class ProfessorThread implements Constants {
 	
 	public void createCourse() {
 		//todo
+		try
+		{
+			Course course = (Course)objectIn.readObject();
+			database.insertCourse(course);
+			
+			ArrayList<Course> courseList = new ArrayList<Course>();
+			courseList = database.courseTableToList();
+			objectOut.flush();
+			objectOut.writeObject(courseList); 
+		} 
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void activateCourse() {
