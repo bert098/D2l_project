@@ -68,6 +68,7 @@ public class ProfessorModel implements Constants{
 			sendOperation(SEARCH_STUDENT_ID);
 			objectOut.flush();
 			objectOut.writeObject(course);
+			
 			//System.out.println(course.toString());
 			
 		} 

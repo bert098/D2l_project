@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import Database.DatabaseHelper;
 import Data.Constants;
 import Data.Course;
+import Data.Student;
+import Data.StudentEnrollment;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -136,6 +138,14 @@ public class ProfessorThread implements Constants {
 	{
 		try {
 			Course course = (Course)objectIn.readObject();
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(course.getId());
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
 			
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();

@@ -99,29 +99,32 @@ public class StudentEnrollmentTable {
 		
 		return null;
 	}
-	public ArrayList<StudentEnrollment> searchForStudnent(int ID)
-	{
-		String sql = "SELECT * FROM " + "StudentEnrollmentTable" + " WHERE STUDENT_ID=?";
-		ResultSet user;
-		try {
+	public ArrayList<Integer> SearchStudent(int Id) {
+		try { 
+			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
+			String sql = "SELECT * FROM " + "CourseTable";
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, ID);
-			user = statement.executeQuery();
-			if(user.next())
+			ResultSet courseSet = statement.executeQuery();
+			
+			while(courseSet.next()) 
 			{
-				Integer id = user.getInt("ID");
-				Integer studentId = user.getInt("STUDENT_ID");
-				Integer courseId = user.getInt("COURSE_ID");
-				UserTable s = new UserTable(pass);
-				CourseTable c = new CourseTable(pass);
-				Student st = (Student)s.searchID(studentId);
-				Course co = c.searchCourse(courseId);
-				return new StudentEnrollment(id, st, co);
+				StudentEnrollment enrollments = new StudentEnrollment(courseSet.getInt("ID"), 
+											  courseSet.getInt("STUDENT_ID"), 
+											  courseSet.getInt("COURSE_ID"));
+				if(enrollments.getCourseId() == Id)
+				{
+				courseList.add(enrollments.getStudentId());
+				}
 			}
-		
-		} catch (SQLException e) { e.printStackTrace(); }
-		
-		return null;
+			
+			courseSet.close();
+			return courseList;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
+
 
 }

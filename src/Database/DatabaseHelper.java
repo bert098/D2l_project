@@ -83,5 +83,13 @@ public class DatabaseHelper {
 	{
 		return submissionTable.search(id);
 	}
+	public ArrayList<Integer> searchStudentEnrollmentByStudent(int id)
+	{
+		return studentEnrollmentTable.SearchStudent(id);
+	}
+	public User searchUserTableID(int id)
+	{
+		return userTable.searchID(id);
+	}
 	
 }
