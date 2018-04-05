@@ -29,6 +29,7 @@ public class ProfessorView extends UserView{
 	
 	public void displayCourses(ArrayList<Course> courseList) {
 		professorCoursesPanel.displayCourses(courseList);
+		tabbedPane.setSelectedIndex(0);
 	}
 	
 	public static void main(String[] args) {

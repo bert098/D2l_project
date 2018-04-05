@@ -7,9 +7,10 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import Data.Constants;
 import Data.Course;
 
-public class ProfessorModel {
+public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
 	private PrintWriter stringOut; 
 	private ObjectInputStream objectIn; 
@@ -23,7 +24,14 @@ public class ProfessorModel {
 	}
 	
 	public void sendOperation(String operation) {
+		stringOut.flush();
 		stringOut.println(operation);
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(operation);
 	}
 	
 	public ArrayList<Course> readCourseList() {
@@ -37,5 +45,20 @@ public class ProfessorModel {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void createCourse(Course course)
+	{
+		try
+		{
+			sendOperation(CREATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(course);
+			//System.out.println(course.toString());
+			
+		} 
+		catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

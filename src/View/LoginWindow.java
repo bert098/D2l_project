@@ -2,6 +2,7 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.SwingConstants;
 
 public class LoginWindow extends JFrame {
 	private String userName;
@@ -28,7 +30,8 @@ public class LoginWindow extends JFrame {
 		setSize(500, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		JLabel welcome = new JLabel("Welcome to D2L, please login");
+		JLabel welcome = new JLabel("Desire 4 Learning", SwingConstants.CENTER);
+		welcome.setFont(new Font("Sans Serif", Font.BOLD, 30));
 		JLabel usName = new JLabel("Username");
 		JLabel pass = new JLabel("Password");
 		setLayout(new BorderLayout());

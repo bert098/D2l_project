@@ -50,9 +50,9 @@ public class ProfessorController implements Constants{
 				// TODO Auto-generated method stub
 				System.out.println("Create course");
 				
-				Course newCourse = new Course(view.getUserId(), panel.getCourseNum(), panel.getCourseName(), panel.getCourseIsActive());
-				
-				//model.createCourse(newCourse);
+				Course newCourse = new Course(panel.getCourseNum(),view.getUserId(), panel.getCourseName(), panel.getCourseIsActive());
+				professorModel.createCourse(newCourse);
+				addCourses();
 			}
 		});
 	}
