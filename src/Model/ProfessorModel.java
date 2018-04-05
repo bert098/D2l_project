@@ -61,4 +61,28 @@ public class ProfessorModel implements Constants{
 			e.printStackTrace();
 		}
 	}
+	
+	public void activateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(ACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deactivateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(DEACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
