@@ -16,4 +16,5 @@ public interface Constants {
 	public static final String GRADE_SUBMISSION = "GRADE_SUBMISSION";
 	public static final String ACTIVATE_ASSIGN = "ACTIVATE_ASSIGN";
 	public static final String DEACTIVATE_ASSIGN = "DEACTIVATE_ASSIGN";
+	public static final String UPLOAD_ASSIGN = "UPLOAD_ASSIGN";
 }

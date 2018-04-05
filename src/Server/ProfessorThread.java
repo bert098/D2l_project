@@ -1,6 +1,9 @@
 package Server;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -85,6 +88,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(DEACTIVATE_ASSIGN)) {
 			deactivateAssignment(); 
+		}
+		else if (operation.equals(UPLOAD_ASSIGN)) {
+			uploadAssign();
 		}
 		else {
 			System.out.println(operation + " is incorrect");
@@ -193,4 +199,28 @@ public class ProfessorThread implements Constants {
 	public void deactivateAssignment() {
 		//todo
 	}	
+	
+	public void uploadAssign() {
+		try {
+			byte[] content = (byte[])objectIn.readObject();
+			File newFile = new File("FILE" + ".jpg");
+			
+			if(!newFile.exists())
+			{
+				newFile.createNewFile();
+			}
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			bos.close();
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

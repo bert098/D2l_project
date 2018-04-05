@@ -113,8 +113,8 @@ public class ProfessorCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Search");
-				Course c = courseView.getCourse();
-				profModel.SearchStudent(c);
+//				Course c = courseView.getCourse();
+//				profModel.SearchStudent(c);
 			}
 		});
 		

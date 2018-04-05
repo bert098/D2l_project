@@ -72,7 +72,7 @@ public class ProfessorModel implements Constants{
 			//System.out.println(course.toString());
 			
 		} 
-		catch(IOException e) {
+		catch(IOException e) {}
 
 	
 	public void activateCourse(Integer courseId)
@@ -93,6 +93,18 @@ public class ProfessorModel implements Constants{
 			sendOperation(DEACTIVATE_COURSE);
 			objectOut.flush();
 			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void uploadAssignment(byte[] byteArr)
+	{
+		try{
+			sendOperation(UPLOAD_ASSIGN);
+			objectOut.writeObject(byteArr);
+			objectOut.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
