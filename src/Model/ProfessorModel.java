@@ -26,6 +26,12 @@ public class ProfessorModel implements Constants{
 	public void sendOperation(String operation) {
 		stringOut.flush();
 		stringOut.println(operation);
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(operation);
 	}
 	
 	public ArrayList<Course> readCourseList() {
@@ -48,6 +54,8 @@ public class ProfessorModel implements Constants{
 			sendOperation(CREATE_COURSE);
 			objectOut.flush();
 			objectOut.writeObject(course);
+			//System.out.println(course.toString());
+			
 		} 
 		catch(IOException e) {
 			e.printStackTrace();

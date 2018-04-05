@@ -51,7 +51,6 @@ public class ProfessorController implements Constants{
 				System.out.println("Create course");
 				
 				Course newCourse = new Course(panel.getCourseNum(),view.getUserId(), panel.getCourseName(), panel.getCourseIsActive());
-				
 				professorModel.createCourse(newCourse);
 				addCourses();
 			}
