@@ -85,7 +85,8 @@ public class MainServer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		DatabaseSetterUpper setupDatabase = new DatabaseSetterUpper("hi");
+
+		DatabaseSetterUpper setupDatabase = new DatabaseSetterUpper("pokemon");
 		MainServer mainServer= new MainServer(setupDatabase.getDatabase());
 		mainServer.run();
 	}
