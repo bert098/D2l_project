@@ -62,4 +62,8 @@ public abstract class UserCourseView extends JFrame{
 		userView.setVisible(true);
 		this.dispose();
 	}
+	public Course getCourse()
+	{
+		return course;
+	}
 }
