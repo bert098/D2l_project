@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
+import Data.Course;
+import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
 import View.ProfessorDropboxView;
@@ -19,10 +21,11 @@ import View.UserEmailPanel;
 public class ProfessorCourseController {
 
 	private ProfessorCourseView courseView;
-	
-	public ProfessorCourseController(ProfessorCourseView courseView)
+	private ProfessorModel profModel;
+	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel  profModel)
 	{
 		this.courseView = courseView;
+		this.profModel = profModel;
 		addProfessorCourseViewListeners();
 	}
 	
@@ -110,6 +113,8 @@ public class ProfessorCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Search");
+				Course c = courseView.getCourse();
+				profModel.SearchStudent(c);
 			}
 		});
 		

@@ -105,8 +105,9 @@ public class ProfessorThread implements Constants {
 	
 	}
 	
-	public void createCourse() {
-		//todo
+	public void createCourse() 
+	{
+		
 		try
 		{
 			Course course = (Course)objectIn.readObject();
@@ -154,19 +155,25 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}
-	
-	public void searchStudentId() {
-		//todo
+	//this
+	public void searchStudentId() 
+	{
+		try {
+			Course course = (Course)objectIn.readObject();
+			
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+	//this
 	public void searchStudentLastName() {
 		//todo
 	}
-	
+	//this
 	public void enrollStudent() {
 		//todo
 	}
-	
+	//this
 	public void unenrollStudent() {
 		//todo
 	}

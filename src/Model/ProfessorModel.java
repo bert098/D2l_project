@@ -61,6 +61,19 @@ public class ProfessorModel implements Constants{
 			e.printStackTrace();
 		}
 	}
+  
+	public void SearchStudent(Course course)
+	{
+		try
+		{
+			sendOperation(SEARCH_STUDENT_ID);
+			objectOut.flush();
+			objectOut.writeObject(course);
+			//System.out.println(course.toString());
+			
+		} 
+		catch(IOException e) {
+
 	
 	public void activateCourse(Integer courseId)
 	{
