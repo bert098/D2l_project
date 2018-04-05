@@ -42,7 +42,8 @@ public class ProfessorCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Open Dropbox");
-				new ProfessorDropboxController(new ProfessorDropboxView());				
+				courseView.setVisible(false);
+				new ProfessorDropboxController(new ProfessorDropboxView(courseView));				
 			}
 		});
 		

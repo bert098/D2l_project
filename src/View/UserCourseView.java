@@ -6,6 +6,9 @@ import Data.Course;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,9 +38,9 @@ public abstract class UserCourseView extends JFrame{
 		
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
 		
-		JLabel courseLabel = new JLabel("courseName");
+		JLabel courseLabel = new JLabel(course.getName());
 		courseLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
 		getContentPane().add(courseLabel, BorderLayout.NORTH);
 		
@@ -45,6 +48,18 @@ public abstract class UserCourseView extends JFrame{
 		
 		tabbedPane.addTab("Send Email", null, emailPanel, null);
 		
+		this.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+				   closeWindow();
+			   }
+		});
+		
 		setVisible(true);
+	}
+	
+	private void closeWindow()
+	{
+		userView.setVisible(true);
+		this.dispose();
 	}
 }

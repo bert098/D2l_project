@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +28,8 @@ public class ProfessorDropboxView extends JFrame{
 	 */
 	private static final long serialVersionUID = 8673038957037574746L;
 	
+	ProfessorCourseView courseView;
+	
 	private JPanel contentPane;
 	private JTextField gradeField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
@@ -40,11 +44,15 @@ public class ProfessorDropboxView extends JFrame{
 	public void addSubmitGradeButtonActionListener(ActionListener a) {submitGradeButton.addActionListener(a);}
 	public void addDownloadAssignmentButtonActionListener(ActionListener a) {downloadAssignmentButton.addActionListener(a);}
 	
-	public ProfessorDropboxView()
+	public ProfessorDropboxView(ProfessorCourseView courseView)
 	{
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		this.courseView = courseView;
+		
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,11 +132,23 @@ public class ProfessorDropboxView extends JFrame{
 		gbc_downloadAssignmentButton.gridy = 6;
 		contentPane.add(downloadAssignmentButton, gbc_downloadAssignmentButton);
 		
+		this.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+				   closeWindow();
+			   }
+		});
+		
 		setVisible(true);
 	}
 	
-	public static void main(String[] args)
+	private void closeWindow()
 	{
-		ProfessorDropboxView view = new ProfessorDropboxView();
+		courseView.setVisible(true);
+		this.dispose();
 	}
+	
+//	public static void main(String[] args)
+//	{
+//		ProfessorDropboxView view = new ProfessorDropboxView();
+//	}
 }
