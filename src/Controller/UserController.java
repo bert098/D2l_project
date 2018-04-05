@@ -43,6 +43,7 @@ public class UserController implements Constants {
 					Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword()
 							,user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
 					ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor), clientMain.getProfessorModel());
+					loginWindow.closeWindow();
 				}
 				else if (user.getType() == STUDENT) {
 					//todo

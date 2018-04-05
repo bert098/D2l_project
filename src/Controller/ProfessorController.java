@@ -49,6 +49,10 @@ public class ProfessorController implements Constants{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Create course");
+				
+				Course newCourse = new Course(view.getUserId(), panel.getCourseNum(), panel.getCourseName(), panel.getCourseIsActive());
+				
+				//model.createCourse(newCourse);
 			}
 		});
 	}
@@ -62,6 +66,7 @@ public class ProfessorController implements Constants{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Open Course");
+				view.setVisible(false);
 				new ProfessorCourseController(new ProfessorCourseView(panel.getSelectedCourse(), view));
 			}
 		});

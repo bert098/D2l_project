@@ -21,8 +21,7 @@ public abstract class UserView extends JFrame{
 	
 	public UserCourseView getUserCourseView() {return userCourseView;}
 	
-	public void deactivateWindow() {this.setEnabled(false);}
-	public void activateWindow() {this.setEnabled(true);}
+	public Integer getUserId() {return user.getId();}
 	
 	public UserView(User user)
 	{
@@ -33,6 +32,7 @@ public abstract class UserView extends JFrame{
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -43,8 +43,8 @@ public abstract class UserView extends JFrame{
 		mainLabel.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		panel.add(mainLabel);
 		
-		JLabel professorLabel = new JLabel("Professor Label");
-		panel.add(professorLabel);
+		JLabel userLabel = new JLabel(user.getFirstName() + " " + user.getLastName());
+		panel.add(userLabel);
 		
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	}
