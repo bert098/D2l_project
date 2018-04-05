@@ -12,7 +12,7 @@ public interface Constants {
 	public static final String SEARCH_STUDENT_LASTNAME = "SEARCH_STUDENT_LASTNAME";
 	public static final String ENROLL_STUDENT = "ENROLL_STUDENT";
 	public static final String UNENROLL_STUDENT = "UNENROLL_STUDENT"; 
-	public static final String GET_ASSIGN_SUBMISSIONS = "GET_ASSIGN_SUBMISSIONS";
+	public static final String GET_ASSIGN = "GET_ASSIGN";
 	public static final String GRADE_SUBMISSION = "GRADE_SUBMISSION";
 	public static final String ACTIVATE_ASSIGN = "ACTIVATE_ASSIGN";
 	public static final String DEACTIVATE_ASSIGN = "DEACTIVATE_ASSIGN";

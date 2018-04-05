@@ -60,5 +60,16 @@ public class ProfessorAssignmentsPanel extends UserAssignmentsPanel{
 		gbc_deactivateAssignButton.gridy = 2;
 		add(deactivateAssignButton, gbc_deactivateAssignButton);
 	}
-
+	
+	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
+		assignmentModel.removeAllElements();
+		System.out.println("course id:" + id);
+		System.out.println("assignmnet c id:" + assignmentList.get(1).getCourseId());
+		for (int i = 0; i < assignmentList.size(); i++) {
+			if (assignmentList.get(i).getCourseId().equals(id)) {
+				assignmentModel.addElement(assignmentList.get(i));
+			}
+		}
+		setVisible(true);
+	}
 }

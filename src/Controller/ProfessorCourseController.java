@@ -7,22 +7,31 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
+import Data.Constants;
+import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
 import View.ProfessorDropboxView;
 import View.SearchStudentsPanel;
 import View.UserEmailPanel;
+import Data.Assignment;
 
-public class ProfessorCourseController {
-
+public class ProfessorCourseController implements Constants {
+	
+	private Integer courseId;
+	private ProfessorModel professorModel; 
 	private ProfessorCourseView courseView;
 	
-	public ProfessorCourseController(ProfessorCourseView courseView)
+	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{
+		courseId = id;
+		professorModel = model;
 		this.courseView = courseView;
+		displayAssignments(); 
 		addProfessorCourseViewListeners();
 	}
 	
@@ -31,6 +40,12 @@ public class ProfessorCourseController {
 		addAssignmentPanelListeners();
 		addSearchStudentsPanelListeners();
 		addEmailPanelListeners();
+	}
+	
+	public void displayAssignments() { 
+		professorModel.sendOperation(GET_ASSIGN);
+		ArrayList<Assignment> assignmentList = professorModel.readAssignmentList(); 
+		courseView.displayAssignments(assignmentList, courseId);
 	}
 	
 	private void addAssignmentPanelListeners()

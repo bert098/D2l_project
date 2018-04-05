@@ -34,6 +34,9 @@ public class DatabaseHelper {
 	public ArrayList<Course> courseTableToList() {
 		return courseTable.courseTableToList();
 	}
+	public ArrayList<Assignment> assignmentTableToList() {
+		return assignmentTable.assignmentTableToList();
+	}
 	public void insertUser(User user)
 	{
 		userTable.addUser(user);

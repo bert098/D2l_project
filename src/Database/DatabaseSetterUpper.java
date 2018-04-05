@@ -15,6 +15,9 @@ public class DatabaseSetterUpper {
 		Student u5 = new Student(5,"Tommy", "glasses", 'S', "123@hotmail.com", "Thomas", "Vy");
 		Course c1 = new Course( u2, 1, "ENSF 420", true);
 		Course c2 = new Course( u2, 271, "MATH", true);
+		Assignment a1 = new Assignment (1234, 271, "finalproject", "path", true, "OCT 10 2019");
+		Assignment a2 = new Assignment (14, 271, "midproject", "path", true, "OCT 11 2019");
+		Assignment a3 = new Assignment (12, 1, "diaosd", "path", true, "tomorrow");
 		data.insertUser(u1);
 		data.insertUser(u2);
 		data.insertUser(u3);
@@ -22,6 +25,9 @@ public class DatabaseSetterUpper {
 		data.insertUser(u5);
 		data.insertCourse(c1);
 		data.insertCourse(c2);
+		data.insertAssignment(a1);
+		data.insertAssignment(a2);
+		data.insertAssignment(a3);
 	}
 	
 	public DatabaseHelper getDatabase() {

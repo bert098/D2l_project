@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -15,15 +16,17 @@ import javax.swing.JScrollPane;
 
 public class UserAssignmentsPanel extends JPanel{
 	
-	private ArrayList<Assignment> assignments;
+	protected ArrayList<Assignment> assignments;
 
 	private JScrollPane scrollPane = new JScrollPane();
-	private JList<Assignment> assignmentList = new JList<Assignment>();
+	protected JList<Assignment> assignmentList = new JList<Assignment>();
+	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
 	
 	public void setAssignments(ArrayList<Assignment> assignments) {this.assignments = assignments;}
 	
 	public UserAssignmentsPanel()
 	{
+		assignmentList.setModel(assignmentModel);
 		this.assignments = assignments;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
