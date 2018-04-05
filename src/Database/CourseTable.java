@@ -132,5 +132,30 @@ public class CourseTable {
 			return null;
 		}
 	}
+	
+	public void updateCourseStatus(Integer courseId, boolean status)
+	{
+		try
+		{
+			String sql = "UPDATE COURSETABLE SET " +
+					"ACTIVE = ? " +
+					"WHERE ID = ?";
+			statement = jdbc_connection.prepareStatement(sql);
+			if(status)
+			{
+				statement.setInt(1, 1);
+			}
+			else
+			{
+				statement.setInt(1, 0);
+			}
+			statement.setInt(2, courseId);
+			statement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 }

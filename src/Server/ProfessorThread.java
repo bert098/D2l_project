@@ -124,14 +124,38 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
-	public void activateCourse() 
-	{
-		//todo
+	public void activateCourse() {
+			try {
+				Integer courseId;
+				courseId = (Integer)objectIn.readObject();
+				System.out.println(courseId);
+				database.updateCourseStatus(courseId, true);
+			} 
+			catch (ClassNotFoundException e) 
+			{
+				e.printStackTrace();
+			}	
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 	}
 	
-	public void deactivateCourse() 
-	{
-		//todo
+	public void deactivateCourse() {
+		try {
+			Integer courseId;
+			courseId = (Integer)objectIn.readObject();
+			System.out.println(courseId);
+			database.updateCourseStatus(courseId, false);
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	//this
 	public void searchStudentId() 

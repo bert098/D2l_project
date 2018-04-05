@@ -92,4 +92,9 @@ public class DatabaseHelper {
 		return userTable.searchID(id);
 	}
 	
+	public void updateCourseStatus(Integer courseId, boolean status)
+	{
+		courseTable.updateCourseStatus(courseId, status);
+	}
+	
 }
