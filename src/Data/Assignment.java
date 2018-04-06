@@ -25,4 +25,6 @@ public class Assignment implements Serializable{
 	public String getPath() {return path;}
 	public String getDate() {return date;}
 	
+	public void setId(Integer id) {this.id = id;}
+	public void setPath(String path) {this.path = path;}
 }

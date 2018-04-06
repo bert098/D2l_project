@@ -9,8 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
+import Data.Assignment;
 import Data.Course;
+import Data.FileContainer;
 import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -80,7 +83,14 @@ public class ProfessorCourseController {
 						e.printStackTrace();
 					}
 					
-					//Model(CONTENT)
+					String dueDate = (String)JOptionPane.showInputDialog("Enter the due date:");
+					
+					Assignment assign = new Assignment(null, courseView.getCourse(), selectedFile.getName(),
+							null, false, dueDate);
+					FileContainer container = new FileContainer(content, selectedFile.getName(), assign);
+					
+					profModel.uploadAssignment(container);
+					
 				}
 				
 				

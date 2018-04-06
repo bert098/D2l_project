@@ -9,10 +9,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Database.DatabaseHelper;
+import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
 
@@ -212,8 +215,10 @@ public class ProfessorThread implements Constants {
 	
 	public void uploadAssign() {
 		try {
-			byte[] content = (byte[])objectIn.readObject();
-			File newFile = new File("FILE" + ".jpg");
+			FileContainer container = (FileContainer)objectIn.readObject();
+			byte[] content = container.getFileArr();
+			
+			File newFile = new File("assignments/" + container.getFileName());
 			
 			if(!newFile.exists())
 			{
@@ -223,6 +228,14 @@ public class ProfessorThread implements Constants {
 			BufferedOutputStream bos = new BufferedOutputStream(writer);
 			bos.write(content);
 			bos.close();
+			
+			
+			Assignment assign = container.getAssignment();
+			assign.setPath("assignments/" + container.getFileName());
+			
+			Random rand = new Random();
+			assign.setId(rand.nextInt(9999));
+			database.addAssignment(container.getAssignment());
 		} 
 		catch (ClassNotFoundException e) 
 		{

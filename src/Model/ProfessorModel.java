@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import Data.Constants;
 import Data.Course;
+import Data.FileContainer;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -102,11 +103,11 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
-	public void uploadAssignment(byte[] byteArr)
+	public void uploadAssignment(FileContainer container)
 	{
 		try{
 			sendOperation(UPLOAD_ASSIGN);
-			objectOut.writeObject(byteArr);
+			objectOut.writeObject(container);
 			objectOut.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

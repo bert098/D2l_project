@@ -96,5 +96,8 @@ public class DatabaseHelper {
 	{
 		courseTable.updateCourseStatus(courseId, status);
 	}
-	
+	public void addAssignment(Assignment assignment)
+	{
+		assignmentTable.addAssignment(assignment);
+	}
 }
