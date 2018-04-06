@@ -35,8 +35,16 @@ public class Assignment implements Serializable{
 	public String getDate() {return date;}
 	
 	public String toString() { 
-		String s ="id: " + id + " courseId: " + courseId + " title: " + title + " active: " + active + " date: " + date;
-		return s; 
+		String line = title + " Due: " + date + " ";
+		if(active)
+		{
+			line += "Active";
+		}
+		else
+		{
+			line += "Inactive";
+		}
+		return line; 
 	}
 
 	public void setId(Integer id) {this.id = id;}

@@ -25,7 +25,15 @@ public class Course implements Serializable {
 	
 	@Override
 	public String toString() { 
-		String line = "id: " + id + " professor id: " + prof_id + " name: " + name + " active: " + active; 
+		String line = name + " " + id + " ";
+		if(active)
+		{
+			line += "Active";
+		}
+		else
+		{
+			line += "Inactive";
+		}
 		return line;
 	}
 	
