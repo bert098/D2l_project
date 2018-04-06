@@ -177,7 +177,20 @@ public class ProfessorThread implements Constants {
 	}
 	//this
 	public void searchStudentLastName() {
-		//todo
+		try {
+			Course course = (Course)objectIn.readObject();
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(course.getId());
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
+			
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	//this
 	public void enrollStudent() {
@@ -185,7 +198,24 @@ public class ProfessorThread implements Constants {
 	}
 	//this
 	public void unenrollStudent() {
-		//todo
+		try {
+			Student student = (Student)objectIn.readObject();
+			int n = database.UnEnroll(student.getId());
+			database.delete(student.getId());
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(n);
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getAssignmentSubmissions() {

@@ -10,8 +10,14 @@ public class Student extends User {
 	}
 
 	@Override
-	public void sendEmail() {
+	public String toString() {
+		return firstName.toString() +"  " + lastName.toString() + " " + id.toString();
 		
+	}
+
+	@Override
+	public void sendEmail() {
+		// TODO Auto-generated method stub
 		
 	}
 

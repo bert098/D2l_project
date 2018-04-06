@@ -96,5 +96,13 @@ public class DatabaseHelper {
 	{
 		courseTable.updateCourseStatus(courseId, status);
 	}
+	public int UnEnroll(Integer StudentId)
+	{
+		return studentEnrollmentTable.unEnrollStudent(StudentId);
+	}
+	public void delete(Integer StudentId)
+	{
+		 studentEnrollmentTable.delete(StudentId);
+	}
 	
 }

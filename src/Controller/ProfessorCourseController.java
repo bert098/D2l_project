@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
 import Data.Course;
+import Data.Student;
 import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -22,6 +24,7 @@ public class ProfessorCourseController {
 
 	private ProfessorCourseView courseView;
 	private ProfessorModel profModel;
+	private SearchStudentsPanel searchStudent;
 	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel  profModel)
 	{
 		this.courseView = courseView;
@@ -112,25 +115,38 @@ public class ProfessorCourseController {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Search");
+				String s = panel.getSearchText();
+				if(panel.idSelected()) 
+				{
 				Course c = courseView.getCourse();
-				profModel.SearchStudent(c);
+				ArrayList<Student> a = profModel.SearchStudent(c);
+				panel.displayStudentsId(a,s);
+				}
+				else if(panel.lastNameSelected())
+				{
+					Course c = courseView.getCourse();
+					ArrayList<Student> a = profModel.SearchStudent(c);
+					panel.displayStudentsName(a,s);
+				}
+				
+				
 			}
 		});
 		
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Enroll");
+			System.out.println("enroll");
+			
 			}
 		});
 		
 		panel.addUnenrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Unenroll");
+				Student s = panel.getSelectedStudent();
+				ArrayList<Student> a  = profModel.unEnroll(s);
+				panel.displayAll(a);
 			}
 		});
 	}

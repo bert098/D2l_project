@@ -15,6 +15,10 @@ public class DatabaseSetterUpper {
 		Student u5 = new Student(5,"Tommy", "glasses", 'S', "123@hotmail.com", "Thomas", "Vy");
 		Course c1 = new Course( u2, 1, "ENSF 420", true);
 		Course c2 = new Course( u2, 271, "MATH", true);
+		StudentEnrollment n = new StudentEnrollment(100, u3, c1);
+		StudentEnrollment s = new StudentEnrollment(101, u4, c1);
+		data.insertStudentEnrollment(n);
+		data.insertStudentEnrollment(s);
 		data.insertUser(u1);
 		data.insertUser(u2);
 		data.insertUser(u3);
@@ -23,6 +27,11 @@ public class DatabaseSetterUpper {
 		data.insertCourse(c1);
 		data.insertCourse(c2);
 	}
+	public static void main(String [] args)
+	{
+		DatabaseSetterUpper d = new DatabaseSetterUpper("hi");
+	}
+	
 	
 	public DatabaseHelper getDatabase() {
 		return data;
