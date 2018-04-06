@@ -102,7 +102,7 @@ public class StudentEnrollmentTable {
 	public ArrayList<Integer> SearchStudent(int Id) {
 		try { 
 			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
-			String sql = "SELECT * FROM " + "CourseTable";
+			String sql = "SELECT * FROM " + "StudentEnrollmentTable";
 			statement = jdbc_connection.prepareStatement(sql);
 			ResultSet courseSet = statement.executeQuery();
 			
@@ -111,7 +111,7 @@ public class StudentEnrollmentTable {
 				StudentEnrollment enrollments = new StudentEnrollment(courseSet.getInt("ID"), 
 											  courseSet.getInt("STUDENT_ID"), 
 											  courseSet.getInt("COURSE_ID"));
-				if(enrollments.getCourseId() == Id)
+				if(enrollments.getCourseId().equals(Id))
 				{
 				courseList.add(enrollments.getStudentId());
 				}
@@ -119,6 +119,69 @@ public class StudentEnrollmentTable {
 			
 			courseSet.close();
 			return courseList;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public int  unEnrollStudent(int id) {
+		try { 
+			String sql = "SELECT * FROM " + "StudentEnrollmentTable" + " WHERE STUDENT_ID=?";
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet courseSet = statement.executeQuery();
+			int c = 0;
+			if(courseSet.next())
+			{
+				c = courseSet.getInt("COURSE_ID");	
+			}
+			
+			return c;
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+	public void  delete(int id) {
+		try { 
+			String sql = "DELETE FROM " + "StudentEnrollmentTable" + " WHERE STUDENT_ID=?";
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.executeUpdate();
+			
+			
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public ArrayList<Integer> SearchStudentId(int Id) {
+		try { 
+			ArrayList<Integer> studentList = new ArrayList<Integer>(); 
+			String sql = "SELECT * FROM " + "StudentEnrollmentTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet courseSet = statement.executeQuery();
+			
+			while(courseSet.next()) 
+			{
+				StudentEnrollment enrollments = new StudentEnrollment(courseSet.getInt("ID"), 
+											  courseSet.getInt("STUDENT_ID"), 
+											  courseSet.getInt("COURSE_ID"));
+				if(enrollments.getStudentId().equals(Id))
+				{
+				studentList.add(enrollments.getStudentId());
+				}
+			}
+			
+			courseSet.close();
+			return studentList;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

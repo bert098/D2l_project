@@ -11,6 +11,8 @@ import Data.Assignment;
 import Data.Constants;
 import Data.Course;
 import Data.FileContainer;
+import Data.Student;
+import Data.StudentEnrollment;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -82,21 +84,86 @@ public class ProfessorModel implements Constants{
 		}
 	}
   
-	public void SearchStudent(Course course)
+	public ArrayList<Student> SearchStudentName(Course course)
 	{
+		ArrayList<Student> s = null;
 		try
 		{
+			
+			sendOperation(SEARCH_STUDENT_LASTNAME);
+			objectOut.flush();
+			objectOut.writeObject(course);
+			 s = (ArrayList<Student>)objectIn.readObject();	
+		} 
+		
+		catch(IOException e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	public ArrayList<Student> SearchStudent(Course course)
+	{
+		ArrayList<Student> s = null;
+		try
+		{
+			
 			sendOperation(SEARCH_STUDENT_ID);
 			objectOut.flush();
 			objectOut.writeObject(course);
+			 s = (ArrayList<Student>)objectIn.readObject();
 			
-			//System.out.println(course.toString());
 			
 		} 
-
 		catch(IOException e) {
+			e.printStackTrace();
 		}
-}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
+	public ArrayList<Student> unEnroll(Student student)
+	{
+		ArrayList<Student> s = null;
+		try {
+			sendOperation(UNENROLL_STUDENT);
+			objectOut.flush();
+			objectOut.writeObject(student);
+			 s = (ArrayList<Student>)objectIn.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	public  ArrayList<Student> enroll(StudentEnrollment st)
+	{
+		ArrayList<Student> s = null;
+		try {
+			sendOperation(ENROLL_STUDENT);
+			objectOut.flush();
+			objectOut.writeObject(st);
+			 s = (ArrayList<Student>)objectIn.readObject();
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return s;
+	}
 	
 	public void activateCourse(Integer courseId)
 	{

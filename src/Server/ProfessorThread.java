@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
@@ -18,6 +20,7 @@ import Data.Course;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
+import Data.User;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -185,15 +188,82 @@ public class ProfessorThread implements Constants {
 	}
 	//this
 	public void searchStudentLastName() {
-		//todo
+		try {
+			Course course = (Course)objectIn.readObject();
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(course.getId());
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
+			
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	//this
-	public void enrollStudent() {
-		//todo
+	public  void enrollStudent() {
+		
+			try {
+				StudentEnrollment st = (StudentEnrollment)objectIn.readObject();
+				
+				Student s = (Student)database.searchUserTableID(st.getStudentId());
+				if(s == null)
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
+							"Error Message", JOptionPane.PLAIN_MESSAGE);
+					objectOut.flush();
+					objectOut.writeObject(null);
+				}
+				else
+				{
+					database.insertStudentEnrollment(st);
+				ArrayList a = database.searchStudentEnrollmentByStudent(st.getCourseId());
+				objectOut.flush();
+				objectOut.writeObject(a);
+				}
+			} catch (ClassNotFoundException | IOException  | ClassCastException  e) {
+				JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
+						"Error Message", JOptionPane.PLAIN_MESSAGE);
+				try {
+					objectOut.flush();
+					objectOut.writeObject(null);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+		
+			
+		
 	}
 	//this
 	public void unenrollStudent() {
-		//todo
+		try {
+			Student student = (Student)objectIn.readObject();
+			int n = database.unEnroll(student.getId());
+			database.delete(student.getId());
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(n);
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getAssignments() {

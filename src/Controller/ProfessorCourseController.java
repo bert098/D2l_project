@@ -10,12 +10,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Data.Constants;
 import Data.Assignment;
 import Data.Course;
 import Data.FileContainer;
+import Data.Student;
+import Data.StudentEnrollment;
+
 import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -29,7 +33,8 @@ public class ProfessorCourseController implements Constants {
 	private Integer courseId;
 	private ProfessorModel professorModel; 
 	private ProfessorCourseView courseView;
-
+	private SearchStudentsPanel searchStudent;
+	
 	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{
 		courseId = id;
@@ -141,26 +146,49 @@ public class ProfessorCourseController implements Constants {
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Search");
-//				Course c = courseView.getCourse();
-//				professorModel.SearchStudent(c);
+				String s = panel.getSearchText();
+				if(panel.idSelected()) 
+				{
+				Course c = courseView.getCourse();
+				ArrayList<Student> a = professorModel.SearchStudent(c);
+				panel.displayStudentsId(a,s);
+				}
+				else if(panel.lastNameSelected())
+				{
+					Course c = courseView.getCourse();
+					ArrayList<Student> a = professorModel.SearchStudent(c);
+					panel.displayStudentsName(a,s);
+				}
+
 			}
 		});
 		
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Enroll");
+				try {
+					Course c = courseView.getCourse();
+				Integer num = Integer.parseInt(JOptionPane.showInputDialog("Enter an Integer Number: "));
+				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), num, c.getId());
+				ArrayList a = professorModel.enroll(st);
+				
+				panel.displayAll(a);
+				
+				}
+				catch(NumberFormatException e)
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a number.",
+							"Error Message", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
 		
 		panel.addUnenrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Unenroll");
+				Student s = panel.getSelectedStudent();
+				ArrayList<Student> a  = professorModel.unEnroll(s);
+				panel.displayAll(a);
 			}
 		});
 	}

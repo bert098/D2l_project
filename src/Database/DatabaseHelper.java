@@ -109,8 +109,19 @@ public class DatabaseHelper {
 	{
 		courseTable.updateCourseStatus(courseId, status);
 	}
+
 	public void addAssignment(Assignment assignment)
 	{
 		assignmentTable.addAssignment(assignment);
 	}
+
+	public int unEnroll(Integer StudentId)
+	{
+		return studentEnrollmentTable.unEnrollStudent(StudentId);
+	}
+	public void delete(Integer StudentId)
+	{
+		 studentEnrollmentTable.delete(StudentId);
+	}
+
 }
