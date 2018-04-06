@@ -102,16 +102,23 @@ public class ProfessorCourseController implements Constants {
 		panel.addActivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Activate");
+				professorModel.sendOperation(ACTIVATE_ASSIGN);
+				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
+				professorModel.sendDeactivateAssignment(assignId);
+				System.out.println("odsifja");
+				displayAssignments();
 			}
 		});
 		
 		panel.addDeactivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Deactivate");
+				professorModel.sendOperation(DEACTIVATE_ASSIGN);
+				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
+				professorModel.sendDeactivateAssignment(assignId);
+				displayAssignments();
 			}
 		});
 	}

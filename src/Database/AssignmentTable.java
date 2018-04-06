@@ -145,4 +145,24 @@ public class AssignmentTable {
 		}
 	}
 	
+	public void updateAssignmentStatus(int id, boolean status) {
+		try {
+			String sql = "UPDATE AssignmentTable SET " +
+					     "ACTIVE = ? " +
+					     "WHERE ID = ?";
+			statement = jdbc_connection.prepareStatement(sql);
+			if (status) {
+				statement.setInt(1, 1);
+			}
+			else {
+				statement.setInt(1, 0);
+			}
+			statement.setInt(2, id);
+			statement.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

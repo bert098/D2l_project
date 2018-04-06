@@ -61,6 +61,11 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
+	public void sendDeactivateAssignment(Integer assignId) { 
+		stringOut.flush();
+		stringOut.println(assignId.toString());
+	}
+	
 	public void createCourse(Course course)
 	{
 		try

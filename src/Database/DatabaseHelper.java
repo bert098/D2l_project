@@ -86,5 +86,11 @@ public class DatabaseHelper {
 	{
 		return submissionTable.search(id);
 	}
+	public void deactivateAssignment(int id) {
+		assignmentTable.updateAssignmentStatus(id, false);
+	}
+	public void activateAssignment(int id) {
+		assignmentTable.updateAssignmentStatus(id, true);
+	}
 	
 }

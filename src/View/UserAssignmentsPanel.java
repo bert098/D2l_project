@@ -1,6 +1,7 @@
 package View;
 
 import Data.Assignment;
+import Data.Course;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -23,6 +24,8 @@ public class UserAssignmentsPanel extends JPanel{
 	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
 	
 	public void setAssignments(ArrayList<Assignment> assignments) {this.assignments = assignments;}
+	
+	public Assignment getSelectedAssignment() {return assignmentList.getSelectedValue();}
 	
 	public UserAssignmentsPanel()
 	{

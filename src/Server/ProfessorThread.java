@@ -162,10 +162,22 @@ public class ProfessorThread implements Constants {
 	}
 	
 	public void activateAssignment() {
-		//todo
+		try {
+			int assignId = Integer.parseInt(stringIn.readLine());
+			database.activateAssignment(assignId);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void deactivateAssignment() {
-		//todo
+		try {
+			int assignId = Integer.parseInt(stringIn.readLine());
+			database.deactivateAssignment(assignId);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}	
 }
