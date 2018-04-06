@@ -3,11 +3,13 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Model.ProfessorModel;
 import View.ProfessorDropboxView;
 
 public class ProfessorDropboxController {
 	
 	private ProfessorDropboxView dropboxView;
+	private ProfessorModel professorModel;
 	
 	public ProfessorDropboxController(ProfessorDropboxView dropboxView)
 	{

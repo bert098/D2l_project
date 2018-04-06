@@ -203,8 +203,8 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}
-	//this
-	public  void enrollStudent() {
+	
+	public void enrollStudent() {
 		
 			try {
 				StudentEnrollment st = (StudentEnrollment)objectIn.readObject();

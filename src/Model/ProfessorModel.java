@@ -84,7 +84,7 @@ public class ProfessorModel implements Constants{
 		}
 	}
   
-	public ArrayList<Student> SearchStudentName(Course course)
+	public ArrayList<Student> searchStudentName(Course course)
 	{
 		ArrayList<Student> s = null;
 		try
@@ -104,7 +104,7 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 	
-	public ArrayList<Student> SearchStudent(Course course)
+	public ArrayList<Student> searchStudent(Course course)
 	{
 		ArrayList<Student> s = null;
 		try

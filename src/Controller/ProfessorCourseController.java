@@ -150,13 +150,13 @@ public class ProfessorCourseController implements Constants {
 				if(panel.idSelected()) 
 				{
 				Course c = courseView.getCourse();
-				ArrayList<Student> a = professorModel.SearchStudent(c);
+				ArrayList<Student> a = professorModel.searchStudent(c);
 				panel.displayStudentsId(a,s);
 				}
 				else if(panel.lastNameSelected())
 				{
 					Course c = courseView.getCourse();
-					ArrayList<Student> a = professorModel.SearchStudent(c);
+					ArrayList<Student> a = professorModel.searchStudent(c);
 					panel.displayStudentsName(a,s);
 				}
 

@@ -15,8 +15,9 @@ import Database.DatabaseHelper;
 import Database.DatabaseSetterUpper;
 
 /**
- * Server class receives clients and executes login thread window.  
- * @author Justin
+ * 
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg	
+ *
  */
 public class MainServer {
 	
