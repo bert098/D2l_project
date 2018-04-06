@@ -10,8 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import Data.Constants;
+import Data.Assignment;
+import Data.Course;
+import Data.FileContainer;
 import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -25,7 +29,7 @@ public class ProfessorCourseController implements Constants {
 	private Integer courseId;
 	private ProfessorModel professorModel; 
 	private ProfessorCourseView courseView;
-	
+
 	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{
 		courseId = id;
@@ -92,7 +96,14 @@ public class ProfessorCourseController implements Constants {
 						e.printStackTrace();
 					}
 					
-					//Model(CONTENT)
+					String dueDate = (String)JOptionPane.showInputDialog("Enter the due date:");
+					
+					Assignment assign = new Assignment(null, courseView.getCourse(), selectedFile.getName(),
+							null, false, dueDate);
+					FileContainer container = new FileContainer(content, selectedFile.getName(), assign);
+					
+					professorModel.uploadAssignment(container);
+					displayAssignments();
 				}
 				
 				
@@ -132,6 +143,8 @@ public class ProfessorCourseController implements Constants {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Search");
+//				Course c = courseView.getCourse();
+//				professorModel.SearchStudent(c);
 			}
 		});
 		

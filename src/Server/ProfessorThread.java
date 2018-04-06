@@ -1,16 +1,23 @@
 package Server;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.FileContainer;
+import Data.Student;
+import Data.StudentEnrollment;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -87,6 +94,9 @@ public class ProfessorThread implements Constants {
 		else if (operation.equals(DEACTIVATE_ASSIGN)) {
 			deactivateAssignment(); 
 		}
+		else if (operation.equals(UPLOAD_ASSIGN)) {
+			uploadAssign();
+		}
 		else {
 			System.out.println(operation + " is incorrect");
 		}
@@ -105,8 +115,9 @@ public class ProfessorThread implements Constants {
 	
 	}
 	
-	public void createCourse() {
-		//todo
+	public void createCourse() 
+	{
+		
 		try
 		{
 			Course course = (Course)objectIn.readObject();
@@ -122,25 +133,65 @@ public class ProfessorThread implements Constants {
 	}
 	
 	public void activateCourse() {
-		//todo
+			try {
+				Integer courseId;
+				courseId = (Integer)objectIn.readObject();
+				System.out.println(courseId);
+				database.updateCourseStatus(courseId, true);
+			} 
+			catch (ClassNotFoundException e) 
+			{
+				e.printStackTrace();
+			}	
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 	}
 	
 	public void deactivateCourse() {
-		//todo
+		try {
+			Integer courseId;
+			courseId = (Integer)objectIn.readObject();
+			System.out.println(courseId);
+			database.updateCourseStatus(courseId, false);
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
-	public void searchStudentId() {
-		//todo
+	//this
+	public void searchStudentId() 
+	{
+		try {
+			Course course = (Course)objectIn.readObject();
+			ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(course.getId());
+			ArrayList<Student> s = new  ArrayList<Student>();
+			for(int i = 0; i < a.size(); i++)
+			{
+				s.add((Student)database.searchUserTableID(a.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(s); 
+			
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+	//this
 	public void searchStudentLastName() {
 		//todo
 	}
-	
+	//this
 	public void enrollStudent() {
 		//todo
 	}
-	
+	//this
 	public void unenrollStudent() {
 		//todo
 	}
@@ -180,4 +231,38 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}	
+	
+	public void uploadAssign() {
+		try {
+			FileContainer container = (FileContainer)objectIn.readObject();
+			byte[] content = container.getFileArr();
+			
+			File newFile = new File("assignments/" + container.getFileName());
+			
+			if(!newFile.exists())
+			{
+				newFile.createNewFile();
+			}
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			bos.close();
+			
+			
+			Assignment assign = container.getAssignment();
+			assign.setPath("assignments/" + container.getFileName());
+			
+			Random rand = new Random();
+			assign.setId(rand.nextInt(9999));
+			database.addAssignment(container.getAssignment());
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

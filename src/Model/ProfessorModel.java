@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.FileContainer;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -77,6 +78,58 @@ public class ProfessorModel implements Constants{
 			
 		} 
 		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+  
+	public void SearchStudent(Course course)
+	{
+		try
+		{
+			sendOperation(SEARCH_STUDENT_ID);
+			objectOut.flush();
+			objectOut.writeObject(course);
+			
+			//System.out.println(course.toString());
+			
+		} 
+
+		catch(IOException e) {
+		}
+}
+	
+	public void activateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(ACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deactivateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(DEACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void uploadAssignment(FileContainer container)
+	{
+		try{
+			sendOperation(UPLOAD_ASSIGN);
+			objectOut.writeObject(container);
+			objectOut.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

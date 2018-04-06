@@ -38,5 +38,7 @@ public class Assignment implements Serializable{
 		String s ="id: " + id + " courseId: " + courseId + " title: " + title + " active: " + active + " date: " + date;
 		return s; 
 	}
-	
+
+	public void setId(Integer id) {this.id = id;}
+	public void setPath(String path) {this.path = path;}
 }
