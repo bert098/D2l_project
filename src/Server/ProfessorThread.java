@@ -220,11 +220,16 @@ public class ProfessorThread implements Constants {
 				else
 				{
 					database.insertStudentEnrollment(st);
-				ArrayList a = database.searchStudentEnrollmentByStudent(st.getCourseId());
-				objectOut.flush();
-				objectOut.writeObject(a);
+					ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(st.getCourseId());
+					ArrayList<Student> studentList = new  ArrayList<Student>();
+					for(int i = 0; i < a.size(); i++)
+					{
+						studentList.add((Student)database.searchUserTableID(a.get(i)));
+					}
+					objectOut.flush();
+					objectOut.writeObject(studentList);
 				}
-			} catch (ClassNotFoundException | IOException  | ClassCastException  e) {
+				} catch (ClassNotFoundException | IOException  | ClassCastException  e) {
 				JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
 						"Error Message", JOptionPane.PLAIN_MESSAGE);
 				try {
@@ -237,14 +242,9 @@ public class ProfessorThread implements Constants {
 				
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		
-			
-		
-			
-		
+			}	
 	}
-	//this
+
 	public void unenrollStudent() {
 		try {
 			Student student = (Student)objectIn.readObject();

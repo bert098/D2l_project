@@ -97,7 +97,7 @@ public class DatabaseHelper {
 	
 	public ArrayList<Integer> searchStudentEnrollmentByStudent(int id)
 	{
-		return studentEnrollmentTable.SearchStudent(id);
+		return studentEnrollmentTable.searchStudent(id);
 	}
 	
 	public User searchUserTableID(int id)

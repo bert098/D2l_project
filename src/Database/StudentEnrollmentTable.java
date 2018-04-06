@@ -99,7 +99,7 @@ public class StudentEnrollmentTable {
 		
 		return null;
 	}
-	public ArrayList<Integer> SearchStudent(int Id) {
+	public ArrayList<Integer> searchStudent(int Id) {
 		try { 
 			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
 			String sql = "SELECT * FROM " + "StudentEnrollmentTable";

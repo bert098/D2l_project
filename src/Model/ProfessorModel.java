@@ -144,17 +144,18 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 	
-	public  ArrayList<Student> enroll(StudentEnrollment st)
+	public ArrayList<Student> enroll(StudentEnrollment st)
 	{
 		ArrayList<Student> s = null;
 		try {
 			sendOperation(ENROLL_STUDENT);
 			objectOut.flush();
 			objectOut.writeObject(st);
-			 s = (ArrayList<Student>)objectIn.readObject();
+			s = (ArrayList<Student>)objectIn.readObject();
 			
-			
-			
+			for (int i = 0; i < s.size(); i++) {
+				System.out.println(s.get(i).toString());
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -158,10 +158,9 @@ public class SearchStudentsPanel extends JPanel {
 	public void displayStudentsName(ArrayList<Student> courseArrayList, String s) {
 		studentModel.removeAllElements();
 		for (int i = 0; i < courseArrayList.size(); i++) {
-			
 			if(s.equals("")|| courseArrayList.get(i).getLastName().equals(s))
 			{
-			studentModel.addElement(courseArrayList.get(i));
+				studentModel.addElement(courseArrayList.get(i));
 			}
 		}
 		setVisible(true);

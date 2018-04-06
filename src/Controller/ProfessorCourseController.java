@@ -170,10 +170,8 @@ public class ProfessorCourseController implements Constants {
 					Course c = courseView.getCourse();
 				Integer num = Integer.parseInt(JOptionPane.showInputDialog("Enter an Integer Number: "));
 				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), num, c.getId());
-				ArrayList a = professorModel.enroll(st);
-				
+				ArrayList<Student> a = professorModel.enroll(st);
 				panel.displayAll(a);
-				
 				}
 				catch(NumberFormatException e)
 				{
