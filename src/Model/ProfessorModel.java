@@ -7,8 +7,10 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.FileContainer;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -28,10 +30,23 @@ public class ProfessorModel implements Constants{
 		stringOut.println(operation);
 		try {
 			Thread.sleep(50);
-		} catch (InterruptedException e) {
+		} 
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(operation);
+	}
+	
+	public ArrayList<Assignment> readAssignmentList() {
+		try { 
+			return (ArrayList<Assignment>) objectIn.readObject();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public ArrayList<Course> readCourseList() {
@@ -47,6 +62,11 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
+	public void sendDeactivateAssignment(Integer assignId) { 
+		stringOut.flush();
+		stringOut.println(assignId.toString());
+	}
+	
 	public void createCourse(Course course)
 	{
 		try
@@ -58,6 +78,58 @@ public class ProfessorModel implements Constants{
 			
 		} 
 		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+  
+	public void SearchStudent(Course course)
+	{
+		try
+		{
+			sendOperation(SEARCH_STUDENT_ID);
+			objectOut.flush();
+			objectOut.writeObject(course);
+			
+			//System.out.println(course.toString());
+			
+		} 
+
+		catch(IOException e) {
+		}
+}
+	
+	public void activateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(ACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deactivateCourse(Integer courseId)
+	{
+		try {
+			sendOperation(DEACTIVATE_COURSE);
+			objectOut.flush();
+			objectOut.writeObject(courseId);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void uploadAssignment(FileContainer container)
+	{
+		try{
+			sendOperation(UPLOAD_ASSIGN);
+			objectOut.writeObject(container);
+			objectOut.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

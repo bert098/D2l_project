@@ -31,9 +31,4 @@ public class ProfessorView extends UserView{
 		professorCoursesPanel.displayCourses(courseList);
 		tabbedPane.setSelectedIndex(0);
 	}
-	
-	public static void main(String[] args) {
-		
-		ProfessorView professorView = new ProfessorView(new Professor(1, "", "", 'P', "", "", ""));
-	}
 }

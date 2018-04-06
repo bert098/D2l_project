@@ -13,6 +13,12 @@ public class StudentEnrollment implements Serializable{
 		this.studentId = studentId.getId();
 		this.courseId = courseId.getId();
 	}
+	public StudentEnrollment(Integer id, Integer studentId, Integer courseId)
+	{
+		this.id = id;
+		this.studentId = studentId;
+		this.courseId = courseId;
+	}
 	public Integer getId() {return id;}
 	public Integer getStudentId() {return studentId;}
 	public Integer getCourseId() {return courseId;}
