@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class User implements Serializable{
-	private Integer id;
+	protected Integer id;
 	private String username;
 	private String password;
 	private char type;
 	private String emailAddress;
-	private String firstName;
-	private String lastName;
+	protected String firstName;
+	protected String lastName;
 	private ArrayList <Course> courses;
 	public User(Integer ID, String user, String pass, char userType, String email, String first, String last)
 	{

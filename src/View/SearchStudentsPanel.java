@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -16,6 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import Data.Course;
 import Data.Student;
 
 public class SearchStudentsPanel extends JPanel {
@@ -36,12 +38,13 @@ public class SearchStudentsPanel extends JPanel {
 	private JList<Student> resultsList = new JList<Student>();
 	private JButton unenrollButton = new JButton("Unenroll");
 	private JButton enrollButton = new JButton("Enroll");
+	private DefaultListModel<Student> studentModel = new DefaultListModel<>(); 
 	
 	public String getSearchText() {return searchField.getText();}
 	
 	public boolean idSelected() {return idRadioButton.isSelected();}
 	public boolean lastNameSelected() {return lastNameRadioButton.isSelected();}
-	
+	public Student getSelectedStudent() {return resultsList.getSelectedValue();}
 	public void addSearchButtonActionListener(ActionListener a) {searchButton.addActionListener(a);}
 	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
 	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
@@ -50,6 +53,7 @@ public class SearchStudentsPanel extends JPanel {
 	
 	public SearchStudentsPanel()
 	{
+		resultsList.setModel(studentModel);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{132, 0, 176, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -141,4 +145,36 @@ public class SearchStudentsPanel extends JPanel {
 		gbc_unenrollButton.gridy = 7;
 		add(unenrollButton, gbc_unenrollButton);
 	}
+	public void displayStudentsId(ArrayList<Student> courseArrayList, String s) {
+		studentModel.removeAllElements();
+		for (int i = 0; i < courseArrayList.size(); i++) {
+			if(s.equals("") || courseArrayList.get(i).getId() == Integer.parseInt(s))
+			{
+			studentModel.addElement(courseArrayList.get(i));
+			}
+		}
+		setVisible(true);
+	}
+	public void displayStudentsName(ArrayList<Student> courseArrayList, String s) {
+		studentModel.removeAllElements();
+		for (int i = 0; i < courseArrayList.size(); i++) {
+			if(s.equals("")|| courseArrayList.get(i).getLastName().equals(s))
+			{
+				studentModel.addElement(courseArrayList.get(i));
+			}
+		}
+		setVisible(true);
+	}
+	public void displayAll(ArrayList<Student> courseArrayList) {
+		studentModel.removeAllElements();
+		if (courseArrayList == null) {
+			return;
+		}
+		for (int i = 0; i < courseArrayList.size(); i++) 
+		{
+			studentModel.addElement(courseArrayList.get(i));
+		}
+		setVisible(true);
+	}
+
 }
