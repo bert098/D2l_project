@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Constants;
 import Data.Course;
 import Data.Student;
+import Data.StudentEnrollment;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -119,6 +120,26 @@ public class ProfessorModel implements Constants{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return s;
+	}
+	public  ArrayList<Student> Enroll(StudentEnrollment st)
+	{
+		ArrayList<Student> s = null;
+		try {
+			sendOperation(ENROLL_STUDENT);
+			objectOut.flush();
+			objectOut.writeObject(st);
+			 s = (ArrayList<Student>)objectIn.readObject();
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return s;
 	}
 

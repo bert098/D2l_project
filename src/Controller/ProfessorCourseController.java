@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Data.Course;
 import Data.Student;
+import Data.StudentEnrollment;
 import Model.ProfessorModel;
 import View.ProfessorAssignmentsPanel;
 import View.ProfessorCourseView;
@@ -136,8 +139,21 @@ public class ProfessorCourseController {
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			System.out.println("enroll");
-			
+				try {
+					Course c = courseView.getCourse();
+				Integer num = Integer.parseInt(JOptionPane.showInputDialog("Enter an Integer Number: "));
+				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), num, c.getId());
+				ArrayList a = profModel.Enroll(st);
+				
+				panel.displayAll(a);
+				
+	
+				}
+				catch(NumberFormatException e)
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a number.",
+							"Error Message", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
 		

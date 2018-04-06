@@ -27,10 +27,10 @@ public class DatabaseSetterUpper {
 		data.insertCourse(c1);
 		data.insertCourse(c2);
 	}
-	public static void main(String [] args)
-	{
-		DatabaseSetterUpper d = new DatabaseSetterUpper("hi");
-	}
+//	public static void main(String [] args)
+//	{
+//		DatabaseSetterUpper d = new DatabaseSetterUpper("hi");
+//	}
 	
 	
 	public DatabaseHelper getDatabase() {

@@ -7,11 +7,14 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Database.DatabaseHelper;
 import Data.Constants;
 import Data.Course;
 import Data.Student;
 import Data.StudentEnrollment;
+import Data.User;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -193,8 +196,45 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	//this
-	public void enrollStudent() {
-		//todo
+	public  void enrollStudent() {
+		
+			try {
+				StudentEnrollment st = (StudentEnrollment)objectIn.readObject();
+				
+				Student s = (Student)database.searchUserTableID(st.getStudentId());
+				if(s == null)
+				{
+					JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
+							"Error Message", JOptionPane.PLAIN_MESSAGE);
+					objectOut.flush();
+					objectOut.writeObject(null);
+				}
+				else
+				{
+					database.insertStudentEnrollment(st);
+				ArrayList a = database.searchStudentEnrollmentByStudent(st.getCourseId());
+				objectOut.flush();
+				objectOut.writeObject(a);
+				}
+			} catch (ClassNotFoundException | IOException  | ClassCastException  e) {
+				JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
+						"Error Message", JOptionPane.PLAIN_MESSAGE);
+				try {
+					objectOut.flush();
+					objectOut.writeObject(null);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			
+		
+			
+		
 	}
 	//this
 	public void unenrollStudent() {
