@@ -167,6 +167,9 @@ public class SearchStudentsPanel extends JPanel {
 	}
 	public void displayAll(ArrayList<Student> courseArrayList) {
 		studentModel.removeAllElements();
+		if (courseArrayList == null) {
+			return;
+		}
 		for (int i = 0; i < courseArrayList.size(); i++) 
 		{
 			studentModel.addElement(courseArrayList.get(i));

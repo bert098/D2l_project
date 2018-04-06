@@ -153,13 +153,18 @@ public class ProfessorModel implements Constants{
 			objectOut.writeObject(st);
 			s = (ArrayList<Student>)objectIn.readObject();
 			
+			if (s == null) {
+				return null;
+			}
 			for (int i = 0; i < s.size(); i++) {
 				System.out.println(s.get(i).toString());
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		}
+		catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
