@@ -67,7 +67,7 @@ public class ProfessorController implements Constants{
 				// TODO Auto-generated method stub
 				System.out.println("Open Course");
 				view.setVisible(false);
-				new ProfessorCourseController(new ProfessorCourseView(panel.getSelectedCourse(), view), professorModel);
+				new ProfessorCourseController(new ProfessorCourseView(panel.getSelectedCourse(), view), professorModel, panel.getSelectedCourse().getId());
 			}
 		});
 		

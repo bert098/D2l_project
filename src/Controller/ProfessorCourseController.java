@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import Data.Constants;
 import Data.Assignment;
 import Data.Course;
 import Data.FileContainer;
@@ -20,15 +22,20 @@ import View.ProfessorCourseView;
 import View.ProfessorDropboxView;
 import View.SearchStudentsPanel;
 import View.UserEmailPanel;
+import Data.Assignment;
 
-public class ProfessorCourseController {
-
+public class ProfessorCourseController implements Constants {
+	
+	private Integer courseId;
+	private ProfessorModel professorModel; 
 	private ProfessorCourseView courseView;
-	private ProfessorModel profModel;
-	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel  profModel)
+
+	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{
+		courseId = id;
+		professorModel = model;
 		this.courseView = courseView;
-		this.profModel = profModel;
+		displayAssignments(); 
 		addProfessorCourseViewListeners();
 	}
 	
@@ -37,6 +44,12 @@ public class ProfessorCourseController {
 		addAssignmentPanelListeners();
 		addSearchStudentsPanelListeners();
 		addEmailPanelListeners();
+	}
+	
+	public void displayAssignments() { 
+		professorModel.sendOperation(GET_ASSIGN);
+		ArrayList<Assignment> assignmentList = professorModel.readAssignmentList(); 
+		courseView.displayAssignments(assignmentList, courseId);
 	}
 	
 	private void addAssignmentPanelListeners()
@@ -89,8 +102,8 @@ public class ProfessorCourseController {
 							null, false, dueDate);
 					FileContainer container = new FileContainer(content, selectedFile.getName(), assign);
 					
-					profModel.uploadAssignment(container);
-					
+					professorModel.uploadAssignment(container);
+					displayAssignments();
 				}
 				
 				
@@ -100,16 +113,23 @@ public class ProfessorCourseController {
 		panel.addActivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Activate");
+				professorModel.sendOperation(ACTIVATE_ASSIGN);
+				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
+				professorModel.sendDeactivateAssignment(assignId);
+				System.out.println("odsifja");
+				displayAssignments();
 			}
 		});
 		
 		panel.addDeactivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Deactivate");
+				professorModel.sendOperation(DEACTIVATE_ASSIGN);
+				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
+				professorModel.sendDeactivateAssignment(assignId);
+				displayAssignments();
 			}
 		});
 	}
@@ -124,7 +144,7 @@ public class ProfessorCourseController {
 				// TODO Auto-generated method stub
 				System.out.println("Search");
 //				Course c = courseView.getCourse();
-//				profModel.SearchStudent(c);
+//				professorModel.SearchStudent(c);
 			}
 		});
 		

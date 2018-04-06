@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import Data.Assignment;
 import Data.Constants;
 import Data.Course;
 import Data.FileContainer;
@@ -29,10 +30,23 @@ public class ProfessorModel implements Constants{
 		stringOut.println(operation);
 		try {
 			Thread.sleep(50);
-		} catch (InterruptedException e) {
+		} 
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(operation);
+	}
+	
+	public ArrayList<Assignment> readAssignmentList() {
+		try { 
+			return (ArrayList<Assignment>) objectIn.readObject();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public ArrayList<Course> readCourseList() {
@@ -46,6 +60,11 @@ public class ProfessorModel implements Constants{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void sendDeactivateAssignment(Integer assignId) { 
+		stringOut.flush();
+		stringOut.println(assignId.toString());
 	}
 	
 	public void createCourse(Course course)

@@ -82,8 +82,8 @@ public class ProfessorThread implements Constants {
 		else if (operation.equals(UNENROLL_STUDENT)) {
 			unenrollStudent(); 
 		}
-		else if (operation.equals(GET_ASSIGN_SUBMISSIONS)) {
-			getAssignmentSubmissions(); 
+		else if (operation.equals(GET_ASSIGN)) {
+			getAssignments(); 
 		}
 		else if (operation.equals(GRADE_SUBMISSION)) {
 			gradeSubmission();
@@ -103,7 +103,6 @@ public class ProfessorThread implements Constants {
 	}
 	
 	public void getProfessorCourses() {
-		System.out.println("test");
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		courseList = database.courseTableToList();
 		try {
@@ -197,8 +196,16 @@ public class ProfessorThread implements Constants {
 		//todo
 	}
 	
-	public void getAssignmentSubmissions() {
-		//todo
+	public void getAssignments() {
+		ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
+		assignmentList = database.assignmentTableToList();
+		try {
+			objectOut.flush();
+			objectOut.writeObject(assignmentList); 
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void gradeSubmission() {
@@ -206,11 +213,23 @@ public class ProfessorThread implements Constants {
 	}
 	
 	public void activateAssignment() {
-		//todo
+		try {
+			int assignId = Integer.parseInt(stringIn.readLine());
+			database.activateAssignment(assignId);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void deactivateAssignment() {
-		//todo
+		try {
+			int assignId = Integer.parseInt(stringIn.readLine());
+			database.deactivateAssignment(assignId);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}	
 	
 	public void uploadAssign() {

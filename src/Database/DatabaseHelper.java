@@ -34,6 +34,9 @@ public class DatabaseHelper {
 	public ArrayList<Course> courseTableToList() {
 		return courseTable.courseTableToList();
 	}
+	public ArrayList<Assignment> assignmentTableToList() {
+		return assignmentTable.assignmentTableToList();
+	}
 	public void insertUser(User user)
 	{
 		userTable.addUser(user);
@@ -83,10 +86,20 @@ public class DatabaseHelper {
 	{
 		return submissionTable.search(id);
 	}
+
+	public void deactivateAssignment(int id) {
+		assignmentTable.updateAssignmentStatus(id, false);
+	}
+	
+	public void activateAssignment(int id) {
+		assignmentTable.updateAssignmentStatus(id, true);
+	} 
+	
 	public ArrayList<Integer> searchStudentEnrollmentByStudent(int id)
 	{
 		return studentEnrollmentTable.SearchStudent(id);
 	}
+	
 	public User searchUserTableID(int id)
 	{
 		return userTable.searchID(id);

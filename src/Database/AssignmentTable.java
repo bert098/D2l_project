@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Data.Assignment;
 import Data.Course;
@@ -115,6 +116,51 @@ public class AssignmentTable {
 		}
 		catch(SQLException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Assignment> assignmentTableToList() {
+		try { 
+			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
+			String sql = "SELECT * FROM " + "AssignmentTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet assignmentSet = statement.executeQuery();
+			
+			while (assignmentSet.next()) {
+				Assignment theAssignment = new Assignment(assignmentSet.getInt("ID"), 
+						  assignmentSet.getInt("COURSEID"), 
+						  assignmentSet.getString("TITLE"),
+						  assignmentSet.getString("PATH"),
+						  assignmentSet.getBoolean("ACTIVE"),
+						  assignmentSet.getString("DUE_DATE"));
+				assignmentList.add(theAssignment);
+			}
+			assignmentSet.close();
+			return assignmentList;
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void updateAssignmentStatus(int id, boolean status) {
+		try {
+			String sql = "UPDATE AssignmentTable SET " +
+					     "ACTIVE = ? " +
+					     "WHERE ID = ?";
+			statement = jdbc_connection.prepareStatement(sql);
+			if (status) {
+				statement.setInt(1, 1);
+			}
+			else {
+				statement.setInt(1, 0);
+			}
+			statement.setInt(2, id);
+			statement.executeUpdate();
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

@@ -3,6 +3,10 @@ package View;
 import Data.Course;
 import Data.Professor;
 
+import java.util.ArrayList;
+
+import Data.Assignment;
+
 public class ProfessorCourseView extends UserCourseView {
 	
 	/**
@@ -23,8 +27,7 @@ public class ProfessorCourseView extends UserCourseView {
 		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
 	}
 	
-	public static void main(String[] args)
-	{
-		//ProfessorCourseView test = new ProfessorCourseView(new Course(new Professor(1, "", "", 'P', "", "", ""), 1, "", true), userView);
+	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
+		assignmentsPanel.displayAssignments(assignmentList, id); 
 	}
 }
