@@ -17,9 +17,6 @@ public abstract class UserView extends JFrame{
 	protected User user;
 
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	protected UserCourseView userCourseView;
-	
-	public UserCourseView getUserCourseView() {return userCourseView;}
 	
 	public Integer getUserId() {return user.getId();}
 	

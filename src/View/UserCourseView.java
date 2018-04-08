@@ -23,9 +23,8 @@ public abstract class UserCourseView extends JFrame{
 	
 	protected Course course;
 	
-	protected UserEmailPanel emailPanel = new UserEmailPanel();
+	protected UserEmailPanel emailPanel;
 	
-//	public UserAssignmentsPanel getUserAssignmentsPanel() {return assignmentsPanel;}
 	public UserEmailPanel getUserEmailPanel() {return emailPanel;}
 	
 	public void deactivateWindow() {this.setEnabled(false);}
@@ -45,8 +44,6 @@ public abstract class UserCourseView extends JFrame{
 		getContentPane().add(courseLabel, BorderLayout.NORTH);
 		
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		tabbedPane.addTab("Send Email", null, emailPanel, null);
 		
 		this.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {

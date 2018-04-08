@@ -63,9 +63,20 @@ public abstract class UserCoursesPanel extends JPanel{
 		scrollPane.setViewportView(courseList);
 		
 		GridBagConstraints gbc_openCourseButton = new GridBagConstraints();
+		gbc_openCourseButton.anchor = GridBagConstraints.WEST;
 		gbc_openCourseButton.insets = new Insets(0, 0, 0, 5);
 		gbc_openCourseButton.gridx = 0;
 		gbc_openCourseButton.gridy = 2;
 		add(openCourseButton, gbc_openCourseButton);	
+	}
+	
+	public void displayCourses(ArrayList<Course> courseArrayList)
+	{
+		courseModel.removeAllElements();
+		for (int i = 0; i < courseArrayList.size(); i++)
+		{
+			courseModel.addElement(courseArrayList.get(i));
+		}
+		setVisible(true);
 	}
 }

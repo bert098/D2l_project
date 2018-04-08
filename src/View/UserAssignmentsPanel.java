@@ -7,9 +7,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,6 +24,10 @@ public class UserAssignmentsPanel extends JPanel{
 	private JScrollPane scrollPane = new JScrollPane();
 	protected JList<Assignment> assignmentList = new JList<Assignment>();
 	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
+	
+	protected JButton openDropboxButton = new JButton("Open Dropbox");
+	
+	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	
 	public void setAssignments(ArrayList<Assignment> assignments) {this.assignments = assignments;}
 	
@@ -55,6 +61,12 @@ public class UserAssignmentsPanel extends JPanel{
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		add(scrollPane, gbc_scrollPane);
+		
+		GridBagConstraints gbc_openDropboxButton = new GridBagConstraints();
+		gbc_openDropboxButton.insets = new Insets(0, 0, 0, 5);
+		gbc_openDropboxButton.gridx = 0;
+		gbc_openDropboxButton.gridy = 2;
+		add(openDropboxButton, gbc_openDropboxButton);
 		
 		scrollPane.setViewportView(assignmentList);
 	}

@@ -33,7 +33,6 @@ public class ProfessorCourseController implements Constants {
 	private Integer courseId;
 	private ProfessorModel professorModel; 
 	private ProfessorCourseView courseView;
-	private SearchStudentsPanel searchStudent;
 	
 	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{

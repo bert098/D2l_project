@@ -44,12 +44,4 @@ public class ProfessorCoursesPanel extends UserCoursesPanel{
 		gbc_deactivateCourseButton.gridy = 2;
 		add(deactivateCourseButton, gbc_deactivateCourseButton);
 	}
-	
-	public void displayCourses(ArrayList<Course> courseArrayList) {
-		courseModel.removeAllElements();
-		for (int i = 0; i < courseArrayList.size(); i++) {
-			courseModel.addElement(courseArrayList.get(i));
-		}
-		setVisible(true);
-	}
 }
