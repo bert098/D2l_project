@@ -1,7 +1,6 @@
 package View;
 
 import Data.Professor;
-import Data.Student;
 
 import java.util.ArrayList;
 

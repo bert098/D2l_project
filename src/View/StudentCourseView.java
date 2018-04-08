@@ -1,9 +1,13 @@
 package View;
 
 import Data.Course;
-import Data.Student;
 
 public class StudentCourseView extends UserCourseView{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6321878176685601124L;
 	
 	private StudentAssignmentsPanel assignmentsPanel = new StudentAssignmentsPanel();
 	private GradesPanel gradesPanel = new GradesPanel();
@@ -19,11 +23,4 @@ public class StudentCourseView extends UserCourseView{
 		tabbedPane.addTab("Send Email", null, emailPanel, null);
 		
 	}
-	
-	public static void main(String[] args) {
-		
-		StudentCourseView view = new StudentCourseView(new Course( 1, 1,  "name", true),
-				new StudentView(new Student(1, "BOB", "123", 'S', null, "BOB", "BOB")));
-	}
-	
 }

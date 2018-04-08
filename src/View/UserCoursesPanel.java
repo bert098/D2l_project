@@ -18,7 +18,10 @@ import Data.Course;
 
 public abstract class UserCoursesPanel extends JPanel{
 	
-	protected ArrayList<Course> courses;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7700320768345519179L;
 	
 	protected DefaultListModel<Course> courseModel = new DefaultListModel<>(); 
 	protected JList<Course> courseList = new JList<Course>();
@@ -27,8 +30,6 @@ public abstract class UserCoursesPanel extends JPanel{
 	protected JButton openCourseButton = new JButton("Open");
 	
 	public void addOpenCourseButtonActionListener(ActionListener a) {openCourseButton.addActionListener(a);}
-
-	public void setCourses(ArrayList<Course> courses) {this.courses = courses;}
 	
 	public Course getSelectedCourse() {return courseList.getSelectedValue();}
 	

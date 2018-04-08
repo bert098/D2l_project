@@ -14,6 +14,11 @@ import Data.User;
 
 public abstract class UserView extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4830528770169590307L;
+
 	protected User user;
 
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

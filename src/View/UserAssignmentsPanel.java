@@ -1,14 +1,12 @@
 package View;
 
 import Data.Assignment;
-import Data.Course;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,7 +17,10 @@ import javax.swing.JScrollPane;
 
 public class UserAssignmentsPanel extends JPanel{
 	
-	protected ArrayList<Assignment> assignments;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4042173038192790908L;
 
 	private JScrollPane scrollPane = new JScrollPane();
 	protected JList<Assignment> assignmentList = new JList<Assignment>();
@@ -29,14 +30,11 @@ public class UserAssignmentsPanel extends JPanel{
 	
 	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	
-	public void setAssignments(ArrayList<Assignment> assignments) {this.assignments = assignments;}
-	
 	public Assignment getSelectedAssignment() {return assignmentList.getSelectedValue();}
 	
 	public UserAssignmentsPanel()
 	{
 		assignmentList.setModel(assignmentModel);
-		this.assignments = assignments;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

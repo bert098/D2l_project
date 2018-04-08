@@ -17,7 +17,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import Data.Course;
 import Data.Student;
 
 public class SearchStudentsPanel extends JPanel {
@@ -26,8 +25,6 @@ public class SearchStudentsPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -7863274930372698496L;
-	
-	private ArrayList<Student> studentList;
 	
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField searchField = new JTextField();
@@ -48,8 +45,6 @@ public class SearchStudentsPanel extends JPanel {
 	public void addSearchButtonActionListener(ActionListener a) {searchButton.addActionListener(a);}
 	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
 	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
-	
-	public void setStudentList(ArrayList<Student> list) {studentList = list;}
 	
 	public SearchStudentsPanel()
 	{

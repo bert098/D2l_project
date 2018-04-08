@@ -7,6 +7,11 @@ import Data.Student;
 
 public class StudentView extends UserView{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5373923137481277482L;
+	
 	private StudentCoursesPanel studentCoursesPanel = new StudentCoursesPanel();
 	
 	public StudentCoursesPanel getStudentCoursesPanel() {return studentCoursesPanel;}
@@ -22,10 +27,5 @@ public class StudentView extends UserView{
 	
 	public void displayCourses(ArrayList<Course> courseList) {
 		studentCoursesPanel.displayCourses(courseList);
-	}
-	
-	public static void main(String[] args) {
-		StudentView sView = new StudentView(new Student(1, "BOB", "123", 'S', null, "BOB", "BOB"));
-		
 	}
 }

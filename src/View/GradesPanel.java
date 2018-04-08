@@ -16,13 +16,14 @@ import Data.Dropbox;
 
 public class GradesPanel extends JPanel{
 	
-	private ArrayList<Dropbox> submissions;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3962537570176346407L;
 	
 	private DefaultListModel<Dropbox> submissionModel = new DefaultListModel<>();
 	private JList<Dropbox> submissionList = new JList<Dropbox>();
 	private JScrollPane scrollPane = new JScrollPane();
-	
-	public void setSubmissions(ArrayList<Dropbox> submissions) {this.submissions = submissions;}
 	
 	public GradesPanel()
 	{
