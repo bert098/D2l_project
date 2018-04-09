@@ -17,6 +17,7 @@ import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Email;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -99,6 +100,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
+		}
+		else if (operation.equals(SEND_EMAIL)) {
+			sendEmail();
 		}
 		else {
 			System.out.println(operation + " is incorrect");
@@ -332,6 +336,19 @@ public class ProfessorThread implements Constants {
 		}	
 		catch (IOException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendEmail() {
+		try {
+			Email email = (Email)objectIn.readObject();
+			Integer courseId = Integer.parseInt(stringIn.readLine());
+			
+			System.out.println(courseId);
+			System.out.println(email.getFrom());
+		}
+		catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}

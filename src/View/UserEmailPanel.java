@@ -32,6 +32,12 @@ public class UserEmailPanel extends JPanel{
 	public void addSendButtonActionListener(ActionListener a) {sendButton.addActionListener(a);}
 	public void addClearButtonActionListener(ActionListener a) {clearButton.addActionListener(a);}
 	
+	public void clear()
+	{
+		messageArea.setText("");
+		titleField.setText("");
+	}
+	
 	public UserEmailPanel(String windowMessage)
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();

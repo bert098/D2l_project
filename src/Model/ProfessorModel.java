@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Email;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -201,6 +202,20 @@ public class ProfessorModel implements Constants{
 			sendOperation(UPLOAD_ASSIGN);
 			objectOut.writeObject(container);
 			objectOut.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendEmail(Email email, Integer courseId)
+	{
+		try{
+			sendOperation(SEND_EMAIL);
+			objectOut.writeObject(email);
+			objectOut.flush();
+			
+			stringOut.println(courseId.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

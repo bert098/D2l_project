@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import Data.Constants;
 import Data.Assignment;
 import Data.Course;
+import Data.Email;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -227,8 +228,14 @@ public class ProfessorCourseController implements Constants {
 		panel.addSendButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub\
 				System.out.println("Send");
+				String message = panel.getMessage();
+				String title = panel.getTitle();
+				String password = JOptionPane.showInputDialog("Please enter password for: " + courseView.getEmail());
+				Email email = new Email(courseView.getEmail(), null, title, message, password);
+				
+				professorModel.sendEmail(email, courseView.getCourse().getId());
 			}
 		});
 		
@@ -237,6 +244,7 @@ public class ProfessorCourseController implements Constants {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Clear");
+				panel.clear();
 			}
 		});
 	}

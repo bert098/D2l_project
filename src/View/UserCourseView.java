@@ -33,6 +33,8 @@ public abstract class UserCourseView extends JFrame{
 	public void deactivateWindow() {this.setEnabled(false);}
 	public void activateWindow() {this.setEnabled(true);}
 	
+	public String getEmail() {return userView.getUserEmail();}
+	
 	protected UserCourseView(Course course, UserView userView)
 	{
 		this.userView = userView;
