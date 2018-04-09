@@ -9,9 +9,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import Controller.*;
+import Data.Constants;
 import Data.User;
 
-public class ClientMain {
+public class ClientMain implements Constants {
 	
 	private Socket socket; 
 	private BufferedReader stringIn; 
@@ -19,6 +20,7 @@ public class ClientMain {
 	private ObjectInputStream objectIn; 
 	private ObjectOutputStream objectOut; 
 	private ProfessorModel professorModel; 
+	private StudentModel studentModel; 
 	
 	public ClientMain(String serverName, int portNumber) {
 		try { 
@@ -28,10 +30,15 @@ public class ClientMain {
 			objectIn = new ObjectInputStream(socket.getInputStream());
 			objectOut = new ObjectOutputStream(socket.getOutputStream());
 			professorModel = new ProfessorModel(stringIn, stringOut, objectIn, objectOut);
+			studentModel = new StudentModel(stringIn, stringOut, objectIn, objectOut);
 		}
 		catch (IOException e) {
 			System.err.println(e.getStackTrace());
 		}
+	}
+	
+	public StudentModel getStudentModel() {
+		return studentModel; 
 	}
 	
 	public ObjectOutputStream getObjectOut() {

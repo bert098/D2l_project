@@ -17,4 +17,9 @@ public interface Constants {
 	public static final String ACTIVATE_ASSIGN = "ACTIVATE_ASSIGN";
 	public static final String DEACTIVATE_ASSIGN = "DEACTIVATE_ASSIGN";
 	public static final String UPLOAD_ASSIGN = "UPLOAD_ASSIGN";
+	public static final String STUDENT_COURSES = "STUDENT_COURSES";
+	public static final String DOWNLOAD_ASSIGN = "DOWNLOAD_ASSIGN";
+	public static final String SUBMIT_ASSIGN = "SUBMIT_ASSIGN";
+	public static final String GET_GRADES = "GET_GRADES";
+	public static final String SEND_EMAIL = "SEND_EMAIL";
 }
