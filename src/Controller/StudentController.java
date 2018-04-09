@@ -53,10 +53,4 @@ public class StudentController {
 			}
 		});
 	}
-	
-	public static void main(String[] args)
-	{
-		StudentController controller = new StudentController(new StudentView(new Student(1, "BOB", "123", 'S', null, "BOB", "BOB")),
-				new StudentModel());
-	}
 }
