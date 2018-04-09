@@ -45,7 +45,7 @@ public class LoginThread implements Runnable, Constants {
 				ProfessorThread profThread = new ProfessorThread(stringIn, stringOut, objectOut, objectIn, database);
 				profThread.run(); 
 			}
-			if (user.getType() == STUDENT) {
+			else if (user.getType() == STUDENT) {
 				StudentThread studentThread = new StudentThread(stringIn, stringOut, objectOut, objectIn, database);
 				studentThread.run(); 
 			}
