@@ -2,6 +2,8 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import Data.Course;
@@ -22,6 +24,7 @@ public class StudentController {
 		this.view = view;
 		addCourses();
 		addStudentViewListeners();
+		addCloseWindowListener();
 	}
 	
 	public void addCourses()
@@ -51,6 +54,16 @@ public class StudentController {
 				}
 				
 			}
+		});
+	}
+	
+	private void addCloseWindowListener() {
+		view.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+				   //todo
+				   System.out.println("Exit");
+				   System.exit(0);
+			   }
 		});
 	}
 }

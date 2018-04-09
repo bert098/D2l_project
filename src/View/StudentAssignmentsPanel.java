@@ -18,7 +18,7 @@ public class StudentAssignmentsPanel extends UserAssignmentsPanel{
 	
 	StudentAssignmentsPanel()
 	{
-		super();
+		super("Submit Assignment");
 		
 		GridBagConstraints gbc_deactivateAssignButton = new GridBagConstraints();
 		gbc_deactivateAssignButton.gridx = 4;
