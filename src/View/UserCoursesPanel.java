@@ -18,7 +18,10 @@ import Data.Course;
 
 public abstract class UserCoursesPanel extends JPanel{
 	
-	protected ArrayList<Course> courses;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7700320768345519179L;
 	
 	protected DefaultListModel<Course> courseModel = new DefaultListModel<>(); 
 	protected JList<Course> courseList = new JList<Course>();
@@ -27,8 +30,6 @@ public abstract class UserCoursesPanel extends JPanel{
 	protected JButton openCourseButton = new JButton("Open");
 	
 	public void addOpenCourseButtonActionListener(ActionListener a) {openCourseButton.addActionListener(a);}
-
-	public void setCourses(ArrayList<Course> courses) {this.courses = courses;}
 	
 	public Course getSelectedCourse() {return courseList.getSelectedValue();}
 	
@@ -63,9 +64,20 @@ public abstract class UserCoursesPanel extends JPanel{
 		scrollPane.setViewportView(courseList);
 		
 		GridBagConstraints gbc_openCourseButton = new GridBagConstraints();
+		gbc_openCourseButton.anchor = GridBagConstraints.WEST;
 		gbc_openCourseButton.insets = new Insets(0, 0, 0, 5);
 		gbc_openCourseButton.gridx = 0;
 		gbc_openCourseButton.gridy = 2;
 		add(openCourseButton, gbc_openCourseButton);	
+	}
+	
+	public void displayCourses(ArrayList<Course> courseArrayList)
+	{
+		courseModel.removeAllElements();
+		for (int i = 0; i < courseArrayList.size(); i++)
+		{
+			courseModel.addElement(courseArrayList.get(i));
+		}
+		setVisible(true);
 	}
 }

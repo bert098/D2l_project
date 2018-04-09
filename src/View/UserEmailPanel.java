@@ -32,7 +32,7 @@ public class UserEmailPanel extends JPanel{
 	public void addSendButtonActionListener(ActionListener a) {sendButton.addActionListener(a);}
 	public void addClearButtonActionListener(ActionListener a) {clearButton.addActionListener(a);}
 	
-	public UserEmailPanel()
+	public UserEmailPanel(String windowMessage)
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -41,7 +41,7 @@ public class UserEmailPanel extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel sendEmailLabel = new JLabel("Send Email to Class");
+		JLabel sendEmailLabel = new JLabel(windowMessage);
 		sendEmailLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		GridBagConstraints gbc_sendEmailLabel = new GridBagConstraints();
 		gbc_sendEmailLabel.anchor = GridBagConstraints.WEST;

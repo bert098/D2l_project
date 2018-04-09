@@ -1,15 +1,15 @@
 package View;
 
 import Data.Assignment;
-import Data.Course;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -17,20 +17,24 @@ import javax.swing.JScrollPane;
 
 public class UserAssignmentsPanel extends JPanel{
 	
-	protected ArrayList<Assignment> assignments;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4042173038192790908L;
 
 	private JScrollPane scrollPane = new JScrollPane();
 	protected JList<Assignment> assignmentList = new JList<Assignment>();
 	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
 	
-	public void setAssignments(ArrayList<Assignment> assignments) {this.assignments = assignments;}
+	protected JButton openDropboxButton = new JButton("Open Dropbox");
+	
+	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	
 	public Assignment getSelectedAssignment() {return assignmentList.getSelectedValue();}
 	
 	public UserAssignmentsPanel()
 	{
 		assignmentList.setModel(assignmentModel);
-		this.assignments = assignments;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -55,6 +59,12 @@ public class UserAssignmentsPanel extends JPanel{
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		add(scrollPane, gbc_scrollPane);
+		
+		GridBagConstraints gbc_openDropboxButton = new GridBagConstraints();
+		gbc_openDropboxButton.insets = new Insets(0, 0, 0, 5);
+		gbc_openDropboxButton.gridx = 0;
+		gbc_openDropboxButton.gridy = 2;
+		add(openDropboxButton, gbc_openDropboxButton);
 		
 		scrollPane.setViewportView(assignmentList);
 	}

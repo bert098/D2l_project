@@ -16,6 +16,11 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 public class LoginWindow extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3166276186130521165L;
+	
 	private String userName;
 	private String password;
 	private Color color;

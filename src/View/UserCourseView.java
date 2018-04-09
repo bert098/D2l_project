@@ -1,6 +1,5 @@
 package View;
 
-import Data.Assignment;
 import Data.Course;
 
 import java.awt.BorderLayout;
@@ -8,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,15 +15,19 @@ import javax.swing.JTabbedPane;
 
 public abstract class UserCourseView extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5093225887456340253L;
+
 	protected UserView userView;
 	
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	protected Course course;
 	
-	protected UserEmailPanel emailPanel = new UserEmailPanel();
+	protected UserEmailPanel emailPanel;
 	
-//	public UserAssignmentsPanel getUserAssignmentsPanel() {return assignmentsPanel;}
 	public UserEmailPanel getUserEmailPanel() {return emailPanel;}
 	
 	public void deactivateWindow() {this.setEnabled(false);}
@@ -45,8 +47,6 @@ public abstract class UserCourseView extends JFrame{
 		getContentPane().add(courseLabel, BorderLayout.NORTH);
 		
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		tabbedPane.addTab("Send Email", null, emailPanel, null);
 		
 		this.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {

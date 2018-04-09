@@ -1,8 +1,6 @@
 package View;
 
 import Data.Course;
-import Data.Professor;
-
 import java.util.ArrayList;
 
 import Data.Assignment;
@@ -20,11 +18,13 @@ public class ProfessorCourseView extends UserCourseView {
 	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}
 	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return assignmentsPanel;}
 	
-	public ProfessorCourseView(Course course, UserView userView)
+	public ProfessorCourseView(Course course, ProfessorView userView)
 	{
 		super(course, userView);
-		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
+		emailPanel = new UserEmailPanel("Send Email to Class");
 		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
+		tabbedPane.addTab("Send Email", null, emailPanel, null);
+		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
 	}
 	
 	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
