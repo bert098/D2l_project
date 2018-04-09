@@ -9,11 +9,14 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import Data.Professor;
+import Data.Student;
 import Data.User;
 import Data.Constants;
 import View.LoginWindow;
 import View.ProfessorView;
+import View.StudentView;
 import Model.ClientMain;
+import Model.StudentModel;
 
 public class UserController implements Constants {
 	private ClientMain clientMain; 
@@ -40,13 +43,15 @@ public class UserController implements Constants {
 					loginWindow.displayWrongLogin(); 
 				}
 				else if (user.getType()== PROFESSOR) { 
-					Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword()
-							,user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
+					Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword(),
+							user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
 					ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor), clientMain.getProfessorModel());
 					loginWindow.closeWindow();
 				}
 				else if (user.getType() == STUDENT) {
-					//todo
+					Student theStudent = new Student(user.getId(), user.getUsername(), user.getPassword(), 
+							user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
+					StudentController studentController = new StudentController(new StudentView(theStudent), clientMain.getStudentModel());
 				}
 			}
 		});
