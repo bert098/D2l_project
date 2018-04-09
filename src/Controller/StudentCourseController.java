@@ -2,7 +2,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import Data.Assignment;
+import Data.Course;
 import Model.StudentModel;
 import View.ProfessorDropboxView;
 import View.StudentAssignmentsPanel;
@@ -24,9 +27,13 @@ public class StudentCourseController {
 		addStudentCourseViewListeners();
 	}
 	
-	private void displayAssignments()
+	public void displayAssignments()
 	{
-		//todo;
+		Course c = courseView.getCourse();
+		ArrayList<Assignment> a = studentModel.displayAssign(c);
+		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
+		panel.displayAssignments(a);
+		
 	}
 	
 	public void addStudentCourseViewListeners()

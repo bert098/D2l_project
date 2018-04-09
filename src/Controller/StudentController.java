@@ -28,10 +28,6 @@ public class StudentController {
 	{
 		//todo
 		//for testing
-		ArrayList<Course> list = new ArrayList<Course>();
-		list.add(new Course( 1, 1,  "name", true));
-		
-		view.displayCourses(list);
 	}
 	
 	public void addStudentViewListeners() 
@@ -46,8 +42,10 @@ public class StudentController {
 				System.out.println("Open Course");
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
-					new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
+					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());
+					s.displayAssignments();
+					
 				}
 				
 			}

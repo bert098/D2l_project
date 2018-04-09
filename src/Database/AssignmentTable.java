@@ -144,6 +144,34 @@ public class AssignmentTable {
 			return null;
 		}
 	}
+	public ArrayList<Assignment> courseAssignmentTableToList(Course c) {
+		try { 
+			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
+			String sql = "SELECT * FROM " + "AssignmentTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet assignmentSet = statement.executeQuery();
+			
+			while (assignmentSet.next()) {
+				Assignment theAssignment = new Assignment(assignmentSet.getInt("ID"), 
+						  assignmentSet.getInt("COURSEID"), 
+						  assignmentSet.getString("TITLE"),
+						  assignmentSet.getString("PATH"),
+						  assignmentSet.getBoolean("ACTIVE"),
+						  assignmentSet.getString("DUE_DATE"));
+				if(theAssignment.getCourseId() == c.getId())
+				{
+				assignmentList.add(theAssignment);
+				}
+			}
+			assignmentSet.close();
+			return assignmentList;
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 	public void updateAssignmentStatus(int id, boolean status) {
 		try {

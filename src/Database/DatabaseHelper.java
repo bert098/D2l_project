@@ -123,5 +123,10 @@ public class DatabaseHelper {
 	{
 		 studentEnrollmentTable.delete(StudentId);
 	}
+	public ArrayList<Assignment> AssignmentList(Course c)
+	{
+		 return assignmentTable.courseAssignmentTableToList(c);
+	}
+
 
 }
