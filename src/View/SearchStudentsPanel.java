@@ -75,6 +75,7 @@ public class SearchStudentsPanel extends JPanel {
 		add(searchTypeLabel, gbc_searchTypeLabel);
 		
 		buttonGroup.add(idRadioButton);
+		idRadioButton.setSelected(true);
 		GridBagConstraints gbc_idRadioButton = new GridBagConstraints();
 		gbc_idRadioButton.anchor = GridBagConstraints.WEST;
 		gbc_idRadioButton.insets = new Insets(0, 0, 5, 5);

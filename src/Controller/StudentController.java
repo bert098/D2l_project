@@ -2,16 +2,19 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import Data.Course;
+import Data.Constants;
 import Data.Student;
 import Model.StudentModel;
 import View.StudentCourseView;
 import View.StudentCoursesPanel;
 import View.StudentView;
 
-public class StudentController {
+public class StudentController implements Constants{
 	private StudentModel studentModel;
 	private StudentView view;
 	private ArrayList<Course> courseList;
@@ -22,12 +25,16 @@ public class StudentController {
 		this.view = view;
 		addCourses();
 		addStudentViewListeners();
+		addCloseWindowListener();
 	}
 	
 	public void addCourses()
 	{
-		//todo
-		//for testing
+		studentModel.sendOperation(STUDENT_COURSES);
+		studentModel.sendStudentId(view.getUserId());
+		ArrayList<Course> courseList = studentModel.getStudentCourseList();
+		
+		view.displayCourses(courseList);
 	}
 	
 	public void addStudentViewListeners() 
@@ -44,11 +51,20 @@ public class StudentController {
 					view.setVisible(false);
 					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());
-					s.displayAssignments();
 					
 				}
 				
 			}
+		});
+	}
+	
+	private void addCloseWindowListener() {
+		view.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+				   //todo
+				   System.out.println("Exit");
+				   System.exit(0);
+			   }
 		});
 	}
 }

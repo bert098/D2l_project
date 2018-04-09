@@ -31,6 +31,7 @@ public class StudentCourseController {
 	{
 		Course c = courseView.getCourse();
 		ArrayList<Assignment> a = studentModel.displayAssign(c);
+
 		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		panel.displayAssignments(a);
 		
@@ -50,7 +51,7 @@ public class StudentCourseController {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Open Dropbox");		
+				System.out.println("Submit assignment");		
 			}
 		});
 		

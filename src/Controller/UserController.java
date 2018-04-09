@@ -52,6 +52,7 @@ public class UserController implements Constants {
 					Student theStudent = new Student(user.getId(), user.getUsername(), user.getPassword(), 
 							user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
 					StudentController studentController = new StudentController(new StudentView(theStudent), clientMain.getStudentModel());
+					loginWindow.closeWindow();
 				}
 			}
 		});

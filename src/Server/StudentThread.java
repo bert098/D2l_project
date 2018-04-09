@@ -69,16 +69,31 @@ public class StudentThread implements Constants {
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail(); 
 		}
+		else {
+			System.out.println("wrong operation");
+		}
 	}
 	
 	public void getStudentCourses() {
-		//todo 
+		try {
+			String id = stringIn.readLine();
+			ArrayList<Integer> courseIdList = database.searchCoursesForStudent(Integer.parseInt(id));
+			ArrayList<Course> courseList = new ArrayList<Course>(); 
+			for (int i = 0; i < courseIdList.size(); i++) {
+				courseList.add(database.searchCourse(courseIdList.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(courseList);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getStudentAssignments() { 
 		try {
 			Course c = (Course)objectIn.readObject();
-			ArrayList<Assignment> a = database.AssignmentList(c);
+			ArrayList<Assignment> a = database.assignmentList(c);
 			objectOut.flush();
 			objectOut.writeObject(a);
 		} catch (ClassNotFoundException | IOException e) {

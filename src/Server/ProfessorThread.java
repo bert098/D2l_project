@@ -221,7 +221,7 @@ public class ProfessorThread implements Constants {
 				{
 					database.insertStudentEnrollment(st);
 					ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(st.getCourseId());
-					ArrayList<Student> studentList = new  ArrayList<Student>();
+					ArrayList<Student> studentList = new ArrayList<Student>();
 					for(int i = 0; i < a.size(); i++)
 					{
 						studentList.add((Student)database.searchUserTableID(a.get(i)));

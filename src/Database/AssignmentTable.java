@@ -158,7 +158,7 @@ public class AssignmentTable {
 						  assignmentSet.getString("PATH"),
 						  assignmentSet.getBoolean("ACTIVE"),
 						  assignmentSet.getString("DUE_DATE"));
-				if(theAssignment.getCourseId() == c.getId())
+				if(theAssignment.getCourseId().equals(c.getId()))
 				{
 				assignmentList.add(theAssignment);
 				}

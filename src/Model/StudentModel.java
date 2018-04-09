@@ -44,5 +44,39 @@ public class StudentModel implements Constants{
 		
 	}
 	
+	public void sendOperation(String operation) {
+		stringOut.flush();
+		stringOut.println(operation);
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendStudentId(Integer id) {
+		stringOut.flush(); 
+		stringOut.println(id.toString());
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	 
+	public ArrayList<Course> getStudentCourseList() {
+		try {
+			return (ArrayList<Course>) objectIn.readObject();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

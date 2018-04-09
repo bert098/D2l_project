@@ -27,13 +27,13 @@ public class UserAssignmentsPanel extends JPanel{
 	protected JList<Assignment> assignmentList = new JList<Assignment>();
 	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
 	
-	protected JButton openDropboxButton = new JButton("Open Dropbox");
+	protected JButton openDropboxButton;// = new JButton("Open Dropbox");
 	
 	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	
 	public Assignment getSelectedAssignment() {return assignmentList.getSelectedValue();}
 	
-	public UserAssignmentsPanel()
+	public UserAssignmentsPanel(String dropboxButtonText)
 	{
 		assignmentList.setModel(assignmentModel);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -61,6 +61,7 @@ public class UserAssignmentsPanel extends JPanel{
 		gbc_scrollPane.gridy = 1;
 		add(scrollPane, gbc_scrollPane);
 		
+		openDropboxButton  = new JButton(dropboxButtonText);
 		GridBagConstraints gbc_openDropboxButton = new GridBagConstraints();
 		gbc_openDropboxButton.insets = new Insets(0, 0, 0, 5);
 		gbc_openDropboxButton.gridx = 0;
