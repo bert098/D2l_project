@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import Data.Constants;
+import Data.Course;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -66,10 +68,25 @@ public class StudentThread implements Constants {
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail(); 
 		}
+		else {
+			System.out.println("wrong operation");
+		}
 	}
 	
 	public void getStudentCourses() {
-		//todo 
+		try {
+			String id = stringIn.readLine();
+			ArrayList<Integer> courseIdList = database.searchCoursesForStudent(Integer.parseInt(id));
+			ArrayList<Course> courseList = new ArrayList<Course>(); 
+			for (int i = 0; i < courseIdList.size(); i++) {
+				courseList.add(database.searchCourse(courseIdList.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(courseList);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getStudentAssignments() { 

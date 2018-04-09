@@ -123,5 +123,8 @@ public class DatabaseHelper {
 	{
 		 studentEnrollmentTable.delete(StudentId);
 	}
+	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
+		return studentEnrollmentTable.searchCoursesForStudent(studentId);
+	}
 
 }

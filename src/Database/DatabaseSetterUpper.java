@@ -20,12 +20,14 @@ public class DatabaseSetterUpper {
 		Assignment a2 = new Assignment (14, 271, "midproject", "path", true, "OCT 11 2019");
 		Assignment a3 = new Assignment (12, 1, "diaosd", "path", true, "tomorrow");
 
-		StudentEnrollment n = new StudentEnrollment(100, u3, c1);
-		StudentEnrollment s = new StudentEnrollment(101, u4, c1);
-		StudentEnrollment a = new StudentEnrollment(102, u5, c2);
-		data.insertStudentEnrollment(n);
-		data.insertStudentEnrollment(s);
-		data.insertStudentEnrollment(a);
+		StudentEnrollment e1 = new StudentEnrollment(100, u3, c1);
+		StudentEnrollment e2 = new StudentEnrollment(103, u3, c2);
+		StudentEnrollment e3 = new StudentEnrollment(101, u4, c1);
+		StudentEnrollment e4 = new StudentEnrollment(102, u5, c2);
+		data.insertStudentEnrollment(e1);
+		data.insertStudentEnrollment(e2);
+		data.insertStudentEnrollment(e3);
+		data.insertStudentEnrollment(e4);
 		data.insertUser(u1);
 		data.insertUser(u2);
 		data.insertUser(u3);
