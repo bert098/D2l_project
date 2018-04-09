@@ -46,7 +46,8 @@ public class ProfessorCourseController implements Constants {
 	private void addProfessorCourseViewListeners()
 	{
 		addAssignmentPanelListeners();
-		addSearchStudentsPanelListeners();
+		addSearchEnrolledStudentsPanelListeners();
+		addSearchAllStudentsPanelListeners();
 		addEmailPanelListeners();
 	}
 	
@@ -138,9 +139,9 @@ public class ProfessorCourseController implements Constants {
 		});
 	}
 	
-	private void addSearchStudentsPanelListeners()
+	private void addSearchEnrolledStudentsPanelListeners()
 	{
-		SearchStudentsPanel panel = courseView.getSearchStudentsPanel();
+		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
 		
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
@@ -186,6 +187,35 @@ public class ProfessorCourseController implements Constants {
 				Student s = panel.getSelectedStudent();
 				ArrayList<Student> a  = professorModel.unEnroll(s);
 				panel.displayAll(a);
+			}
+		});
+	}
+	
+	private void addSearchAllStudentsPanelListeners()
+	{
+		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
+		
+		panel.addSearchButtonActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//todo
+				System.out.println("search");
+			}
+		});
+		
+		panel.addEnrollButtonActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//todo
+				System.out.println("enroll");
+			}
+		});
+		
+		panel.addUnenrollButtonActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//todo
+				System.out.println("unenroll");
 			}
 		});
 	}

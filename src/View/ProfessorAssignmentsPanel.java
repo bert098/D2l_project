@@ -27,7 +27,7 @@ public class ProfessorAssignmentsPanel extends UserAssignmentsPanel{
 	
 	public ProfessorAssignmentsPanel()
 	{
-		super();
+		super("Open Dropbox");
 		
 		GridBagConstraints gbc_uploadAssignmentButton = new GridBagConstraints();
 		gbc_uploadAssignmentButton.insets = new Insets(0, 0, 0, 5);

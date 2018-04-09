@@ -12,10 +12,12 @@ public class ProfessorCourseView extends UserCourseView {
 	 */
 	private static final long serialVersionUID = -195895691490358230L;
 	
-	private SearchStudentsPanel studentSearchPanel = new SearchStudentsPanel();
+	private SearchStudentsPanel studentEnrolledSearchPanel = new SearchStudentsPanel();
+	private SearchStudentsPanel searchAllStudentsPanel = new SearchStudentsPanel();
 	private ProfessorAssignmentsPanel assignmentsPanel = new ProfessorAssignmentsPanel();
 	
-	public SearchStudentsPanel getSearchStudentsPanel() {return studentSearchPanel;}
+	public SearchStudentsPanel getSearchEnrolledStudentsPanel() {return studentEnrolledSearchPanel;}
+	public SearchStudentsPanel getSearchAllStudentsPanel() {return searchAllStudentsPanel;}
 	public ProfessorAssignmentsPanel getProfessorAssignmentsPanel() {return assignmentsPanel;}
 	
 	public ProfessorCourseView(Course course, ProfessorView userView)
@@ -24,7 +26,8 @@ public class ProfessorCourseView extends UserCourseView {
 		emailPanel = new UserEmailPanel("Send Email to Class");
 		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
 		tabbedPane.addTab("Send Email", null, emailPanel, null);
-		tabbedPane.addTab("Search Students", null, studentSearchPanel, null);
+		tabbedPane.addTab("Search Enrolled Students", null, studentEnrolledSearchPanel, null);
+		tabbedPane.addTab("Search all Students", null, searchAllStudentsPanel, null);
 	}
 	
 	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 

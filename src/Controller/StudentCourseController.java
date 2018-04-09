@@ -43,7 +43,7 @@ public class StudentCourseController {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Open Dropbox");		
+				System.out.println("Submit assignment");		
 			}
 		});
 		
