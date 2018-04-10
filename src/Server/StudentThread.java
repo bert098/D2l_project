@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import Data.Assignment;
 import Data.Constants;
 import Data.Course;
 import Database.DatabaseHelper;
@@ -90,7 +91,15 @@ public class StudentThread implements Constants {
 	}
 	
 	public void getStudentAssignments() { 
-		//todo
+		try {
+			Course c = (Course)objectIn.readObject();
+			ArrayList<Assignment> a = database.assignmentList(c);
+			objectOut.flush();
+			objectOut.writeObject(a);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void downloadAssignment() { 

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserTable {
 	public Connection jdbc_connection;
@@ -152,5 +153,36 @@ public class UserTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return null;
+	}
+	public ArrayList<Student> getAll()
+	{
+		String sql = "SELECT * FROM " + "UserTable";
+		ResultSet user;
+		ArrayList<Student> studentList = new ArrayList<Student>(); 
+		try {
+			studentList = new ArrayList<Student>(); 
+			statement = jdbc_connection.prepareStatement(sql);
+			user = statement.executeQuery();
+			while(user.next())
+			{
+				Integer id = user.getInt("ID");
+				String password = user.getString("PASSWORD");
+				String username = user.getString("USERNAME");
+				String email = user.getString("EMAIL");
+				String firstName = user.getString("FIRSTNAME");
+				String lastName = user.getString("LASTNAME");
+				String type = user.getString("TYPE");
+			
+				if(type.equals("S"))
+				{
+					char chartype = type.charAt(0);
+					studentList.add( new Student(id, username, password, chartype, email, firstName, lastName));
+				
+				}
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return studentList;
 	}
 }

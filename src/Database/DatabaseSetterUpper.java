@@ -24,6 +24,11 @@ public class DatabaseSetterUpper {
 		StudentEnrollment e2 = new StudentEnrollment(103, u3, c2);
 		StudentEnrollment e3 = new StudentEnrollment(101, u4, c1);
 		StudentEnrollment e4 = new StudentEnrollment(102, u5, c2);
+		
+		Dropbox d1 = new Dropbox(1234, 1, "", -1, "", "finalproject", "oct 10");
+		Dropbox d2 = new Dropbox(1234, 3, "", -1, "", "finalproject", "oct 11");
+		Dropbox d3 = new Dropbox(14, 1, "", -1, "", "midproject", "oct 9");
+		
 		data.insertStudentEnrollment(e1);
 		data.insertStudentEnrollment(e2);
 		data.insertStudentEnrollment(e3);
@@ -38,6 +43,9 @@ public class DatabaseSetterUpper {
 		data.insertAssignment(a1);
 		data.insertAssignment(a2);
 		data.insertAssignment(a3);
+		data.insertSubmission(d1);
+		data.insertSubmission(d2);
+		data.insertSubmission(d3);
 	}	
 	
 	public DatabaseHelper getDatabase() {

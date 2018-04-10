@@ -123,8 +123,22 @@ public class DatabaseHelper {
 	{
 		 studentEnrollmentTable.delete(StudentId);
 	}
+
+	public ArrayList<Assignment> assignmentList(Course c)
+	{
+		 return assignmentTable.courseAssignmentTableToList(c);
+	}
+
 	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
 		return studentEnrollmentTable.searchCoursesForStudent(studentId);
+	}
+
+	public ArrayList<Dropbox> searchAssignmentInSubmissions(int assignmentId) {
+		return submissionTable.searchAssignment(assignmentId);
+	}
+	
+	public ArrayList<Student> AllStudent() {
+		return userTable.getAll();
 	}
 
 }

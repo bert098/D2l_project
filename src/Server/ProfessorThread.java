@@ -17,6 +17,7 @@ import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Dropbox;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -88,8 +89,11 @@ public class ProfessorThread implements Constants {
 		else if (operation.equals(GET_ASSIGN)) {
 			getAssignments(); 
 		}
-		else if (operation.equals(GRADE_SUBMISSION)) {
+		else if (operation.equals(GRADE_SUBMISSON)) {
 			gradeSubmission();
+		}
+		else if (operation.equals(GET_SUBMISSIONS)) {
+			getSubmissions();
 		}
 		else if (operation.equals(ACTIVATE_ASSIGN)) {
 			activateAssignment(); 
@@ -99,6 +103,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
+		}
+		else if(operation.equals(ALL_STUDENTS)){
+			getAll();
 		}
 		else {
 			System.out.println(operation + " is incorrect");
@@ -282,6 +289,19 @@ public class ProfessorThread implements Constants {
 		//todo
 	}
 	
+	public void getSubmissions() {
+		ArrayList<Dropbox> submissionList = new ArrayList<Dropbox>();
+		try {
+			int assignmentId = Integer.parseInt(stringIn.readLine());
+			submissionList = database.searchAssignmentInSubmissions(assignmentId);
+			objectOut.flush(); 
+			objectOut.writeObject(submissionList);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void activateAssignment() {
 		try {
 			int assignId = Integer.parseInt(stringIn.readLine());
@@ -332,6 +352,34 @@ public class ProfessorThread implements Constants {
 		}	
 		catch (IOException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	public void getAll(){
+		ArrayList<Student> s = database.AllStudent();
+		try {
+			Course c = (Course)objectIn.readObject();
+			ArrayList<Integer> i = database.searchStudentEnrollmentByStudent(c.getId());
+			
+			for(int j = 0 ; j < s.size(); j++)
+			{
+				for(int r = 0; r < i.size(); r++)
+				{
+					if((s.get(j).getId()).equals(i.get(r)))
+					{
+						s.remove(j);
+						j--;
+						break;
+					}
+				}
+			}
+			objectOut.flush();
+			objectOut.writeObject(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

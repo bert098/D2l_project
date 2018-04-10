@@ -32,7 +32,7 @@ public class StudentController implements Constants{
 	{
 		studentModel.sendOperation(STUDENT_COURSES);
 		studentModel.sendStudentId(view.getUserId());
-		ArrayList<Course> courseList = studentModel.getStudentCourseList();
+		courseList = studentModel.getStudentCourseList();
 		
 		view.displayCourses(courseList);
 	}
@@ -49,8 +49,9 @@ public class StudentController implements Constants{
 				System.out.println("Open Course");
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
-					new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
+					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());
+					
 				}
 				
 			}

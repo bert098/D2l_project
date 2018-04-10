@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -64,10 +65,10 @@ public class ProfessorCourseController implements Constants {
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Open Dropbox");
 				courseView.setVisible(false);
-				new ProfessorDropboxController(new ProfessorDropboxView(courseView));				
+				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				new ProfessorDropboxController(new ProfessorDropboxView(assignment, courseView), professorModel, assignment);				
 			}
 		});
 		
@@ -166,48 +167,59 @@ public class ProfessorCourseController implements Constants {
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					Course c = courseView.getCourse();
-				Integer num = Integer.parseInt(JOptionPane.showInputDialog("Enter an Integer Number: "));
-				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), num, c.getId());
-				ArrayList<Student> a = professorModel.enroll(st);
-				panel.displayAll(a);
-				}
-				catch(NumberFormatException e)
-				{
-					JOptionPane.showMessageDialog(null, "Please enter a number.",
-							"Error Message", JOptionPane.PLAIN_MESSAGE);
-				}
+				
 			}
 		});
 		
 		panel.addUnenrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Course c = courseView.getCourse();
 				Student s = panel.getSelectedStudent();
 				ArrayList<Student> a  = professorModel.unEnroll(s);
+				ArrayList<Student> ar = professorModel.searchAll(c);
+				courseView.getSearchAllStudentsPanel().displayAll(ar);
 				panel.displayAll(a);
+				courseView.selectSearchStudentAll();
 			}
 		});
 	}
 	
 	private void addSearchAllStudentsPanelListeners()
 	{
-		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
+		SearchStudentsPanel panel = courseView.getSearchAllStudentsPanel();
 		
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//todo
-				System.out.println("search");
+				String s = panel.getSearchText();
+				if(panel.idSelected()) 
+				{
+				Course c = courseView.getCourse();
+				ArrayList<Student> a = professorModel.searchAll(c);
+				panel.displayStudentsId(a,s);
+				}
+				else if(panel.lastNameSelected())
+				{
+					Course c = courseView.getCourse();
+					ArrayList<Student> a = professorModel.searchAll(c);
+					panel.displayStudentsName(a,s);
+				}
 			}
 		});
 		
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//todo
-				System.out.println("enroll");
+				
+				Course c = courseView.getCourse();
+				Student s = panel.getSelectedStudent();
+				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), s.getId(), c.getId());
+				ArrayList<Student> ar =	professorModel.enroll(st);
+				ArrayList<Student> a = professorModel.searchAll(c);
+				courseView.getSearchEnrolledStudentsPanel().displayAll(ar);
+				courseView.getSearchAllStudentsPanel().displayAll(a);
+				courseView.selectSearchStudentEnrolled();
 			}
 		});
 		
