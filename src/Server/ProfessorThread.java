@@ -348,7 +348,6 @@ public class ProfessorThread implements Constants {
 			{
 				for(int r = 0; r < i.size(); r++)
 				{
-					System.out.println(r);
 					if((s.get(j).getId()).equals(i.get(r)))
 					{
 						s.remove(j);
