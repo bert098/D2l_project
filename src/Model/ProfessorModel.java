@@ -208,17 +208,21 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
-	public void sendEmail(Email email, Integer courseId)
+	public boolean sendEmail(Email email)
 	{
 		try{
 			sendOperation(SEND_EMAIL);
 			objectOut.writeObject(email);
 			objectOut.flush();
 			
-			stringOut.println(courseId.toString());
+			String messageStatus = stringIn.readLine();
+			if(messageStatus.equals("MESSAGE_SENT")) {
+				return true;
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 	}
 }

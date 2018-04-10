@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserTable {
 	public Connection jdbc_connection;
@@ -152,5 +153,28 @@ public class UserTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return null;
+	}
+	
+	public ArrayList<String> getStudentEmails(ArrayList<Integer> idList, Integer courseId)
+	{
+		try {
+			ArrayList<String> emailList = new ArrayList<String>();
+			String sql = "SELECT EMAIL FROM usertable WHERE ID = ?";
+			
+			for(int i = 0; i < idList.size(); i++)
+			{
+				statement = jdbc_connection.prepareStatement(sql);
+				statement.setInt(1, idList.get(i));
+				ResultSet emailSet = statement.executeQuery();
+				emailSet.next();
+				emailList.add(emailSet.getString("EMAIL"));
+			}
+			return emailList;
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

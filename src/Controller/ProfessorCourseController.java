@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import Data.Constants;
 import Data.Assignment;
@@ -194,7 +194,7 @@ public class ProfessorCourseController implements Constants {
 	
 	private void addSearchAllStudentsPanelListeners()
 	{
-		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
+		SearchStudentsPanel panel = courseView.getSearchAllStudentsPanel();
 		
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
@@ -232,10 +232,25 @@ public class ProfessorCourseController implements Constants {
 				System.out.println("Send");
 				String message = panel.getMessage();
 				String title = panel.getTitle();
-				String password = JOptionPane.showInputDialog("Please enter password for: " + courseView.getEmail());
-				Email email = new Email(courseView.getEmail(), null, title, message, password);
 				
-				professorModel.sendEmail(email, courseView.getCourse().getId());
+				JPasswordField passwordField = new JPasswordField(20);
+				
+				//EmailPasswordPanel passwordPanel = new EmailPasswordPanel();
+				JOptionPane.showConfirmDialog(null, passwordField,
+						"Please enter password for: " + courseView.getEmail(), JOptionPane.PLAIN_MESSAGE);
+				
+				String password = new String(passwordField.getPassword());
+				System.out.println(password);
+				
+				Email email = new Email(courseView.getEmail(), courseView.getCourse().getId(), title, message, password);
+				
+				boolean messageSent = professorModel.sendEmail(email);
+				if(messageSent) {
+					JOptionPane.showMessageDialog(null, "Email sent successfully.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Email sending error.");
+				}
 			}
 		});
 		

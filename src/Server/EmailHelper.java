@@ -18,10 +18,12 @@ public class EmailHelper {
 
 	Properties properties = new Properties();
 	Email email;
+	ArrayList<String> recieverList;
 	
-	public EmailHelper(Email email)
+	public EmailHelper(Email email, ArrayList<String> recieverList)
 	{
 		this.email = email;
+		this.recieverList = recieverList;
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.auth", true);
 		properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -39,16 +41,16 @@ public class EmailHelper {
 		return session;
 	}
 	
-	public void sendEmail() 
+	public boolean sendEmail() 
 	{
 		try 
 		{
 			Message message = new MimeMessage(createSession());
 			message.setFrom(new InternetAddress(email.getFrom()));
-			String[] recipients = email.geTo().toArray(new String[email.geTo().size()]);
+			String[] recipients = recieverList.toArray(new String[recieverList.size()]);
 			String recipientString = "";
 			
-			for(int i = 0; i < email.geTo().size(); i++)
+			for(int i = 0; i < recieverList.size(); i++)
 			{
 				recipientString += recipients[i] + ",";
 			}
@@ -59,10 +61,12 @@ public class EmailHelper {
 			message.setText(email.getContent());
 			
 			Transport.send(message);
+			return true;
 		}
 		catch(MessagingException e)
 		{
-			e.printStackTrace();
+			return false;
+			//e.printStackTrace();
 		}
 	}
 }

@@ -176,7 +176,7 @@ public class StudentEnrollmentTable {
 											  courseSet.getInt("COURSE_ID"));
 				if(enrollments.getStudentId().equals(Id))
 				{
-				studentList.add(enrollments.getStudentId());
+					studentList.add(enrollments.getStudentId());
 				}
 			}
 			
@@ -188,6 +188,4 @@ public class StudentEnrollmentTable {
 			return null;
 		}
 	}
-
-
 }

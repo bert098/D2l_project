@@ -123,5 +123,10 @@ public class DatabaseHelper {
 	{
 		 studentEnrollmentTable.delete(StudentId);
 	}
+	
+	public ArrayList<String> getStudentEmails(Integer courseId)
+	{
+		return userTable.getStudentEmails(studentEnrollmentTable.searchStudent(courseId), courseId);
+	}
 
 }

@@ -343,10 +343,21 @@ public class ProfessorThread implements Constants {
 	public void sendEmail() {
 		try {
 			Email email = (Email)objectIn.readObject();
-			Integer courseId = Integer.parseInt(stringIn.readLine());
 			
-			System.out.println(courseId);
+			System.out.println(email.getCourseId());
 			System.out.println(email.getFrom());
+			System.out.println(email.getPassword());
+			
+			ArrayList<String> emailList = database.getStudentEmails(email.getCourseId());
+			
+			EmailHelper emailHelper = new EmailHelper(email, emailList);
+			boolean messageSent = emailHelper.sendEmail();
+			if(messageSent) {
+				stringOut.println("MESSAGE_SENT");
+			}
+			else {
+				stringOut.print("MESSAGE_FAILED");
+			}
 		}
 		catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
