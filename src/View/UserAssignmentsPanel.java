@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -69,4 +70,14 @@ public class UserAssignmentsPanel extends JPanel{
 		
 		scrollPane.setViewportView(assignmentList);
 	}
+	public void displayAssignments(ArrayList<Assignment> assignmentArrayList )
+	{
+		assignmentModel.removeAllElements();
+		for (int i = 0; i < assignmentArrayList.size(); i++)
+		{
+			assignmentModel.addElement(assignmentArrayList.get(i));
+		}
+		setVisible(true);
+	}
+			
 }

@@ -49,8 +49,9 @@ public class StudentController implements Constants{
 				System.out.println("Open Course");
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
-					new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
+					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());
+					
 				}
 				
 			}
