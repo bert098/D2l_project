@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -234,13 +236,14 @@ public class ProfessorCourseController implements Constants {
 				String title = panel.getTitle();
 				
 				JPasswordField passwordField = new JPasswordField(20);
+				JComponent[] components = new JComponent[] {
+				        new JLabel("Please enter password for: " + courseView.getEmail()),
+				        passwordField};
 				
-				//EmailPasswordPanel passwordPanel = new EmailPasswordPanel();
-				JOptionPane.showConfirmDialog(null, passwordField,
-						"Please enter password for: " + courseView.getEmail(), JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showConfirmDialog(null, components,
+						"Enter password", JOptionPane.PLAIN_MESSAGE);
 				
 				String password = new String(passwordField.getPassword());
-				System.out.println(password);
 				
 				Email email = new Email(courseView.getEmail(), courseView.getCourse().getId(), title, message, password);
 				

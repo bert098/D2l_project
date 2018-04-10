@@ -356,7 +356,7 @@ public class ProfessorThread implements Constants {
 				stringOut.println("MESSAGE_SENT");
 			}
 			else {
-				stringOut.print("MESSAGE_FAILED");
+				stringOut.println("MESSAGE_FAILED");
 			}
 		}
 		catch (ClassNotFoundException | IOException e) {
