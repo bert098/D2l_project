@@ -32,7 +32,7 @@ public class StudentController implements Constants{
 	{
 		studentModel.sendOperation(STUDENT_COURSES);
 		studentModel.sendStudentId(view.getUserId());
-		ArrayList<Course> courseList = studentModel.getStudentCourseList();
+		courseList = studentModel.getStudentCourseList();
 		
 		view.displayCourses(courseList);
 	}

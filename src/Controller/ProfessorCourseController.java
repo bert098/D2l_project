@@ -64,10 +64,10 @@ public class ProfessorCourseController implements Constants {
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Open Dropbox");
 				courseView.setVisible(false);
-				new ProfessorDropboxController(new ProfessorDropboxView(courseView));				
+				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				new ProfessorDropboxController(new ProfessorDropboxView(assignment, courseView), professorModel, assignment);				
 			}
 		});
 		

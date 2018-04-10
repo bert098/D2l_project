@@ -8,7 +8,9 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import Data.Assignment;
 import Data.Dropbox;
 
 public class ProfessorDropboxView extends JFrame{
@@ -33,6 +36,7 @@ public class ProfessorDropboxView extends JFrame{
 	private JPanel contentPane;
 	private JTextField gradeField = new JTextField();
 	private JScrollPane scrollPane = new JScrollPane();
+	private DefaultListModel<Dropbox> submissionModel = new DefaultListModel<>();
 	private JList<Dropbox> submissionsList = new JList<Dropbox>();
 	private JTextArea commentsArea = new JTextArea();
 	private JButton submitGradeButton = new JButton("Submit Grade");
@@ -44,11 +48,11 @@ public class ProfessorDropboxView extends JFrame{
 	public void addSubmitGradeButtonActionListener(ActionListener a) {submitGradeButton.addActionListener(a);}
 	public void addDownloadAssignmentButtonActionListener(ActionListener a) {downloadAssignmentButton.addActionListener(a);}
 	
-	public ProfessorDropboxView(ProfessorCourseView courseView)
+	public ProfessorDropboxView(Assignment assignment, ProfessorCourseView courseView)
 	{
-		
 		this.courseView = courseView;
 		
+		submissionsList.setModel(submissionModel);
 		setSize(500, 500);
 		setMinimumSize(new Dimension(500, 500));
 		setLocationRelativeTo(null);
@@ -73,7 +77,7 @@ public class ProfessorDropboxView extends JFrame{
 		gbc_dropboxLabel.gridy = 0;
 		contentPane.add(dropboxLabel, gbc_dropboxLabel);
 		
-		JLabel assignmentLabel = new JLabel("assignmentLabel");
+		JLabel assignmentLabel = new JLabel(assignment.getTitle());
 		assignmentLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		GridBagConstraints gbc_assignmentLabel = new GridBagConstraints();
 		gbc_assignmentLabel.gridwidth = 2;
@@ -145,6 +149,15 @@ public class ProfessorDropboxView extends JFrame{
 	{
 		courseView.setVisible(true);
 		this.dispose();
+	}
+	
+	public void displaySubmissions(ArrayList<Dropbox> submissionArrayList) {
+		submissionModel.removeAllElements();
+		for (int i = 0; i < submissionArrayList.size(); i++) {
+			submissionModel.addElement(submissionArrayList.get(i));
+		}
+		setVisible(true);
+		
 	}
 	
 //	public static void main(String[] args)

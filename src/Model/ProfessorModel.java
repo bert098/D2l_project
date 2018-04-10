@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Dropbox;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -206,4 +207,29 @@ public class ProfessorModel implements Constants{
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendAssignmentId(Integer assignId) {
+		stringOut.flush();
+		stringOut.println(assignId.toString());
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Dropbox> readSubmissionList() {
+		try {
+			return (ArrayList<Dropbox>) objectIn.readObject();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

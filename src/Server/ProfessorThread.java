@@ -17,6 +17,7 @@ import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Dropbox;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -88,8 +89,11 @@ public class ProfessorThread implements Constants {
 		else if (operation.equals(GET_ASSIGN)) {
 			getAssignments(); 
 		}
-		else if (operation.equals(GRADE_SUBMISSION)) {
+		else if (operation.equals(GRADE_SUBMISSON)) {
 			gradeSubmission();
+		}
+		else if (operation.equals(GET_SUBMISSIONS)) {
+			getSubmissions();
 		}
 		else if (operation.equals(ACTIVATE_ASSIGN)) {
 			activateAssignment(); 
@@ -280,6 +284,19 @@ public class ProfessorThread implements Constants {
 	
 	public void gradeSubmission() {
 		//todo
+	}
+	
+	public void getSubmissions() {
+		ArrayList<Dropbox> submissionList = new ArrayList<Dropbox>();
+		try {
+			int assignmentId = Integer.parseInt(stringIn.readLine());
+			submissionList = database.searchAssignmentInSubmissions(assignmentId);
+			objectOut.flush(); 
+			objectOut.writeObject(submissionList);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void activateAssignment() {

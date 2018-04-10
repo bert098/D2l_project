@@ -38,8 +38,8 @@ public abstract class UserCourseView extends JFrame{
 		this.userView = userView;
 		this.course = course;
 		
-		setSize(500, 500);
-		setMinimumSize(new Dimension(500, 500));
+		setSize(510, 500);
+		setMinimumSize(new Dimension(510, 500));
 		setLocationRelativeTo(null);
 		
 		JLabel courseLabel = new JLabel(course.getName());

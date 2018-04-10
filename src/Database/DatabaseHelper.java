@@ -126,5 +126,8 @@ public class DatabaseHelper {
 	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
 		return studentEnrollmentTable.searchCoursesForStudent(studentId);
 	}
+	public ArrayList<Dropbox> searchAssignmentInSubmissions(int assignmentId) {
+		return submissionTable.searchAssignment(assignmentId);
+	}
 
 }
