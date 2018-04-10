@@ -132,5 +132,8 @@ public class DatabaseHelper {
 	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
 		return studentEnrollmentTable.searchCoursesForStudent(studentId);
 	}
+	public ArrayList<Student> AllStudent() {
+		return userTable.getAll();
+	}
 
 }

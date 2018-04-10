@@ -193,20 +193,32 @@ public class ProfessorCourseController implements Constants {
 	
 	private void addSearchAllStudentsPanelListeners()
 	{
-		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
+		SearchStudentsPanel panel = courseView.getSearchAllStudentsPanel();
 		
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//todo
-				System.out.println("search");
+				String s = panel.getSearchText();
+				if(panel.idSelected()) 
+				{
+				Course c = courseView.getCourse();
+				ArrayList<Student> a = professorModel.searchAll(c);
+				panel.displayStudentsId(a,s);
+				}
+				else if(panel.lastNameSelected())
+				{
+					Course c = courseView.getCourse();
+					ArrayList<Student> a = professorModel.searchAll(c);
+					panel.displayStudentsName(a,s);
+				}
 			}
 		});
 		
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//todo
+				Course c = courseView.getCourse();
+				
 				System.out.println("enroll");
 			}
 		});

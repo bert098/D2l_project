@@ -125,6 +125,26 @@ public class ProfessorModel implements Constants{
 		}
 		return s;
 	}
+	public ArrayList<Student> searchAll(Course c)
+	{
+		ArrayList<Student> s = null;
+		try
+		{
+			sendOperation(ALL_STUDENTS);
+			objectOut.flush();
+			objectOut.writeObject(c);
+			 s = (ArrayList<Student>)objectIn.readObject();
+			
+			
+		} 
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 
 	public ArrayList<Student> unEnroll(Student student)
 	{

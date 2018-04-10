@@ -100,6 +100,9 @@ public class ProfessorThread implements Constants {
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
 		}
+		else if(operation.equals(ALL_STUDENTS)){
+			getAll();
+		}
 		else {
 			System.out.println(operation + " is incorrect");
 		}
@@ -332,6 +335,35 @@ public class ProfessorThread implements Constants {
 		}	
 		catch (IOException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	public void getAll(){
+		ArrayList<Student> s = database.AllStudent();
+		try {
+			Course c = (Course)objectIn.readObject();
+			ArrayList<Integer> i = database.searchStudentEnrollmentByStudent(c.getId());
+			
+			for(int j = 0 ; j < s.size(); j++)
+			{
+				for(int r = 0; r < i.size(); r++)
+				{
+					System.out.println(r);
+					if((s.get(j).getId()).equals(i.get(r)))
+					{
+						s.remove(j);
+						j--;
+						break;
+					}
+				}
+			}
+			objectOut.flush();
+			objectOut.writeObject(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
