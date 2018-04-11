@@ -27,12 +27,15 @@ public class StudentThread implements Constants {
 	
 	private PrintWriter stringOut;
 	
+	private Boolean checkEnd;
+	
 	public StudentThread(BufferedReader sIn, PrintWriter sOut, ObjectOutputStream oOut, ObjectInputStream oIn, DatabaseHelper data) {
 		stringIn = sIn; 
-		stringOut = sOut; 
+		stringOut = sOut;
 		objectOut = oOut; 
 		objectIn = oIn;
 		database = data;
+		checkEnd = false;
 	}
 	
 	public void run() {
@@ -42,6 +45,9 @@ public class StudentThread implements Constants {
 				System.out.println(operation);
 				Thread.sleep(50);
 				readOperation(); 
+				if (checkEnd) {
+					return;
+				}
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
@@ -70,6 +76,9 @@ public class StudentThread implements Constants {
 		}
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail(); 
+		}
+		else if (operation.equals(EXIT)) {
+			exitThread(); 
 		}
 		else {
 			System.out.println("wrong operation");
@@ -143,6 +152,19 @@ public class StudentThread implements Constants {
 			}
 		}
 		catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exitThread() {
+		try {
+			objectOut.close();
+			objectIn.close();
+			stringIn.close();
+			stringOut.close();
+			checkEnd = true;
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

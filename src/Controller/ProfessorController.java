@@ -96,9 +96,8 @@ public class ProfessorController implements Constants{
 	private void addCloseWindowListener() {
 		view.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {
-				   //todo
 				   System.out.println("Exit");
-				   System.exit(0);
+				   professorModel.sendOperation("EXIT");
 			   }
 		});
 	}

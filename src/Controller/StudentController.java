@@ -33,7 +33,6 @@ public class StudentController implements Constants{
 		studentModel.sendOperation(STUDENT_COURSES);
 		studentModel.sendStudentId(view.getUserId());
 		courseList = studentModel.getStudentCourseList();
-		
 		view.displayCourses(courseList);
 	}
 	
@@ -61,8 +60,8 @@ public class StudentController implements Constants{
 	private void addCloseWindowListener() {
 		view.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {
-				   //todo
 				   System.out.println("Exit");
+				   studentModel.sendOperation(EXIT);
 				   System.exit(0);
 			   }
 		});
