@@ -17,6 +17,7 @@ import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Email;
 import Data.Dropbox;
 import Data.FileContainer;
 import Data.Student;
@@ -103,6 +104,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
+		}
+		else if (operation.equals(SEND_EMAIL)) {
+			sendEmail();
 		}
 		else if(operation.equals(ALL_STUDENTS)){
 			getAll();
@@ -355,6 +359,26 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendEmail() {
+		try {
+			Email email = (Email)objectIn.readObject();			
+			ArrayList<String> emailList = database.getStudentEmails(email.getCourseId());
+			
+			EmailHelper emailHelper = new EmailHelper(email, emailList);
+			boolean messageSent = emailHelper.sendEmail();
+			if(messageSent) {
+				stringOut.println("MESSAGE_SENT");
+			}
+			else {
+				stringOut.println("MESSAGE_FAILED");
+			}
+		}
+		catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void getAll(){
 		ArrayList<Student> s = database.AllStudent();
 		try {

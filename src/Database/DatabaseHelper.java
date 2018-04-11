@@ -123,6 +123,11 @@ public class DatabaseHelper {
 	{
 		 studentEnrollmentTable.delete(StudentId);
 	}
+	
+	public ArrayList<String> getStudentEmails(Integer courseId)
+	{
+		return userTable.getStudentEmails(studentEnrollmentTable.searchStudent(courseId), courseId);
+	}
 
 	public ArrayList<Assignment> assignmentList(Course c)
 	{
@@ -139,6 +144,11 @@ public class DatabaseHelper {
 	
 	public ArrayList<Student> AllStudent() {
 		return userTable.getAll();
+	}
+	
+	public String getProfessorEmail(Integer profId)
+	{
+		return userTable.getUserEmail(profId);
 	}
 
 }

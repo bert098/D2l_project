@@ -10,13 +10,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 import Data.Constants;
 import Data.Assignment;
 import Data.Course;
+import Data.Email;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
@@ -239,8 +242,19 @@ public class ProfessorCourseController implements Constants {
 		panel.addSendButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Send");
+				String message = panel.getMessage();
+				String title = panel.getTitle();
+				String password = panel.getEmailPassword(courseView.getEmail());
+				
+				Email email = new Email(courseView.getEmail(), courseView.getCourse(), title, message, password);
+				
+				boolean messageSent = professorModel.sendEmail(email);
+				if(messageSent) {
+					JOptionPane.showMessageDialog(null, "Email sent successfully.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Email sending error.");
+				}
 			}
 		});
 		
@@ -249,6 +263,7 @@ public class ProfessorCourseController implements Constants {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Clear");
+				panel.clear();
 			}
 		});
 	}

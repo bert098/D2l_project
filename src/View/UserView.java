@@ -24,6 +24,7 @@ public abstract class UserView extends JFrame{
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	public Integer getUserId() {return user.getId();}
+	public String getUserEmail() {return user.getEmail();}
 	
 	public UserView(User user)
 	{
