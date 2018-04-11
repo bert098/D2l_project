@@ -13,6 +13,7 @@ public class StudentCourseView extends UserCourseView{
 	private GradesPanel gradesPanel = new GradesPanel();
 	
 	public StudentAssignmentsPanel getStudentAssignmentsPanel() {return assignmentsPanel;}
+	public GradesPanel getGradesPanel() {return gradesPanel;}
 	
 	public StudentCourseView(Course course, StudentView userView) {
 		

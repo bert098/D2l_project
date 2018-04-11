@@ -11,6 +11,7 @@ import Data.Assignment;
 import Data.Course;
 
 import Model.StudentModel;
+import View.GradesPanel;
 import View.ProfessorDropboxView;
 import View.StudentAssignmentsPanel;
 import View.StudentCourseView;
@@ -29,6 +30,7 @@ public class StudentCourseController {
 		this.courseView = courseView;
 		displayAssignments();
 		addStudentCourseViewListeners();
+		addGradesPanelListeners();
 	}
 	
 	public void displayAssignments()
@@ -97,6 +99,19 @@ public class StudentCourseController {
 				// TODO Auto-generated method stub
 				System.out.println("Clear");
 				panel.clear();
+			}
+		});
+	}
+	
+	private void addGradesPanelListeners()
+	{
+		GradesPanel panel = courseView.getGradesPanel();
+		
+		panel.addAssignDetailsButtonActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Assign deets");
 			}
 		});
 	}
