@@ -1,5 +1,10 @@
 package Database;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +14,7 @@ import java.util.ArrayList;
 
 import Data.Assignment;
 import Data.Course;
+import Data.FileContainer;
 import Data.Professor;
 import Data.Student;
 import Data.User;
@@ -191,6 +197,49 @@ public class AssignmentTable {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public FileContainer getAssignmentFile(Assignment assign)
+	{
+		try {
+			String sql = "SELECT TITLE, PATH FROM AssignmentTable WHERE ID = ?";
+			
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, assign.getId());
+			
+			ResultSet assignmentSet = statement.executeQuery();
+			
+			assignmentSet.next();
+			
+			String name = assignmentSet.getString("TITLE");
+			String path = assignmentSet.getString("PATH");
+			File file = new File(path);
+			
+			long length = file.length();
+			byte[] content = new byte[(int)length];
+			
+			FileInputStream fis = new FileInputStream(file);
+			BufferedInputStream bos = new BufferedInputStream(fis);
+			bos.read(content, 0, (int)length);
+			
+			bos.close();
+			
+			FileContainer fileContainer = new FileContainer(content, name, assign);
+			return fileContainer;
+		} 
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

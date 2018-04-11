@@ -155,4 +155,10 @@ public class DatabaseHelper {
 	{
 		submissionTable.gradeSubmission(comment, grade, id);
 	}
+
+	public FileContainer getAssignFile(Assignment assign)
+	{
+		return assignmentTable.getAssignmentFile(assign);
+	}
+
 }

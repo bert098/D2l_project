@@ -2,8 +2,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import Data.Email;
@@ -11,6 +13,7 @@ import Data.Assignment;
 import Data.Course;
 
 import Model.StudentModel;
+import View.GradesPanel;
 import View.ProfessorDropboxView;
 import View.StudentAssignmentsPanel;
 import View.StudentCourseView;
@@ -29,6 +32,7 @@ public class StudentCourseController {
 		this.courseView = courseView;
 		displayAssignments();
 		addStudentCourseViewListeners();
+		addGradesPanelListeners();
 	}
 	
 	public void displayAssignments()
@@ -62,8 +66,19 @@ public class StudentCourseController {
 		panel.addDownloadAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Download");				
+				Assignment assign = panel.getSelectedAssignment();
+				
+				JFileChooser fileBrowser = new JFileChooser();
+				fileBrowser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				
+				if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				{
+					File file = fileBrowser.getCurrentDirectory();
+					File currentDir = fileBrowser.getSelectedFile();
+					String filepath = file.getAbsolutePath() + "\\" + currentDir.getName();
+					studentModel.downloadAssign(assign, filepath);
+				}
+				
 			}
 		});
 	}
@@ -97,6 +112,19 @@ public class StudentCourseController {
 				// TODO Auto-generated method stub
 				System.out.println("Clear");
 				panel.clear();
+			}
+		});
+	}
+	
+	private void addGradesPanelListeners()
+	{
+		GradesPanel panel = courseView.getGradesPanel();
+		
+		panel.addAssignDetailsButtonActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Assign deets");
 			}
 		});
 	}

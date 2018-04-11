@@ -20,6 +20,7 @@ public class DatabaseSetterUpper {
 		Assignment a1 = new Assignment (1234, 271, "finalproject", "path", true, "OCT 10 2019");
 		Assignment a2 = new Assignment (14, 271, "midproject", "path", true, "OCT 11 2019");
 		Assignment a3 = new Assignment (12, 1, "diaosd", "path", true, "tomorrow");
+		Assignment a4 = new Assignment (1123, 271, "COOL_ASSIGNMENT.docx", "assignments/COOL_ASSIGNMENT.docx", true, "yesterday");
 
 		StudentEnrollment e1 = new StudentEnrollment(100, u3, c1);
 		StudentEnrollment e2 = new StudentEnrollment(103, u3, c2);
@@ -47,6 +48,7 @@ public class DatabaseSetterUpper {
 		data.insertAssignment(a1);
 		data.insertAssignment(a2);
 		data.insertAssignment(a3);
+		data.insertAssignment(a4);
 		data.insertSubmission(d1);
 		data.insertSubmission(d2);
 		data.insertSubmission(d3);
