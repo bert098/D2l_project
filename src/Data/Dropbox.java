@@ -18,6 +18,9 @@ public class Dropbox implements Serializable{
 		this.comment = comment;
 		title = a.getTitle();
 	}
+	public String toString() { 
+		return "Assignment: " + title + " Grade: " + grade;
+	}
 	public Integer getAssignId() {return assign_id;}
 	public Integer getStudentId() {return student_id;}
 	public String getPath() {return path;}

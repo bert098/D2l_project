@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Dropbox;
+import Data.Grade;
+import Data.StudentEnrollment;
 
 public class StudentModel implements Constants{
 	
@@ -41,6 +44,26 @@ public class StudentModel implements Constants{
 			e.printStackTrace();
 		}
 		return a;
+		
+	}
+	public ArrayList<Dropbox> displayGrades(Course c, Integer n)
+	{
+		ArrayList<Dropbox> g = null;
+		stringOut.flush();
+		stringOut.println(GET_GRADES);
+		try {
+			StudentEnrollment temp = new StudentEnrollment(100, n, c.getId());
+			objectOut.flush();
+			objectOut.writeObject(temp);
+			g = (ArrayList<Dropbox>)objectIn.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return g;
 		
 	}
 	

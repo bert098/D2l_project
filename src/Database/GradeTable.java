@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Data.Grade;
 import Data.Assignment;
@@ -110,5 +111,38 @@ public class GradeTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return null;
+	}
+	public ArrayList<Grade> searchIDAndCourse(Integer ID, Integer courseID)
+	{
+		String sql = "SELECT * FROM " + "GradeTable";
+		ResultSet user;
+		ArrayList<Grade> grades = new ArrayList<Grade>();
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			user = statement.executeQuery();
+			while(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer assignId = user.getInt("ASSIGN_ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				Integer courseId = user.getInt("COURSE_ID");
+				Integer grade = user.getInt("GRADE");
+				
+				UserTable use = new UserTable(pass);
+				CourseTable course = new CourseTable(pass);
+				AssignmentTable assign = new AssignmentTable(pass);
+				
+				Student s = (Student)use.searchID(studentId);
+				Course c = course.searchCourse(courseId);
+				Assignment a = assign.search(assignId);
+				if(studentId.equals(ID) && courseId.equals(courseID))
+				{
+				grades.add(new Grade(s,grade,c,a,id));
+				}
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return grades;
 	}
 }

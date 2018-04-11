@@ -124,7 +124,7 @@ public class DatabaseHelper {
 		 studentEnrollmentTable.delete(StudentId);
 	}
 
-	public ArrayList<Assignment> assignmentList(Course c)
+	public ArrayList<Assignment> assignmentList(Integer c)
 	{
 		 return assignmentTable.courseAssignmentTableToList(c);
 	}
@@ -134,6 +134,12 @@ public class DatabaseHelper {
 	}
 	public ArrayList<Student> AllStudent() {
 		return userTable.getAll();
+	}
+	public ArrayList<Grade> searchGrades(Integer studentId, Integer courseId) {
+		return gradeTable.searchIDAndCourse(studentId, courseId);
+	}
+	public Dropbox getGrades(Integer studentId, Assignment assignment) {
+		return submissionTable.GradeForAssignment(studentId, assignment);
 	}
 
 }

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Dropbox;
+import Data.Grade;
+import Data.StudentEnrollment;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -93,7 +96,7 @@ public class StudentThread implements Constants {
 	public void getStudentAssignments() { 
 		try {
 			Course c = (Course)objectIn.readObject();
-			ArrayList<Assignment> a = database.assignmentList(c);
+			ArrayList<Assignment> a = database.assignmentList(c.getId());
 			objectOut.flush();
 			objectOut.writeObject(a);
 		} catch (ClassNotFoundException | IOException e) {
@@ -111,7 +114,24 @@ public class StudentThread implements Constants {
 	}
 	
 	public void getGrades() { 
-		//todo
+		try {
+			StudentEnrollment c = (StudentEnrollment)objectIn.readObject();
+			ArrayList<Assignment> grades = database.assignmentList(c.getCourseId());
+			ArrayList<Dropbox> d = new ArrayList<Dropbox>();
+			for(int i = 0 ; i< grades.size(); i++)
+			{
+				d.add(database.getGrades(c.getStudentId(), grades.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(d);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void sendEmail() {

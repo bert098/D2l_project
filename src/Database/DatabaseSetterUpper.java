@@ -24,6 +24,12 @@ public class DatabaseSetterUpper {
 		StudentEnrollment e2 = new StudentEnrollment(103, u3, c2);
 		StudentEnrollment e3 = new StudentEnrollment(101, u4, c1);
 		StudentEnrollment e4 = new StudentEnrollment(102, u5, c2);
+		Grade g1 = new Grade(u5, 100,c2 ,a1,1 );
+		Dropbox d = new Dropbox(a1, u5, 100, "Good shit");
+		Dropbox d2 = new Dropbox(a2, u5, 100, "Gooooooood shit");
+		data.insertSubmission(d2);
+		data.insertSubmission(d);
+		data.insertGrade(g1);
 		data.insertStudentEnrollment(e1);
 		data.insertStudentEnrollment(e2);
 		data.insertStudentEnrollment(e3);
