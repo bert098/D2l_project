@@ -37,8 +37,23 @@ public class ProfessorDropboxController implements Constants{
 		dropboxView.addSubmitGradeButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Submit Grade");
+				Dropbox submission = dropboxView.getSelectedSubmission(); 
+				if (submission == null) {
+					return;
+				}
+				String comments = dropboxView.getCommentsText();
+				String grade = dropboxView.getGradeText();
+				if (grade.equals("")) {
+					dropboxView.displayGradeError(); 
+					return;
+				}
+				professorModel.sendOperation(GRADE_SUBMISSON); 
+				professorModel.sendComments(comments); 
+				professorModel.sendGrade(grade);
+				professorModel.sendSubmissionId(submission.getId().toString());
+				dropboxView.displayGradeSubmitted();
+				displaySubmissions();
 			}
 		});
 		

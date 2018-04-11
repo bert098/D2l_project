@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -157,11 +158,19 @@ public class ProfessorDropboxView extends JFrame{
 			submissionModel.addElement(submissionArrayList.get(i));
 		}
 		setVisible(true);
-		
 	}
 	
-//	public static void main(String[] args)
-//	{
-//		ProfessorDropboxView view = new ProfessorDropboxView();
-//	}
+	public void displayGradeError() {
+		JOptionPane.showMessageDialog(null, "Please enter a grade before submitting",
+				"Error", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void displayGradeSubmitted() {
+		JOptionPane.showMessageDialog(null, "Grade submitted successfully",
+				"", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public Dropbox getSelectedSubmission() { 
+		return submissionsList.getSelectedValue();
+	}
 }

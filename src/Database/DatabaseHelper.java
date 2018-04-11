@@ -151,6 +151,11 @@ public class DatabaseHelper {
 		return userTable.getUserEmail(profId);
 	}
 	
+	public void gradeSubmission(String comment, String grade, int id) 
+	{
+		submissionTable.gradeSubmission(comment, grade, id);
+	}
+
 	public FileContainer getAssignFile(Assignment assign)
 	{
 		return assignmentTable.getAssignmentFile(assign);

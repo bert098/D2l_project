@@ -28,9 +28,9 @@ public class DatabaseSetterUpper {
 		StudentEnrollment e4 = new StudentEnrollment(102, u5, c2);
 		StudentEnrollment e5 = new StudentEnrollment(104, u6, c2);
 		
-		Dropbox d1 = new Dropbox(1234, 1, "", -1, "", "finalproject", "oct 10");
-		Dropbox d2 = new Dropbox(1234, 3, "", -1, "", "finalproject", "oct 11");
-		Dropbox d3 = new Dropbox(14, 1, "", -1, "", "midproject", "oct 9");
+		Dropbox d1 = new Dropbox(1, 1234, 1, "", -1, "", "finalproject", "oct 10");
+		Dropbox d2 = new Dropbox(2, 1234, 3, "", -1, "", "finalproject", "oct 11");
+		Dropbox d3 = new Dropbox(3, 14, 1, "", -1, "", "midproject", "oct 9");
 		
 		data.insertStudentEnrollment(e1);
 		data.insertStudentEnrollment(e2);

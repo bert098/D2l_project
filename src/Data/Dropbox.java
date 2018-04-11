@@ -3,6 +3,7 @@ package Data;
 import java.io.Serializable;
 
 public class Dropbox implements Serializable{
+	private Integer id;
 	private Integer assign_id;
 	private Integer student_id;
 	private String path;
@@ -11,8 +12,9 @@ public class Dropbox implements Serializable{
 	private String title;
 	private String timeStamp; 
 	
-	public Dropbox(Assignment a, Student s, Integer grade, String comment)
+	public Dropbox(Integer i, Assignment a, Student s, Integer grade, String comment)
 	{
+		id = i;
 		assign_id = a.getId();
 		student_id = s.getId();
 		path = a.getPath();
@@ -20,8 +22,10 @@ public class Dropbox implements Serializable{
 		this.comment = comment;
 		title = a.getTitle();
 	}
-	public Dropbox(Integer aId, Integer sId, String p, Integer g, String c, String t, String ts) 
+	
+	public Dropbox(Integer i, Integer aId, Integer sId, String p, Integer g, String c, String t, String ts) 
 	{
+		id = i;
 		assign_id = aId;
 		student_id = sId; 
 		path = p; 
@@ -30,6 +34,7 @@ public class Dropbox implements Serializable{
 		title = t;
 		timeStamp = ts;
 	}
+	public Integer getId() {return id;}
 	public Integer getAssignId() {return assign_id;}
 	public Integer getStudentId() {return student_id;}
 	public String getPath() {return path;}
@@ -39,8 +44,9 @@ public class Dropbox implements Serializable{
 	
 	@Override 
 	public String toString() { 
-		String s = "Assignment Id: " + assign_id + " Student Id: " + student_id + 
-					" Assignment Title: " + title + " Time Stamp: " + timeStamp;
-		return s;
+		if (grade == -1) { 
+			return "SUBMITTED BY: Student Id: " + student_id + " Submission Time: " + timeStamp + " UNMARKED";
+		}
+		return "SUBMITTED BY: Student Id: " + student_id + " Submission Time: " + timeStamp + " Grade: " + grade;
 	}
 }

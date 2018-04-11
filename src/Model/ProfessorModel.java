@@ -271,4 +271,36 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
+	public void sendComments(String comments) {
+		stringOut.flush();
+		stringOut.println(comments);
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendGrade(String grade) {
+		stringOut.flush();
+		stringOut.println(grade);
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendSubmissionId(String id) {
+		stringOut.flush();
+		stringOut.println(id);
+		try {
+			Thread.sleep(50);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
