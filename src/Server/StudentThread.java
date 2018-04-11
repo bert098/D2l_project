@@ -11,6 +11,7 @@ import Data.Assignment;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
+import Data.FileContainer;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -104,7 +105,18 @@ public class StudentThread implements Constants {
 	}
 	
 	public void downloadAssignment() { 
-		//todo
+		
+		try {
+			Assignment assign = (Assignment)objectIn.readObject();
+			
+			FileContainer fileContainer = database.getAssignFile(assign);
+			
+			objectOut.flush();
+			objectOut.writeObject(fileContainer);
+		} 	
+		catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void submitAssignment() { 

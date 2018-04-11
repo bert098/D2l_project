@@ -1,16 +1,21 @@
 package Model;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
+import Data.FileContainer;
 
 public class StudentModel implements Constants{
 	
@@ -96,5 +101,35 @@ public class StudentModel implements Constants{
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public void downloadAssign(Assignment assign, String filepath)
+	{
+		try {
+			
+			sendOperation(DOWNLOAD_ASSIGN);
+			
+			objectOut.writeObject(assign);
+			objectOut.flush();
+			
+			
+			FileContainer container = (FileContainer)objectIn.readObject();
+			byte[] content = container.getFileArr();
+			
+			File newFile = new File(filepath + "\\" + container.getFileName());
+			
+			if(!newFile.exists())
+			{
+				newFile.createNewFile();
+			}
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			bos.close();
+		}
+		catch (ClassNotFoundException | IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 }
