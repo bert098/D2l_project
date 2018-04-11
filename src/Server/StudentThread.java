@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Email;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -115,7 +116,23 @@ public class StudentThread implements Constants {
 	}
 	
 	public void sendEmail() {
-		//todo
+		try {
+			Email email = (Email)objectIn.readObject();		
+			ArrayList<String> emailList = new ArrayList<String>();
+			emailList.add(database.getProfessorEmail(email.getCourse().getProfId()));
+			
+			EmailHelper emailHelper = new EmailHelper(email, emailList);
+			boolean messageSent = emailHelper.sendEmail();
+			if(messageSent) {
+				stringOut.println("MESSAGE_SENT");
+			}
+			else {
+				stringOut.println("MESSAGE_FAILED");
+			}
+		}
+		catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

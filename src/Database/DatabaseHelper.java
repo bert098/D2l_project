@@ -145,5 +145,10 @@ public class DatabaseHelper {
 	public ArrayList<Student> AllStudent() {
 		return userTable.getAll();
 	}
+	
+	public String getProfessorEmail(Integer profId)
+	{
+		return userTable.getUserEmail(profId);
+	}
 
 }

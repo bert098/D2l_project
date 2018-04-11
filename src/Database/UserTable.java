@@ -157,20 +157,24 @@ public class UserTable {
 	
 	public ArrayList<String> getStudentEmails(ArrayList<Integer> idList, Integer courseId)
 	{
+		ArrayList<String> emailList = new ArrayList<String>();
+		
+		for(int i = 0; i < idList.size(); i++)
+		{
+			emailList.add(getUserEmail(idList.get(i)));
+		}
+		return emailList;
+	}
+	
+	public String getUserEmail(Integer id)
+	{
 		try {
-			ArrayList<String> emailList = new ArrayList<String>();
 			String sql = "SELECT EMAIL FROM usertable WHERE ID = ?";
-			
-			for(int i = 0; i < idList.size(); i++)
-			{
-				statement = jdbc_connection.prepareStatement(sql);
-				statement.setInt(1, idList.get(i));
-				ResultSet emailSet = statement.executeQuery();
-				emailSet.next();
-				emailList.add(emailSet.getString("EMAIL"));
-			}
-			return emailList;
-			
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet emailSet = statement.executeQuery();
+			emailSet.next();
+			return emailSet.getString("EMAIL");
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

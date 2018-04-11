@@ -362,12 +362,7 @@ public class ProfessorThread implements Constants {
 	
 	public void sendEmail() {
 		try {
-			Email email = (Email)objectIn.readObject();
-			
-			System.out.println(email.getCourseId());
-			System.out.println(email.getFrom());
-			System.out.println(email.getPassword());
-			
+			Email email = (Email)objectIn.readObject();			
 			ArrayList<String> emailList = database.getStudentEmails(email.getCourseId());
 			
 			EmailHelper emailHelper = new EmailHelper(email, emailList);

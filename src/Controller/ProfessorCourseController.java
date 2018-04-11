@@ -242,13 +242,11 @@ public class ProfessorCourseController implements Constants {
 		panel.addSendButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub\
-				System.out.println("Send");
 				String message = panel.getMessage();
 				String title = panel.getTitle();
 				String password = panel.getEmailPassword(courseView.getEmail());
 				
-				Email email = new Email(courseView.getEmail(), courseView.getCourse().getId(), title, message, password);
+				Email email = new Email(courseView.getEmail(), courseView.getCourse(), title, message, password);
 				
 				boolean messageSent = professorModel.sendEmail(email);
 				if(messageSent) {

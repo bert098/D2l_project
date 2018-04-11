@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import Data.Assignment;
 import Data.Constants;
 import Data.Course;
+import Data.Email;
 
 public class StudentModel implements Constants{
 	
@@ -77,5 +78,23 @@ public class StudentModel implements Constants{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean sendEmail(Email email)
+	{
+		try{
+			sendOperation(SEND_EMAIL);
+			objectOut.writeObject(email);
+			objectOut.flush();
+			
+			String messageStatus = stringIn.readLine();
+			if(messageStatus.equals("MESSAGE_SENT")) {
+				return true;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
