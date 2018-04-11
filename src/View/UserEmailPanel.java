@@ -7,8 +7,11 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -100,5 +103,19 @@ public class UserEmailPanel extends JPanel{
 		gbc_clearButton.gridx = 1;
 		gbc_clearButton.gridy = 4;
 		add(clearButton, gbc_clearButton);
+	}
+	
+	public String getEmailPassword(String emailAddress)
+	{
+		JPasswordField passwordField = new JPasswordField(20);
+		JComponent[] components = new JComponent[] {
+		        new JLabel("Please enter password for: " + emailAddress),
+		        passwordField};
+		
+		JOptionPane.showConfirmDialog(null, components,
+				"Enter password", JOptionPane.PLAIN_MESSAGE);
+		
+		String password = new String(passwordField.getPassword());
+		return password;
 	}
 }

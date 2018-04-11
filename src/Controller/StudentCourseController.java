@@ -3,6 +3,9 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import Data.Email;
 import Model.StudentModel;
 import View.ProfessorDropboxView;
 import View.StudentAssignmentsPanel;
@@ -65,6 +68,20 @@ public class StudentCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Send");
+				
+				String message = panel.getMessage();
+				String title = panel.getTitle();
+				String password = panel.getEmailPassword(courseView.getEmail());
+				
+				Email email = new Email(courseView.getEmail(), courseView.getCourse().getId(), title, message, password);
+				
+				boolean messageSent = studentModel.sendEmail(email);
+				if(messageSent) {
+					JOptionPane.showMessageDialog(null, "Email sent successfully.");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Email sending error.");
+				}
 			}
 		});
 		
@@ -73,6 +90,7 @@ public class StudentCourseController {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Clear");
+				panel.clear();
 			}
 		});
 	}

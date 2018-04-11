@@ -234,16 +234,7 @@ public class ProfessorCourseController implements Constants {
 				System.out.println("Send");
 				String message = panel.getMessage();
 				String title = panel.getTitle();
-				
-				JPasswordField passwordField = new JPasswordField(20);
-				JComponent[] components = new JComponent[] {
-				        new JLabel("Please enter password for: " + courseView.getEmail()),
-				        passwordField};
-				
-				JOptionPane.showConfirmDialog(null, components,
-						"Enter password", JOptionPane.PLAIN_MESSAGE);
-				
-				String password = new String(passwordField.getPassword());
+				String password = panel.getEmailPassword(courseView.getEmail());
 				
 				Email email = new Email(courseView.getEmail(), courseView.getCourse().getId(), title, message, password);
 				
