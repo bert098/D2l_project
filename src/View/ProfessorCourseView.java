@@ -33,4 +33,12 @@ public class ProfessorCourseView extends UserCourseView {
 	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
 		assignmentsPanel.displayAssignments(assignmentList, id); 
 	}
+	public void selectSearchStudentEnrolled()
+	{
+		tabbedPane.setSelectedIndex(2);
+	}
+	public void selectSearchStudentAll()
+	{
+		tabbedPane.setSelectedIndex(3);
+	}
 }

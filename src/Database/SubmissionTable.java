@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import Data.*;
@@ -47,8 +48,7 @@ public class SubmissionTable {
 				     "TITLE VARCHAR(50) NOT NULL, " + 
 				     "SUBMISSION_GRADE INT(3) NOT NULL, " +
 				     "COMMENTS VARCHAR(140) NOT NULL, " +
-				     "TIMESTAMP VARCHAR(25) NOT NULL, " +
-				     "PRIMARY KEY ( assign_id ))";
+				     "TIMESTAMP VARCHAR(25) NOT NULL) ";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -58,6 +58,7 @@ public class SubmissionTable {
 			e.printStackTrace();
 		}
 	}
+	
 	public void addSubmission(Dropbox d)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -89,6 +90,7 @@ public class SubmissionTable {
 			e.printStackTrace();
 		}
 	}
+	
 	public Dropbox search(int ID)
 	{
 		String sql = "SELECT * FROM " + "SubmissionTable" + " WHERE ASSIGN_ID=?";
@@ -115,9 +117,32 @@ public class SubmissionTable {
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }
-		
 		return null;
 	}
 	
-	
+	public ArrayList<Dropbox> searchAssignment(int assignmentId) {
+		try { 
+			ArrayList<Dropbox> submissionList = new ArrayList<Dropbox>(); 
+			String sql = "SELECT * FROM " + "SubmissionTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet submissionSet = statement.executeQuery();
+			
+			while(submissionSet.next()) {
+				int setAssignmentId = submissionSet.getInt("ASSIGN_ID");
+				if (setAssignmentId == assignmentId) {
+					Dropbox submission = new Dropbox (setAssignmentId, submissionSet.getInt("STUDENT_ID"),
+													  submissionSet.getString("PATH"), submissionSet.getInt("SUBMISSION_GRADE"),
+													  submissionSet.getString("COMMENTS"), submissionSet.getString("TITLE"), 
+													  submissionSet.getString("TIMESTAMP"));
+					submissionList.add(submission);
+				}
+			}
+			submissionSet.close(); 
+			return submissionList; 
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

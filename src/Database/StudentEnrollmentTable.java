@@ -94,9 +94,10 @@ public class StudentEnrollmentTable {
 				Course co = c.searchCourse(courseId);
 				return new StudentEnrollment(id, st, co);
 			}
-		
-		} catch (SQLException e) { e.printStackTrace(); }
-		
+		} 
+		catch (SQLException e) { 
+			e.printStackTrace(); 
+		}
 		return null;
 	}
 	public ArrayList<Integer> searchStudent(int Id) {
@@ -113,10 +114,35 @@ public class StudentEnrollmentTable {
 											  courseSet.getInt("COURSE_ID"));
 				if(enrollments.getCourseId().equals(Id))
 				{
-				courseList.add(enrollments.getStudentId());
+					courseList.add(enrollments.getStudentId());
 				}
 			}
 			
+			courseSet.close();
+			return courseList;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
+		try { 
+			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
+			String sql = "SELECT * FROM " + "StudentEnrollmentTable";
+			statement = jdbc_connection.prepareStatement(sql);
+			ResultSet courseSet = statement.executeQuery();
+			
+			while(courseSet.next()) 
+			{
+				StudentEnrollment enrollments = new StudentEnrollment(courseSet.getInt("ID"), 
+											  courseSet.getInt("STUDENT_ID"), 
+											  courseSet.getInt("COURSE_ID"));
+				if(enrollments.getStudentId().equals(studentId))
+				{
+					courseList.add(enrollments.getCourseId());
+				}
+			}
 			courseSet.close();
 			return courseList;
 		}

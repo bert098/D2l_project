@@ -7,13 +7,14 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import Data.Course;
+import Data.Constants;
 import Data.Student;
 import Model.StudentModel;
 import View.StudentCourseView;
 import View.StudentCoursesPanel;
 import View.StudentView;
 
-public class StudentController {
+public class StudentController implements Constants{
 	private StudentModel studentModel;
 	private StudentView view;
 	private ArrayList<Course> courseList;
@@ -29,12 +30,11 @@ public class StudentController {
 	
 	public void addCourses()
 	{
-		//todo
-		//for testing
-		ArrayList<Course> list = new ArrayList<Course>();
-		list.add(new Course( 1, 1,  "name", true));
+		studentModel.sendOperation(STUDENT_COURSES);
+		studentModel.sendStudentId(view.getUserId());
+		courseList = studentModel.getStudentCourseList();
 		
-		view.displayCourses(list);
+		view.displayCourses(courseList);
 	}
 	
 	public void addStudentViewListeners() 
@@ -49,8 +49,9 @@ public class StudentController {
 				System.out.println("Open Course");
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
-					new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
+					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());
+					
 				}
 				
 			}

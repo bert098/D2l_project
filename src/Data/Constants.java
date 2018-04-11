@@ -13,7 +13,8 @@ public interface Constants {
 	public static final String ENROLL_STUDENT = "ENROLL_STUDENT";
 	public static final String UNENROLL_STUDENT = "UNENROLL_STUDENT"; 
 	public static final String GET_ASSIGN = "GET_ASSIGN";
-	public static final String GRADE_SUBMISSION = "GRADE_SUBMISSION";
+	public static final String GRADE_SUBMISSON = "GRADE_SUBMISSION";
+	public static final String GET_SUBMISSIONS = "GET_SUBMISSIONS";
 	public static final String ACTIVATE_ASSIGN = "ACTIVATE_ASSIGN";
 	public static final String DEACTIVATE_ASSIGN = "DEACTIVATE_ASSIGN";
 	public static final String UPLOAD_ASSIGN = "UPLOAD_ASSIGN";
@@ -22,4 +23,5 @@ public interface Constants {
 	public static final String SUBMIT_ASSIGN = "SUBMIT_ASSIGN";
 	public static final String GET_GRADES = "GET_GRADES";
 	public static final String SEND_EMAIL = "SEND_EMAIL";
+	public static final String ALL_STUDENTS = "ALL_STUDENTS";
 }
