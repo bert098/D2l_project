@@ -69,8 +69,11 @@ public class ProfessorCourseController implements Constants {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Open Dropbox");
-				courseView.setVisible(false);
 				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				if (assignment == null) {
+					return;
+				}
+				courseView.setVisible(false);
 				new ProfessorDropboxController(new ProfessorDropboxView(assignment, courseView), professorModel, assignment);				
 			}
 		});
@@ -123,9 +126,12 @@ public class ProfessorCourseController implements Constants {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Activate");
+				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				if (assignment == null) {
+					return;
+				}
 				professorModel.sendOperation(ACTIVATE_ASSIGN);
-				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
-				professorModel.sendDeactivateAssignment(assignId);
+				professorModel.sendDeactivateAssignment(assignment.getId());
 				System.out.println("odsifja");
 				displayAssignments();
 			}
@@ -135,9 +141,12 @@ public class ProfessorCourseController implements Constants {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Deactivate");
+				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				if (assignment == null) {
+					return;
+				}
 				professorModel.sendOperation(DEACTIVATE_ASSIGN);
-				Integer assignId = courseView.getProfessorAssignmentsPanel().getSelectedAssignment().getId();
-				professorModel.sendDeactivateAssignment(assignId);
+				professorModel.sendDeactivateAssignment(assignment.getId());
 				displayAssignments();
 			}
 		});

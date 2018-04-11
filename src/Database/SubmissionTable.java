@@ -42,13 +42,15 @@ public class SubmissionTable {
 	public void createSubmissionTable()
 	{
 		String sql =   "CREATE TABLE " + "SubmissionTable" + "(" +
+					 "ID INT(8) NOT NULL, " +
 				     "ASSIGN_ID INT(8) NOT NULL, " + 
 				     "STUDENT_ID INT(8) NOT NULL, " + 
 				     "PATH VARCHAR(100) NOT NULL, " + 
 				     "TITLE VARCHAR(50) NOT NULL, " + 
 				     "SUBMISSION_GRADE INT(3) NOT NULL, " +
 				     "COMMENTS VARCHAR(140) NOT NULL, " +
-				     "TIMESTAMP VARCHAR(25) NOT NULL) ";
+				     "TIMESTAMP VARCHAR(25) NOT NULL, " + 
+				     "PRIMARY KEY ( id ))";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -71,16 +73,18 @@ public class SubmissionTable {
 				 ",? " + 
 				 ",? " + 
 				 ",? " + 
+				 ",? " + 
 				 ");";
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, d.getAssignId());
-			statement.setInt(2, d.getStudentId());
-			statement.setString(3, d.getPath());
-			statement.setString(4, d.getTitle());
-			statement.setInt(5, d.getGrade());
-			statement.setString(6, d.getComment());
-			statement.setString(7, dateFormat.format(cal.getTime()));
+			statement.setInt(1, d.getId());
+			statement.setInt(2, d.getAssignId());
+			statement.setInt(3, d.getStudentId());
+			statement.setString(4, d.getPath());
+			statement.setString(5, d.getTitle());
+			statement.setInt(6, d.getGrade());
+			statement.setString(7, d.getComment());
+			statement.setString(8, dateFormat.format(cal.getTime()));
 			
 			
 			statement.executeUpdate();
@@ -101,6 +105,7 @@ public class SubmissionTable {
 			user = statement.executeQuery();
 			if(user.next())
 			{
+				Integer id = user.getInt("ID");
 				Integer assignId = user.getInt("ASSIGN_ID");
 				Integer studentId = user.getInt("STUDENT_ID");
 				String path = user.getString("PATH");
@@ -112,7 +117,7 @@ public class SubmissionTable {
 				UserTable use = new UserTable(pass);
 				Assignment a = assign.search(assignId);
 				Student s = (Student)use.searchID(studentId);
-				return new Dropbox(a,s,grade,comments );
+				return new Dropbox(id, a,s,grade,comments );
 			
 			}
 		
@@ -130,7 +135,7 @@ public class SubmissionTable {
 			while(submissionSet.next()) {
 				int setAssignmentId = submissionSet.getInt("ASSIGN_ID");
 				if (setAssignmentId == assignmentId) {
-					Dropbox submission = new Dropbox (setAssignmentId, submissionSet.getInt("STUDENT_ID"),
+					Dropbox submission = new Dropbox (submissionSet.getInt("ID"), setAssignmentId, submissionSet.getInt("STUDENT_ID"),
 													  submissionSet.getString("PATH"), submissionSet.getInt("SUBMISSION_GRADE"),
 													  submissionSet.getString("COMMENTS"), submissionSet.getString("TITLE"), 
 													  submissionSet.getString("TIMESTAMP"));
@@ -143,6 +148,23 @@ public class SubmissionTable {
 		catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void gradeSubmission(String comment, String grade, int id) {
+		try {
+			String sql = "UPDATE SubmissionTable SET " +
+					     "COMMENTS = ?, " +
+					     "SUBMISSION_GRADE = ? " +
+					     "WHERE ID = ?";
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setString(1, comment);
+			statement.setString(2, grade);
+			statement.setInt(3, id);
+			statement.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

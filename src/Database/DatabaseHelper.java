@@ -150,5 +150,9 @@ public class DatabaseHelper {
 	{
 		return userTable.getUserEmail(profId);
 	}
-
+	
+	public void gradeSubmission(String comment, String grade, int id) 
+	{
+		submissionTable.gradeSubmission(comment, grade, id);
+	}
 }

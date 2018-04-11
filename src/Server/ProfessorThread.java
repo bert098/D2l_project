@@ -290,7 +290,15 @@ public class ProfessorThread implements Constants {
 	}
 	
 	public void gradeSubmission() {
-		//todo
+		try {
+			String comments = stringIn.readLine();
+			String grade = stringIn.readLine();
+			int id = Integer.parseInt(stringIn.readLine());
+			database.gradeSubmission(comments, grade, id);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getSubmissions() {
@@ -298,6 +306,9 @@ public class ProfessorThread implements Constants {
 		try {
 			int assignmentId = Integer.parseInt(stringIn.readLine());
 			submissionList = database.searchAssignmentInSubmissions(assignmentId);
+			for (int i = 0; i < submissionList.size(); i++) {
+				System.out.println(submissionList.get(i));
+			}
 			objectOut.flush(); 
 			objectOut.writeObject(submissionList);
 		}
@@ -400,10 +411,8 @@ public class ProfessorThread implements Constants {
 			objectOut.flush();
 			objectOut.writeObject(s);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
