@@ -150,5 +150,10 @@ public class DatabaseHelper {
 	{
 		return userTable.getUserEmail(profId);
 	}
+	
+	public FileContainer getAssignFile(Assignment assign)
+	{
+		return assignmentTable.getAssignmentFile(assign);
+	}
 
 }
