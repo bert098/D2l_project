@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -109,7 +110,7 @@ public class StudentThread implements Constants {
 		try {
 			Assignment assign = (Assignment)objectIn.readObject();
 			
-			FileContainer fileContainer = database.getAssignFile(assign);
+			AssignmentFileContainer fileContainer = database.getAssignFile(assign);
 			
 			objectOut.flush();
 			objectOut.writeObject(fileContainer);

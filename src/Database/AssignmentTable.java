@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Course;
 import Data.FileContainer;
 import Data.Professor;
@@ -199,7 +200,7 @@ public class AssignmentTable {
 		}
 	}
 	
-	public FileContainer getAssignmentFile(Assignment assign)
+	public AssignmentFileContainer getAssignmentFile(Assignment assign)
 	{
 		try {
 			String sql = "SELECT TITLE, PATH FROM AssignmentTable WHERE ID = ?";
@@ -224,7 +225,7 @@ public class AssignmentTable {
 			
 			bos.close();
 			
-			FileContainer fileContainer = new FileContainer(content, name, assign);
+			AssignmentFileContainer fileContainer = new AssignmentFileContainer(content, name, assign);
 			return fileContainer;
 		} 
 		catch(SQLException e)

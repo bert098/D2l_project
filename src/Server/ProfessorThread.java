@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import Database.DatabaseHelper;
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -339,7 +340,7 @@ public class ProfessorThread implements Constants {
 	
 	public void uploadAssign() {
 		try {
-			FileContainer container = (FileContainer)objectIn.readObject();
+			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
 			byte[] content = container.getFileArr();
 			
 			File newFile = new File("assignments/" + container.getFileName());

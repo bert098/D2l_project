@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -217,7 +218,7 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
-	public void uploadAssignment(FileContainer container)
+	public void uploadAssignment(AssignmentFileContainer container)
 	{
 		try{
 			sendOperation(UPLOAD_ASSIGN);

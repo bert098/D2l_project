@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -113,7 +114,7 @@ public class StudentModel implements Constants{
 			objectOut.flush();
 			
 			
-			FileContainer container = (FileContainer)objectIn.readObject();
+			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
 			byte[] content = container.getFileArr();
 			
 			File newFile = new File(filepath + "\\" + container.getFileName());

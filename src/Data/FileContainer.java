@@ -2,7 +2,7 @@ package Data;
 
 import java.io.Serializable;
 
-public class FileContainer implements Serializable{
+public abstract class FileContainer implements Serializable{
 
 	/**
 	 * 
@@ -11,16 +11,13 @@ public class FileContainer implements Serializable{
 	
 	private byte[] fileArr;
 	private String fileName;
-	private Assignment assignment;
 	
 	public byte[] getFileArr() {return fileArr;}
 	public String getFileName() {return fileName;}
-	public Assignment getAssignment() {return assignment;}
 	
-	public FileContainer(byte[] fileArr, String fileName, Assignment assignment)
+	public FileContainer(byte[] fileArr, String fileName)
 	{
 		this.fileArr = fileArr;
 		this.fileName = fileName;
-		this.assignment = assignment;
 	}
 }
