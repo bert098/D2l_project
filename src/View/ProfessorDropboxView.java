@@ -25,30 +25,57 @@ import javax.swing.border.EmptyBorder;
 import Data.Assignment;
 import Data.Dropbox;
 
+/**
+ * Class used in the professor's gui for displaying student submissions for an assignment.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public class ProfessorDropboxView extends JFrame{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = 8673038957037574746L;
 	
-	ProfessorCourseView courseView;
+	/** The view that is used to open this view. */
+	private ProfessorCourseView courseView;
 	
+	/** Panel for holding the view's elements. */
 	private JPanel contentPane;
+	/** Text field for inputting a submission's grade. */
 	private JTextField gradeField = new JTextField();
+	/** Scroll pane for holding gradeField. */
 	private JScrollPane scrollPane = new JScrollPane();
+	/** List model for submissionsList. */
 	private DefaultListModel<Dropbox> submissionModel = new DefaultListModel<>();
+	/** List for holding all of the submissions. */
 	private JList<Dropbox> submissionsList = new JList<Dropbox>();
+	/** Text area for inputting comments for a submission. */
 	private JTextArea commentsArea = new JTextArea();
+	/** Button for grading a submission. */
 	private JButton submitGradeButton = new JButton("Submit Grade");
+	/** Button for downloading a student's submission. */
 	private JButton downloadAssignmentButton = new JButton("Download");
 	
+	/** Returns the contents of gradeField */
 	public String getGradeText() {return gradeField.getText();}
+	/** Returns the contents of commentsArea */
 	public String getCommentsText() {return commentsArea.getText();}
 	
+	/**
+	 * Adds an action listener for submitGradeButton.
+	 * @param a Action listener added to submitGradeButton.
+	 */
 	public void addSubmitGradeButtonActionListener(ActionListener a) {submitGradeButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for downloadAssignmentButton.
+	 * @param a Action listener added to downloadAssignmentButton.
+	 */
 	public void addDownloadAssignmentButtonActionListener(ActionListener a) {downloadAssignmentButton.addActionListener(a);}
 	
+	/**
+	 * Constructor for initializing a new ProfessorDropboxView.
+	 * @param assignment The dropbox's assignment.
+	 * @param courseView Set to courseView.
+	 */
 	public ProfessorDropboxView(Assignment assignment, ProfessorCourseView courseView)
 	{
 		this.courseView = courseView;
@@ -146,12 +173,17 @@ public class ProfessorDropboxView extends JFrame{
 		setVisible(true);
 	}
 	
+	/** Closes the window. */
 	private void closeWindow()
 	{
 		courseView.setVisible(true);
 		this.dispose();
 	}
 	
+	/**
+	 * Updates the contents of submissionModel.
+	 * @param submissionArrayList Used to update submissionModel.
+	 */
 	public void displaySubmissions(ArrayList<Dropbox> submissionArrayList) {
 		submissionModel.removeAllElements();
 		for (int i = 0; i < submissionArrayList.size(); i++) {
@@ -160,16 +192,19 @@ public class ProfessorDropboxView extends JFrame{
 		setVisible(true);
 	}
 	
+	/** Displays a dialogue if the inputed grade is incorrect. */
 	public void displayGradeError() {
 		JOptionPane.showMessageDialog(null, "Please enter a grade before submitting",
 				"Error", JOptionPane.PLAIN_MESSAGE);
 	}
 	
+	/** Displays a dialogue indicating that the submission's grade has been updated. */
 	public void displayGradeSubmitted() {
 		JOptionPane.showMessageDialog(null, "Grade submitted successfully",
 				"", JOptionPane.PLAIN_MESSAGE);
 	}
 	
+	/** Returns the selected submission. */
 	public Dropbox getSelectedSubmission() { 
 		return submissionsList.getSelectedValue();
 	}

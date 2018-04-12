@@ -9,22 +9,40 @@ import javax.swing.JButton;
 
 import Data.Assignment;
 
+/**
+ * Class used in the professor gui for displaying a course's assignments.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public class ProfessorAssignmentsPanel extends UserAssignmentsPanel{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -158630035274134969L;
 	
+	/** Button for uploading a new assignment. */
 	private JButton uploadAssignmentButton = new JButton("Upload New Assignment");
+	/** Button for activating an assignment. */
 	private JButton activateAssignButton = new JButton("Activate");
+	/** Button for deactivating an assignment. */
 	private JButton deactivateAssignButton = new JButton("Deactivate");
 	
+	/**
+	 * Adds an action listener for uploadAssignmentButton.
+	 * @param a Action listener added to uploadAssignmentButton.
+	 */
 	public void addUploadButtonActionListener(ActionListener a) {uploadAssignmentButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for activateAssignButton.
+	 * @param a Action listener added to activateAssignButton.
+	 */
 	public void addActivateAssignButtonActionListener(ActionListener a) {activateAssignButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for deactivateAssignButtonv.
+	 * @param a Action listener added to deactivateAssignButton.
+	 */
 	public void addDeactivateAssignButtonActionListener(ActionListener a) {deactivateAssignButton.addActionListener(a);}
 	
-	
+	/** Constructor for initializing a new ProfessorAssignmentsPanel. */
 	public ProfessorAssignmentsPanel()
 	{
 		super("Open Dropbox");
@@ -47,10 +65,13 @@ public class ProfessorAssignmentsPanel extends UserAssignmentsPanel{
 		add(deactivateAssignButton, gbc_deactivateAssignButton);
 	}
 	
+	/**
+	 * Updates the contents of assignmentModel.
+	 * @param assignmentList Contents added to assignmentModel.
+	 * @param id Used to update assignmentModel.
+	 */
 	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
 		assignmentModel.removeAllElements();
-		System.out.println("course id:" + id);
-		System.out.println("assignmnet c id:" + assignmentList.get(1).getCourseId());
 		for (int i = 0; i < assignmentList.size(); i++) {
 			if (assignmentList.get(i).getCourseId().equals(id)) {
 				assignmentModel.addElement(assignmentList.get(i));
