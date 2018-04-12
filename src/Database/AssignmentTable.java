@@ -58,6 +58,7 @@ public class AssignmentTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -69,6 +70,7 @@ public class AssignmentTable {
 	{
 		String sql = "SELECT * FROM " + "AssignmentTable" + " WHERE ID=?";
 		ResultSet user;
+		
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, ID);
@@ -83,6 +85,9 @@ public class AssignmentTable {
 				String due_date = user.getString("DUE_DATE");
 				CourseTable c = new CourseTable(pass);
 				Course course = c.searchCourse(courseId);
+				user.close();
+				c.closeConnection();
+				statement.close();
 				return new Assignment(id, course, title, path, active, due_date);
 			}
 		
@@ -119,6 +124,7 @@ public class AssignmentTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -143,6 +149,7 @@ public class AssignmentTable {
 				assignmentList.add(theAssignment);
 			}
 			assignmentSet.close();
+			statement.close();
 			return assignmentList;
 		}
 		catch (SQLException ex) {
@@ -170,6 +177,7 @@ public class AssignmentTable {
 				}
 			}
 			assignmentSet.close();
+			statement.close();
 			return assignmentList;
 		}
 		catch (SQLException ex) {
@@ -193,6 +201,7 @@ public class AssignmentTable {
 			}
 			statement.setInt(2, id);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -240,6 +249,14 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

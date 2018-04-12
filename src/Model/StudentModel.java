@@ -37,15 +37,21 @@ public class StudentModel implements Constants{
 	{
 		ArrayList<Assignment> a = null;
 		try {
+			stringOut.flush();
 			stringOut.println(GET_ASSIGN);
+			Thread.sleep(50);
 			objectOut.flush();
 			objectOut.writeObject(c);
 		 a = (ArrayList<Assignment>)objectIn.readObject();
+		 System.out.println("Got array of assignments on model");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

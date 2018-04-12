@@ -49,6 +49,7 @@ public class StudentEnrollmentTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -69,6 +70,7 @@ public class StudentEnrollmentTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -91,7 +93,11 @@ public class StudentEnrollmentTable {
 				UserTable s = new UserTable(pass);
 				CourseTable c = new CourseTable(pass);
 				Student st = (Student)s.searchID(studentId);
+				s.closeConnection();
 				Course co = c.searchCourse(courseId);
+				c.closeConnection();
+				user.close();
+				statement.close();
 				return new StudentEnrollment(id, st, co);
 			}
 		} 
@@ -119,6 +125,7 @@ public class StudentEnrollmentTable {
 			}
 			
 			courseSet.close();
+			statement.close();
 			return courseList;
 		}
 		catch (SQLException e) {
@@ -144,6 +151,7 @@ public class StudentEnrollmentTable {
 				}
 			}
 			courseSet.close();
+			statement.close();
 			return courseList;
 		}
 		catch (SQLException e) {
@@ -162,7 +170,8 @@ public class StudentEnrollmentTable {
 			{
 				c = courseSet.getInt("COURSE_ID");	
 			}
-			
+			courseSet.close();
+			statement.close();
 			return c;
 			
 		}
@@ -178,6 +187,7 @@ public class StudentEnrollmentTable {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			statement.executeUpdate();
+			statement.close();
 			
 			
 			
@@ -205,13 +215,21 @@ public class StudentEnrollmentTable {
 					studentList.add(enrollments.getStudentId());
 				}
 			}
-			
+			statement.close();
 			courseSet.close();
 			return studentList;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

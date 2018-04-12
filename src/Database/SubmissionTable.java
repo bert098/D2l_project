@@ -54,6 +54,7 @@ public class SubmissionTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -88,6 +89,7 @@ public class SubmissionTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -117,6 +119,8 @@ public class SubmissionTable {
 				UserTable use = new UserTable(pass);
 				Assignment a = assign.search(assignId);
 				Student s = (Student)use.searchID(studentId);
+				user.close();
+				statement.close();
 				return new Dropbox(id, a,s,grade,comments );
 			
 			}
@@ -144,10 +148,13 @@ public class SubmissionTable {
 				AssignmentTable assign = new AssignmentTable(pass);
 				UserTable use = new UserTable(pass);
 				Assignment a = assign.search(assignId);
+				assign.closeConnection();
 				Student s = (Student)use.searchID(studentId);
+				use.closeConnection();
 				if(as.getId().equals(assignId) && studentId.equals(ID))
 				{
-					System.out.println(as.getId() + " " + assignId );
+					user.close();
+					statement.close();
 					return new Dropbox(id, a,s,grade,comments );
 				}
 			
@@ -175,6 +182,7 @@ public class SubmissionTable {
 					submissionList.add(submission);
 				}
 			}
+			statement.close();
 			submissionSet.close(); 
 			return submissionList; 
 		}
@@ -195,6 +203,7 @@ public class SubmissionTable {
 			statement.setString(2, grade);
 			statement.setInt(3, id);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

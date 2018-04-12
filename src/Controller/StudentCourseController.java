@@ -42,8 +42,10 @@ public class StudentCourseController {
 		Course c = courseView.getCourse();
 		ArrayList<Assignment> a = studentModel.displayAssign(c);
 
-		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		
+		
+		
+		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		panel.displayAssignments(a);
 		
 	}

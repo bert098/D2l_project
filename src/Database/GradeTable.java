@@ -53,6 +53,7 @@ public class GradeTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -76,6 +77,7 @@ public class GradeTable {
 			statement.setInt(4, user.getCourseId());
 			statement.setInt(5, user.getGrade());
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -105,6 +107,11 @@ public class GradeTable {
 				Student s = (Student)use.searchID(studentId);
 				Course c = course.searchCourse(courseId);
 				Assignment a = assign.search(assignId);
+				use.closeConnection();
+				course.closeConnection();
+				assign.closeConnection();
+				user.close();
+				statement.close();
 				return new Grade(s,grade,c,a,id);
 			}
 		
@@ -139,10 +146,26 @@ public class GradeTable {
 				{
 				grades.add(new Grade(s,grade,c,a,id));
 				}
+				use.closeConnection();
+				course.closeConnection();
+				assign.closeConnection();
+				
 			}
+			
+			user.close();
+			statement.close();
 		
 		} catch (SQLException e) { e.printStackTrace(); }
 		
+		
 		return grades;
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

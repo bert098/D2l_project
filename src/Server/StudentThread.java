@@ -104,9 +104,10 @@ public class StudentThread implements Constants {
 		}
 	}
 	
-	public void getStudentAssignments() { 
+	public  void getStudentAssignments() { 
 		try {
 			Course c = (Course)objectIn.readObject();
+			 System.out.println("Got course on server");
 			ArrayList<Assignment> a = database.assignmentList(c.getId());
 			objectOut.flush();
 			objectOut.writeObject(a);
