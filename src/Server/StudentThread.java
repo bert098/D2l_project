@@ -1,11 +1,15 @@
 package Server;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Data.Assignment;
 import Data.AssignmentFileContainer;
@@ -16,6 +20,7 @@ import Data.FileContainer;
 import Data.Dropbox;
 import Data.Grade;
 import Data.StudentEnrollment;
+import Data.SubmissionFileContainer;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -134,7 +139,36 @@ public class StudentThread implements Constants {
 	}
 	
 	public void submitAssignment() { 
-		//todo
+		try {
+			SubmissionFileContainer container = (SubmissionFileContainer)objectIn.readObject();
+			byte[] content = container.getFileArr();
+			
+			File newFile = new File("submissions/" + container.getFileName());
+			
+			if(!newFile.exists())
+			{
+				newFile.createNewFile();
+			}
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(writer);
+			bos.write(content);
+			bos.close();
+			
+			Dropbox submission = container.getSubmission();
+			submission.setPath("submissions/" + container.getFileName());
+			
+			Random rand = new Random();
+			submission.setId(rand.nextInt(9999));
+			database.addSubmission(submission);
+		}
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void getGrades() { 

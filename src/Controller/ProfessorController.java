@@ -77,6 +77,10 @@ public class ProfessorController implements Constants{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Activate");
+				if (panel.getSelectedCourse() == null)
+				{
+					return;
+				}
 				professorModel.activateCourse(panel.getSelectedCourse().getId());
 				addCourses();
 			}
@@ -87,6 +91,10 @@ public class ProfessorController implements Constants{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("Deactivate");
+				if (panel.getSelectedCourse() == null)
+				{
+					return;
+				}
 				professorModel.deactivateCourse(panel.getSelectedCourse().getId());
 				addCourses();
 			}

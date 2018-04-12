@@ -172,4 +172,8 @@ public class DatabaseHelper {
 	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
 		return submissionTable.getSubmissionFile(submission);
 	}
+
+	public void addSubmission(Dropbox submission) {
+		submissionTable.addSubmission(submission);
+	}
 }

@@ -36,6 +36,9 @@ public class DatabaseSetterUpper {
 		Grade g1 = new Grade(u5, 100,c2 ,a1,1 );
 		Dropbox d4 = new Dropbox(4, a1, u5, 100, "Good shit", "");
 		Dropbox d5 = new Dropbox(5, a2, u5, 100, "Gooooooood shit", "");
+		Dropbox d6 = new Dropbox(1890, 1123, 1111, "submissions/cool.docx", -1, "", 
+								"cool.docx", "2018/04/12 10:50:32");
+		
 		data.insertSubmission(d4);
 		data.insertSubmission(d5);
 		data.insertGrade(g1);
@@ -59,6 +62,7 @@ public class DatabaseSetterUpper {
 		data.insertSubmission(d1);
 		data.insertSubmission(d2);
 		data.insertSubmission(d3);
+		data.insertSubmission(d6);
 	}	
 	
 	public DatabaseHelper getDatabase() {

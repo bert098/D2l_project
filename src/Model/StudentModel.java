@@ -20,6 +20,7 @@ import Data.FileContainer;
 import Data.Dropbox;
 import Data.Grade;
 import Data.StudentEnrollment;
+import Data.SubmissionFileContainer;
 
 public class StudentModel implements Constants{
 	
@@ -151,6 +152,17 @@ public class StudentModel implements Constants{
 		}
 		catch (ClassNotFoundException | IOException e) 
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void submitAssignment(SubmissionFileContainer container)
+	{
+		try {
+			sendOperation(SUBMIT_ASSIGN);
+			objectOut.writeObject(container);
+			objectOut.flush();
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
