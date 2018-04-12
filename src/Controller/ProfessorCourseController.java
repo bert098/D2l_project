@@ -189,11 +189,15 @@ public class ProfessorCourseController implements Constants {
 			public void actionPerformed(ActionEvent arg0) {
 				Course c = courseView.getCourse();
 				Student s = panel.getSelectedStudent();
-				ArrayList<Student> a  = professorModel.unEnroll(s);
-				ArrayList<Student> ar = professorModel.searchAll(c);
-				courseView.getSearchAllStudentsPanel().displayAll(ar);
-				panel.displayAll(a);
-				courseView.selectSearchStudentAll();
+				if(s != null)
+				{
+					ArrayList<Student> a  = professorModel.unEnroll(s);
+					ArrayList<Student> ar = professorModel.searchAll(c);
+					courseView.getSearchAllStudentsPanel().displayAll(ar);
+					panel.displayAll(a);
+					courseView.selectSearchStudentAll();
+				}
+				
 			}
 		});
 	}
@@ -227,12 +231,15 @@ public class ProfessorCourseController implements Constants {
 				
 				Course c = courseView.getCourse();
 				Student s = panel.getSelectedStudent();
-				StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), s.getId(), c.getId());
-				ArrayList<Student> ar =	professorModel.enroll(st);
-				ArrayList<Student> a = professorModel.searchAll(c);
-				courseView.getSearchEnrolledStudentsPanel().displayAll(ar);
-				courseView.getSearchAllStudentsPanel().displayAll(a);
-				courseView.selectSearchStudentEnrolled();
+				if(s != null)
+				{
+					StudentEnrollment st = new StudentEnrollment((int) Math.floor((Math.random() * 50) + 1), s.getId(), c.getId());
+					ArrayList<Student> ar =	professorModel.enroll(st);
+					ArrayList<Student> a = professorModel.searchAll(c);
+					courseView.getSearchEnrolledStudentsPanel().displayAll(ar);
+					courseView.getSearchAllStudentsPanel().displayAll(a);
+					courseView.selectSearchStudentEnrolled();
+				}
 			}
 		});
 		

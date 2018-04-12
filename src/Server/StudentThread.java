@@ -101,6 +101,14 @@ public class StudentThread implements Constants {
 			for (int i = 0; i < courseIdList.size(); i++) {
 				courseList.add(database.searchCourse(courseIdList.get(i)));
 			}
+			for(int i = 0 ; i < courseList.size(); i++)
+			{
+				if(courseList.get(i).getActive() ==  false)
+				{
+					courseList.remove(i);
+					i--;
+				}
+			}
 			objectOut.flush();
 			objectOut.writeObject(courseList);
 		}
@@ -114,6 +122,14 @@ public class StudentThread implements Constants {
 			Course c = (Course)objectIn.readObject();
 			 System.out.println("Got course on server");
 			ArrayList<Assignment> a = database.assignmentList(c.getId());
+			for(int i = 0 ; i < a.size(); i++)
+			{
+				if(a.get(i).getActive() ==  false)
+				{
+					a.remove(i);
+					i--;
+				}
+			}
 			objectOut.flush();
 			objectOut.writeObject(a);
 		} catch (ClassNotFoundException | IOException e) {

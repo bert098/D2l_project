@@ -213,8 +213,6 @@ public class UserTable {
 				if(type.equals("S"))
 				{
 					char chartype = type.charAt(0);
-					user.close();
-					statement.close();
 					studentList.add( new Student(id, username, password, chartype, email, firstName, lastName));
 				
 				}
