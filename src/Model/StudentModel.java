@@ -70,7 +70,7 @@ public class StudentModel implements Constants{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return g;
 		
 	}
