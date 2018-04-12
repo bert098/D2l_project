@@ -136,7 +136,7 @@ public class StudentCourseController {
 		panel.addAssignDetailsButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				
 				System.out.println("Assign deets");
 			}
 		});
