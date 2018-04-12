@@ -12,7 +12,7 @@ public class Dropbox implements Serializable{
 	private String title;
 	private String timeStamp; 
 	
-	public Dropbox(Integer i, Assignment a, Student s, Integer grade, String comment)
+	public Dropbox(Integer i, Assignment a, Student s, Integer grade, String comment, String ts)
 	{
 		id = i;
 		assign_id = a.getId();
@@ -21,6 +21,7 @@ public class Dropbox implements Serializable{
 		this.grade = grade;
 		this.comment = comment;
 		title = a.getTitle();
+		timeStamp = ts;
 	}
 	
 	public Dropbox(Integer i, Integer aId, Integer sId, String p, Integer g, String c, String t, String ts) 
@@ -45,8 +46,8 @@ public class Dropbox implements Serializable{
 	@Override 
 	public String toString() { 
 		if (grade == -1) { 
-			return "SUBMITTED BY: Student Id: " + student_id + " Submission Time: " + timeStamp + " UNMARKED";
+			return "Title: " + title + " Student Id: " + student_id + " Submission Time: " + timeStamp + " UNMARKED";
 		}
-		return "SUBMITTED BY: Student Id: " + student_id + " Submission Time: " + timeStamp + " Grade: " + grade;
+		return "Title: " + title + " Student Id: " + student_id + " Submission Time: " + timeStamp + " Grade: " + grade;
 	}
 }
