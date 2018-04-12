@@ -78,6 +78,7 @@ public class CourseTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -100,6 +101,9 @@ public class CourseTable {
 				String name = user.getString("NAME");
 				boolean active = user.getBoolean("ACTIVE");
 				Professor p = (Professor)userTab.searchID(prof_id);
+				user.close();
+				statement.close();
+				userTab.closeConnection();
 				return new Course(p, id, name, active);
 				
 			}
@@ -125,6 +129,7 @@ public class CourseTable {
 				courseList.add(theCourse);
 			}
 			courseSet.close();
+			statement.close();
 			return courseList;
 		}
 		catch (SQLException e) {
@@ -151,9 +156,18 @@ public class CourseTable {
 			}
 			statement.setInt(2, courseId);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

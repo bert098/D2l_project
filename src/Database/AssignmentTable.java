@@ -30,21 +30,13 @@ public class AssignmentTable {
 	public AssignmentTable(String password)
 	{
 		try{
-			// If this throws an error, make sure you have added the mySQL connector JAR to the project
 			Class.forName("com.mysql.jdbc.Driver");
-			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
 	public void createAssignmentTable()
 	{
 		String sql =   "CREATE TABLE " + "AssignmentTable" + "(" +
@@ -58,6 +50,7 @@ public class AssignmentTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -69,21 +62,25 @@ public class AssignmentTable {
 	{
 		String sql = "SELECT * FROM " + "AssignmentTable" + " WHERE ID=?";
 		ResultSet user;
+		
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.setInt(1, ID);
 			user = statement.executeQuery();
 			if(user.next())
 			{
-				Integer id = user.getInt("ID");
-				Integer courseId = user.getInt("COURSEID");
-				String title = user.getString("TITLE");
-				String path = user.getString("PATH");
+				Integer id = user.getInt("ID"); 
+				String title  = user.getString("TITLE");
+				String path  = user.getString("PATH");
 				boolean active = user.getBoolean("ACTIVE");
-				String due_date = user.getString("DUE_DATE");
+				String dueDate = user.getString("DUE_DATE");
+				Integer courseId = user.getInt("COURSEID");
 				CourseTable c = new CourseTable(pass);
 				Course course = c.searchCourse(courseId);
-				return new Assignment(id, course, title, path, active, due_date);
+				user.close();
+				c.closeConnection();
+				statement.close();
+				return new Assignment(id, course, title, path, active, dueDate);
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -119,6 +116,7 @@ public class AssignmentTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -143,6 +141,7 @@ public class AssignmentTable {
 				assignmentList.add(theAssignment);
 			}
 			assignmentSet.close();
+			statement.close();
 			return assignmentList;
 		}
 		catch (SQLException ex) {
@@ -150,7 +149,7 @@ public class AssignmentTable {
 			return null;
 		}
 	}
-	public ArrayList<Assignment> courseAssignmentTableToList(Course c) {
+	public ArrayList<Assignment> courseAssignmentTableToList(Integer c) {
 		try { 
 			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
 			String sql = "SELECT * FROM " + "AssignmentTable";
@@ -164,12 +163,13 @@ public class AssignmentTable {
 						  assignmentSet.getString("PATH"),
 						  assignmentSet.getBoolean("ACTIVE"),
 						  assignmentSet.getString("DUE_DATE"));
-				if(theAssignment.getCourseId().equals(c.getId()))
+				if(theAssignment.getCourseId().equals(c))
 				{
 				assignmentList.add(theAssignment);
 				}
 			}
 			assignmentSet.close();
+			statement.close();
 			return assignmentList;
 		}
 		catch (SQLException ex) {
@@ -193,6 +193,7 @@ public class AssignmentTable {
 			}
 			statement.setInt(2, id);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -240,6 +241,14 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

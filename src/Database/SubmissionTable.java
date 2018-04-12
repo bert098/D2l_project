@@ -54,6 +54,7 @@ public class SubmissionTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -88,6 +89,7 @@ public class SubmissionTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -117,11 +119,49 @@ public class SubmissionTable {
 				UserTable use = new UserTable(pass);
 				Assignment a = assign.search(assignId);
 				Student s = (Student)use.searchID(studentId);
-				return new Dropbox(id, a,s,grade,comments );
+				user.close();
+				statement.close();
+				return new Dropbox(id, a,s,grade,comments, time);
 			
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }
+		return null;
+	}
+	public Dropbox GradeForAssignment(int ID, Assignment as)
+	{
+		String sql = "SELECT * FROM " + "SubmissionTable";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			user = statement.executeQuery();
+			while(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer assignId = user.getInt("ASSIGN_ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				String path = user.getString("PATH");
+				String title = user.getString("TITLE");
+				Integer grade = user.getInt("SUBMISSION_GRADE");
+				String comments = user.getString("COMMENTS");
+				String time = user.getString("TIMESTAMP");
+				AssignmentTable assign = new AssignmentTable(pass);
+				UserTable use = new UserTable(pass);
+				Assignment a = assign.search(assignId);
+				assign.closeConnection();
+				Student s = (Student)use.searchID(studentId);
+				use.closeConnection();
+				if(as.getId().equals(assignId) && studentId.equals(ID))
+				{
+					user.close();
+					statement.close();
+					return new Dropbox(id, a.getId(),s.getId(),path,grade,comments,title,time );
+				}
+			
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
 		return null;
 	}
 	
@@ -142,6 +182,7 @@ public class SubmissionTable {
 					submissionList.add(submission);
 				}
 			}
+			statement.close();
 			submissionSet.close(); 
 			return submissionList; 
 		}
@@ -162,6 +203,7 @@ public class SubmissionTable {
 			statement.setString(2, grade);
 			statement.setInt(3, id);
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

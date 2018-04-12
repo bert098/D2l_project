@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
 import Data.Email;
 import Data.Assignment;
 import Data.Course;
-
+import Data.Dropbox;
+import Data.Grade;
 import Model.StudentModel;
 import View.GradesPanel;
 import View.ProfessorDropboxView;
@@ -31,6 +32,7 @@ public class StudentCourseController {
 		studentModel = model;
 		this.courseView = courseView;
 		displayAssignments();
+		displayGrades();
 		addStudentCourseViewListeners();
 		addGradesPanelListeners();
 	}
@@ -40,9 +42,20 @@ public class StudentCourseController {
 		Course c = courseView.getCourse();
 		ArrayList<Assignment> a = studentModel.displayAssign(c);
 
+		
+		
+		
 		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		panel.displayAssignments(a);
 		
+	}
+	public void displayGrades()
+	{
+		Course c = courseView.getCourse();
+		Integer id = courseView.getView().getUserId();
+		ArrayList<Dropbox> g = studentModel.displayGrades(c,id);
+		GradesPanel panel = courseView.getGradesPanel();
+		panel.displaySubmissions(g);
 	}
 	
 	public void addStudentCourseViewListeners()

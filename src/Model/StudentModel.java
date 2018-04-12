@@ -16,6 +16,9 @@ import Data.Constants;
 import Data.Course;
 import Data.Email;
 import Data.FileContainer;
+import Data.Dropbox;
+import Data.Grade;
+import Data.StudentEnrollment;
 
 public class StudentModel implements Constants{
 	
@@ -34,10 +37,13 @@ public class StudentModel implements Constants{
 	{
 		ArrayList<Assignment> a = null;
 		try {
+			stringOut.flush();
 			stringOut.println(GET_ASSIGN);
+			Thread.sleep(50);
 			objectOut.flush();
 			objectOut.writeObject(c);
 		 a = (ArrayList<Assignment>)objectIn.readObject();
+		 System.out.println("Got array of assignments on model");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -45,8 +51,31 @@ public class StudentModel implements Constants{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return a;
+		
+	}
+	public ArrayList<Dropbox> displayGrades(Course c, Integer n)
+	{
+		ArrayList<Dropbox> g = null;
+		stringOut.flush();
+		stringOut.println(GET_GRADES);
+		try {
+			StudentEnrollment temp = new StudentEnrollment(100, n, c.getId());
+			objectOut.flush();
+			objectOut.writeObject(temp);
+			g = (ArrayList<Dropbox>)objectIn.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return g;
 		
 	}
 	

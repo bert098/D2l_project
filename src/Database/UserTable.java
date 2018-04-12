@@ -47,8 +47,8 @@ public class UserTable {
 		try{
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
-		}
-		catch(SQLException e)
+			statement.close();
+		}catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -75,6 +75,7 @@ public class UserTable {
 			
 			
 			statement.executeUpdate();
+			statement.close();
 		}
 		catch(SQLException e)
 		{
@@ -106,11 +107,15 @@ public class UserTable {
 				if(type.equals("P"))
 				{
 					char chartype = type.charAt(0);
+					user.close();
+					statement.close();
 					return new Professor(id, username, password, chartype, email, firstName, lastName);
 				}
 				else
 				{
 					char chartype = type.charAt(0);
+					user.close();
+					statement.close();
 					return new Student(id, username, password, chartype, email, firstName, lastName);
 				}
 			}
@@ -141,11 +146,15 @@ public class UserTable {
 				if(type.equals("P"))
 				{
 					char chartype = type.charAt(0);
+					user.close();
+					statement.close();
 					return new Professor(id, username, password, chartype, email, firstName, lastName);
 				}
 				else
 				{
 					char chartype = type.charAt(0);
+					user.close();
+					statement.close();
 					return new Student(id, username, password, chartype, email, firstName, lastName);
         }
 			}
@@ -204,6 +213,8 @@ public class UserTable {
 				if(type.equals("S"))
 				{
 					char chartype = type.charAt(0);
+					user.close();
+					statement.close();
 					studentList.add( new Student(id, username, password, chartype, email, firstName, lastName));
 				
 				}
@@ -212,5 +223,14 @@ public class UserTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		
 		return studentList;
+	}
+	public void closeConnection()
+	{
+		try {
+			jdbc_connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

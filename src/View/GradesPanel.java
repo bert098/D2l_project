@@ -74,7 +74,7 @@ public class GradesPanel extends JPanel{
 		submissionModel.removeAllElements();
 		for(int i = 0; i < dropboxArrayList.size(); i++)
 		{
-			submissionModel.addElement(submissionModel.get(i));
+			submissionModel.addElement(dropboxArrayList.get(i));
 		}
 		setVisible(true);
 	}
