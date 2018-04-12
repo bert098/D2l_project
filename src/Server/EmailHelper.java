@@ -2,8 +2,7 @@ package Server;
 
 import java.util.ArrayList;
 import java.util.Properties;
-
-import javax.mail.Address;
+	
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -14,12 +13,32 @@ import javax.mail.internet.MimeMessage;
 
 import Data.Email;
 
+/**
+ * Email helper class sets up the session and manages email sending for the server
+ * @author Justin, Magnus, Robert
+ */
 public class EmailHelper {
 
+	/**
+	 * Email configuration properties 
+	 */
 	Properties properties = new Properties();
+	
+	/**
+	 * Email class holds data for email data including password for sending
+	 */
 	Email email;
+	
+	/**
+	 * List of recipients for email sending
+	 */
 	ArrayList<String> recieverList;
 	
+	/**
+	 * Constructs Email helper with Email and recieverList 
+	 * @param email email being sent
+	 * @param recieverList list of people receiving email 
+	 */
 	public EmailHelper(Email email, ArrayList<String> recieverList)
 	{
 		this.email = email;
@@ -30,6 +49,10 @@ public class EmailHelper {
 		properties.put("mail.smtp.port", "587");
 	}
 	
+	/**
+	 * Create the email session and ask for authentication for email 
+	 * @return Session of email 
+	 */
 	private Session createSession()
 	{
 		Session session = Session.getInstance(properties, 
@@ -41,6 +64,10 @@ public class EmailHelper {
 		return session;
 	}
 	
+	/**
+	 * Send email in Email data field to all recipients in recieverList 
+	 * @return true if email sent, false if email not sent properly
+	 */
 	public boolean sendEmail() 
 	{
 		try 
@@ -66,7 +93,6 @@ public class EmailHelper {
 		catch(MessagingException e)
 		{
 			return false;
-			//e.printStackTrace();
 		}
 	}
 }

@@ -15,9 +15,6 @@ import javax.swing.JTabbedPane;
 
 public abstract class UserCourseView extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5093225887456340253L;
 
 	protected UserView userView;
@@ -40,8 +37,8 @@ public abstract class UserCourseView extends JFrame{
 		this.userView = userView;
 		this.course = course;
 		
-		setSize(510, 500);
-		setMinimumSize(new Dimension(510, 500));
+		setSize(565, 500);
+		setMinimumSize(new Dimension(565, 500));
 		setLocationRelativeTo(null);
 		
 		JLabel courseLabel = new JLabel(course.getName() + " " + course.getId());
