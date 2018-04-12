@@ -155,7 +155,7 @@ public class SubmissionTable {
 				{
 					user.close();
 					statement.close();
-					return new Dropbox(id, a,s,grade,comments );
+					return new Dropbox(id, a.getId(),s.getId(),path,grade,comments,title,time );
 				}
 			
 			}

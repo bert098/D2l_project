@@ -30,21 +30,13 @@ public class AssignmentTable {
 	public AssignmentTable(String password)
 	{
 		try{
-			// If this throws an error, make sure you have added the mySQL connector JAR to the project
 			Class.forName("com.mysql.jdbc.Driver");
-			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
 	public void createAssignmentTable()
 	{
 		String sql =   "CREATE TABLE " + "AssignmentTable" + "(" +
@@ -77,18 +69,18 @@ public class AssignmentTable {
 			user = statement.executeQuery();
 			if(user.next())
 			{
-				Integer id = user.getInt("ID");
-				Integer courseId = user.getInt("COURSEID");
-				String title = user.getString("TITLE");
-				String path = user.getString("PATH");
+				Integer id = user.getInt("ID"); 
+				String title  = user.getString("TITLE");
+				String path  = user.getString("PATH");
 				boolean active = user.getBoolean("ACTIVE");
-				String due_date = user.getString("DUE_DATE");
+				String dueDate = user.getString("DUE_DATE");
+				Integer courseId = user.getInt("COURSEID");
 				CourseTable c = new CourseTable(pass);
 				Course course = c.searchCourse(courseId);
 				user.close();
 				c.closeConnection();
 				statement.close();
-				return new Assignment(id, course, title, path, active, due_date);
+				return new Assignment(id, course, title, path, active, dueDate);
 			}
 		
 		} catch (SQLException e) { e.printStackTrace(); }
