@@ -76,40 +76,40 @@ public class StudentCourseController {
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Submit assignment");
 				
-				JFileChooser fileBrowser = new JFileChooser();
-				
-				if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-				{
-					File selectedFile = fileBrowser.getSelectedFile();
+				if(panel.getSelectedAssignment() != null) {
+					JFileChooser fileBrowser = new JFileChooser();
 					
-					long length = selectedFile.length();
-					byte[] content = new byte[(int)length];
-					
-					try
+					if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 					{
-						FileInputStream fis = new FileInputStream(selectedFile);
-						BufferedInputStream bos = new BufferedInputStream(fis);
-						bos.read(content, 0, (int)length);
+						File selectedFile = fileBrowser.getSelectedFile();
+						
+						long length = selectedFile.length();
+						byte[] content = new byte[(int)length];
+						
+						try
+						{
+							FileInputStream fis = new FileInputStream(selectedFile);
+							BufferedInputStream bos = new BufferedInputStream(fis);
+							bos.read(content, 0, (int)length);
+						}
+						catch (FileNotFoundException e)
+						{
+							e.printStackTrace();
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+						}
+						
+						Dropbox submission = new Dropbox(null, panel.getSelectedAssignment().getId(), courseView.getView().getUserId(),
+								null, -1, "", selectedFile.getName(), null);
+						
+						SubmissionFileContainer container = new SubmissionFileContainer(content, selectedFile.getName(), submission);
+						
+						studentModel.submitAssignment(container);
+						JOptionPane.showMessageDialog(null, "Assignment submitted.");
 					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-					
-					Dropbox submission = new Dropbox(null, panel.getSelectedAssignment().getId(), courseView.getView().getUserId(),
-							null, -1, "", selectedFile.getName(), null);
-					
-					SubmissionFileContainer container = new SubmissionFileContainer(content, selectedFile.getName(), submission);
-					
-					studentModel.submitAssignment(container);
-					JOptionPane.showMessageDialog(null, "Assignment submitted.");
 				}
 			}
 		});
