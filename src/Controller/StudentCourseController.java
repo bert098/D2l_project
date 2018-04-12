@@ -75,7 +75,7 @@ public class StudentCourseController {
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+	
 				System.out.println("Submit assignment");
 				
 				JFileChooser fileBrowser = new JFileChooser();
@@ -101,8 +101,6 @@ public class StudentCourseController {
 					{
 						e.printStackTrace();
 					}
-					
-					//Dropbox submission = new Dropbox();
 				}
 			}
 		});

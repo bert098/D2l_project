@@ -1,6 +1,9 @@
 package Model;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +19,7 @@ import Data.Dropbox;
 import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
+import Data.SubmissionFileContainer;
 
 public class ProfessorModel implements Constants{
 	private BufferedReader stringIn; 
@@ -301,6 +305,34 @@ public class ProfessorModel implements Constants{
 			Thread.sleep(50);
 		} 
 		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void downloadSubmission(Dropbox submission, String filePath) {
+		try { 
+			sendOperation(DOWNLOAD_SUB);
+			
+			objectOut.flush();
+			objectOut.writeObject(submission);
+			
+			SubmissionFileContainer container = (SubmissionFileContainer)objectIn.readObject();
+			byte[] content = container.getFileArr();
+			
+			File newFile = new File(filePath + "\\" + container.getFileName());
+			
+			if (!newFile.exists()) 
+			{
+				newFile.createNewFile();
+			}
+			
+			FileOutputStream writer = new FileOutputStream(newFile);
+			BufferedOutputStream bufferOutput = new BufferedOutputStream(writer);
+			bufferOutput.write(content);
+			bufferOutput.close();
+		}
+		catch (ClassNotFoundException | IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}

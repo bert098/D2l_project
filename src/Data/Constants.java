@@ -24,5 +24,6 @@ public interface Constants {
 	public static final String GET_GRADES = "GET_GRADES";
 	public static final String SEND_EMAIL = "SEND_EMAIL";
 	public static final String ALL_STUDENTS = "ALL_STUDENTS";
+	public static final String DOWNLOAD_SUB = "DOWNLOAD_SUB";
 	public static final String EXIT = "EXIT";
 }

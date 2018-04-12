@@ -113,8 +113,8 @@ public class StudentModel implements Constants{
 	{
 		try{
 			sendOperation(SEND_EMAIL);
-			objectOut.writeObject(email);
 			objectOut.flush();
+			objectOut.writeObject(email);
 			
 			String messageStatus = stringIn.readLine();
 			if(messageStatus.equals("MESSAGE_SENT")) {
@@ -130,12 +130,10 @@ public class StudentModel implements Constants{
 	public void downloadAssign(Assignment assign, String filepath)
 	{
 		try {
-			
 			sendOperation(DOWNLOAD_ASSIGN);
 			
-			objectOut.writeObject(assign);
 			objectOut.flush();
-			
+			objectOut.writeObject(assign);	
 			
 			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
 			byte[] content = container.getFileArr();

@@ -168,5 +168,8 @@ public class DatabaseHelper {
 	public Dropbox getGrades(Integer studentId, Assignment assignment) {
 		return submissionTable.GradeForAssignment(studentId, assignment);
 	}
-
+	
+	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
+		return submissionTable.getSubmissionFile(submission);
+	}
 }
