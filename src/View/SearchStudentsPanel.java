@@ -46,6 +46,9 @@ public class SearchStudentsPanel extends JPanel {
 	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
 	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
 	
+	public void hideEnrollButton() {enrollButton.setVisible(false);}
+	public void hideUnenrollButton() {unenrollButton.setVisible(false);}
+	
 	public SearchStudentsPanel()
 	{
 		resultsList.setModel(studentModel);

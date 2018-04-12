@@ -27,7 +27,9 @@ public class ProfessorCourseView extends UserCourseView {
 		tabbedPane.addTab("Assignments", null, assignmentsPanel, null);
 		tabbedPane.addTab("Send Email", null, emailPanel, null);
 		tabbedPane.addTab("Search Enrolled Students", null, studentEnrolledSearchPanel, null);
-		tabbedPane.addTab("Search all Students", null, searchAllStudentsPanel, null);
+		tabbedPane.addTab("Search Unenrolled Students", null, searchAllStudentsPanel, null);
+		studentEnrolledSearchPanel.hideEnrollButton();
+		searchAllStudentsPanel.hideUnenrollButton();
 	}
 	
 	public void displayAssignments(ArrayList<Assignment> assignmentList, Integer id) { 
