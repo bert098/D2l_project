@@ -43,6 +43,9 @@ public class Dropbox implements Serializable{
 	public String getComment() {return comment;}
 	public String getTitle() {return title;}
 	
+	public void setPath(String path) {this.path = path;}
+	public void setId(Integer num) {this.id = num;}
+	
 	@Override 
 	public String toString() { 
 		if (grade == -1) { 

@@ -17,6 +17,7 @@ import Data.Assignment;
 import Data.Course;
 import Data.Dropbox;
 import Data.Grade;
+import Data.SubmissionFileContainer;
 import Model.StudentModel;
 import View.GradesPanel;
 import View.ProfessorDropboxView;
@@ -102,7 +103,13 @@ public class StudentCourseController {
 						e.printStackTrace();
 					}
 					
-					//Dropbox submission = new Dropbox();
+					Dropbox submission = new Dropbox(null, panel.getSelectedAssignment().getId(), courseView.getView().getUserId(),
+							null, -1, "", selectedFile.getName(), null);
+					
+					SubmissionFileContainer container = new SubmissionFileContainer(content, selectedFile.getName(), submission);
+					
+					studentModel.submitAssignment(container);
+					JOptionPane.showMessageDialog(null, "Assignment submitted.");
 				}
 			}
 		});
