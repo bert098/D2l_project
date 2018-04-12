@@ -44,7 +44,7 @@ public abstract class UserCourseView extends JFrame{
 		setMinimumSize(new Dimension(510, 500));
 		setLocationRelativeTo(null);
 		
-		JLabel courseLabel = new JLabel(course.getName());
+		JLabel courseLabel = new JLabel(course.getName() + " " + course.getId());
 		courseLabel.setFont(new Font("SansSerif", Font.PLAIN, 24));
 		getContentPane().add(courseLabel, BorderLayout.NORTH);
 		
