@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import Database.DatabaseHelper;
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -23,6 +24,7 @@ import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
 import Data.User;
+import Data.SubmissionFileContainer;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -111,6 +113,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
+		}
+		else if (operation.equals(DOWNLOAD_SUB)) {
+			downloadSubmission(); 
 		}
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail();
@@ -349,7 +354,7 @@ public class ProfessorThread implements Constants {
 	
 	public void uploadAssign() {
 		try {
-			FileContainer container = (FileContainer)objectIn.readObject();
+			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
 			byte[] content = container.getFileArr();
 			
 			File newFile = new File("assignments/" + container.getFileName());
@@ -369,7 +374,7 @@ public class ProfessorThread implements Constants {
 			
 			Random rand = new Random();
 			assign.setId(rand.nextInt(9999));
-			database.addAssignment(container.getAssignment());
+			database.addAssignment(assign);
 		} 
 		catch (ClassNotFoundException e) 
 		{
@@ -377,6 +382,20 @@ public class ProfessorThread implements Constants {
 		}	
 		catch (IOException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void downloadSubmission() {
+		try { 
+			Dropbox submission = (Dropbox)objectIn.readObject();
+			
+			SubmissionFileContainer fileContainer = database.getSubmissionFile(submission);
+			
+			objectOut.flush();
+			objectOut.writeObject(fileContainer);
+		}
+		catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}

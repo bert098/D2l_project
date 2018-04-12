@@ -2,7 +2,11 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -13,6 +17,7 @@ import Data.Assignment;
 import Data.Course;
 import Data.Dropbox;
 import Data.Grade;
+import Data.SubmissionFileContainer;
 import Model.StudentModel;
 import View.GradesPanel;
 import View.ProfessorDropboxView;
@@ -71,8 +76,41 @@ public class StudentCourseController {
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Submit assignment");		
+	
+				System.out.println("Submit assignment");
+				
+				JFileChooser fileBrowser = new JFileChooser();
+				
+				if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				{
+					File selectedFile = fileBrowser.getSelectedFile();
+					
+					long length = selectedFile.length();
+					byte[] content = new byte[(int)length];
+					
+					try
+					{
+						FileInputStream fis = new FileInputStream(selectedFile);
+						BufferedInputStream bos = new BufferedInputStream(fis);
+						bos.read(content, 0, (int)length);
+					}
+					catch (FileNotFoundException e)
+					{
+						e.printStackTrace();
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+					
+					Dropbox submission = new Dropbox(null, panel.getSelectedAssignment().getId(), courseView.getView().getUserId(),
+							null, -1, "", selectedFile.getName(), null);
+					
+					SubmissionFileContainer container = new SubmissionFileContainer(content, selectedFile.getName(), submission);
+					
+					studentModel.submitAssignment(container);
+					JOptionPane.showMessageDialog(null, "Assignment submitted.");
+				}
 			}
 		});
 		
@@ -136,8 +174,16 @@ public class StudentCourseController {
 		panel.addAssignDetailsButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Assign deets");
+				if(panel.getSubmission() == null)
+				{
+					return;
+				}
+				else
+				{
+				JOptionPane.showMessageDialog(null,panel.getSubmission().getComment() ,
+						"Comments", JOptionPane.PLAIN_MESSAGE);
+				}
+				
 			}
 		});
 	}

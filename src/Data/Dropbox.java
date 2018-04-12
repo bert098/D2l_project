@@ -12,17 +12,8 @@ public class Dropbox implements Serializable{
 	private String title;
 	private String timeStamp; 
 	
-	public Dropbox(Integer i, Assignment a, Student s, Integer grade, String comment, String ts)
-	{
-		id = i;
-		assign_id = a.getId();
-		student_id = s.getId();
-		path = a.getPath();
-		this.grade = grade;
-		this.comment = comment;
-		title = a.getTitle();
-		timeStamp = ts;
-	}
+	
+	
 	
 	public Dropbox(Integer i, Integer aId, Integer sId, String p, Integer g, String c, String t, String ts) 
 	{
@@ -42,6 +33,9 @@ public class Dropbox implements Serializable{
 	public Integer getGrade() {return grade;}
 	public String getComment() {return comment;}
 	public String getTitle() {return title;}
+	
+	public void setPath(String path) {this.path = path;}
+	public void setId(Integer num) {this.id = num;}
 	
 	@Override 
 	public String toString() { 

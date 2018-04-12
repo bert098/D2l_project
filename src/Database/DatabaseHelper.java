@@ -156,7 +156,7 @@ public class DatabaseHelper {
 		submissionTable.gradeSubmission(comment, grade, id);
 	}
 
-	public FileContainer getAssignFile(Assignment assign)
+	public AssignmentFileContainer getAssignFile(Assignment assign)
 	{
 		return assignmentTable.getAssignmentFile(assign);
 	}
@@ -168,5 +168,12 @@ public class DatabaseHelper {
 	public Dropbox getGrades(Integer studentId, Assignment assignment) {
 		return submissionTable.GradeForAssignment(studentId, assignment);
 	}
+	
+	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
+		return submissionTable.getSubmissionFile(submission);
+	}
 
+	public void addSubmission(Dropbox submission) {
+		submissionTable.addSubmission(submission);
+	}
 }

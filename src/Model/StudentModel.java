@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
@@ -19,6 +20,7 @@ import Data.FileContainer;
 import Data.Dropbox;
 import Data.Grade;
 import Data.StudentEnrollment;
+import Data.SubmissionFileContainer;
 
 public class StudentModel implements Constants{
 	
@@ -68,7 +70,7 @@ public class StudentModel implements Constants{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return g;
 		
 	}
@@ -112,8 +114,8 @@ public class StudentModel implements Constants{
 	{
 		try{
 			sendOperation(SEND_EMAIL);
-			objectOut.writeObject(email);
 			objectOut.flush();
+			objectOut.writeObject(email);
 			
 			String messageStatus = stringIn.readLine();
 			if(messageStatus.equals("MESSAGE_SENT")) {
@@ -129,14 +131,12 @@ public class StudentModel implements Constants{
 	public void downloadAssign(Assignment assign, String filepath)
 	{
 		try {
-			
 			sendOperation(DOWNLOAD_ASSIGN);
 			
-			objectOut.writeObject(assign);
 			objectOut.flush();
+			objectOut.writeObject(assign);	
 			
-			
-			FileContainer container = (FileContainer)objectIn.readObject();
+			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
 			byte[] content = container.getFileArr();
 			
 			File newFile = new File(filepath + "\\" + container.getFileName());
@@ -152,6 +152,17 @@ public class StudentModel implements Constants{
 		}
 		catch (ClassNotFoundException | IOException e) 
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void submitAssignment(SubmissionFileContainer container)
+	{
+		try {
+			sendOperation(SUBMIT_ASSIGN);
+			objectOut.writeObject(container);
+			objectOut.flush();
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -2,7 +2,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 
 import Data.Assignment;
 import Data.Constants;
@@ -60,8 +63,19 @@ public class ProfessorDropboxController implements Constants{
 		dropboxView.addDownloadAssignmentButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				System.out.println("Download");
+				Dropbox submission = dropboxView.getSelectedSubmission();
+				
+				JFileChooser fileBrowser = new JFileChooser(); 
+				fileBrowser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				
+				if (fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				{
+					File file = fileBrowser.getCurrentDirectory();
+					File currentDir = fileBrowser.getSelectedFile();
+					String filePath = file.getAbsolutePath() + "\\" + currentDir.getName();
+					professorModel.downloadSubmission(submission, filePath);
+				}
 			}
 		});
 	}

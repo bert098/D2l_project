@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 
 import Data.Constants;
 import Data.Assignment;
+import Data.AssignmentFileContainer;
 import Data.Course;
 import Data.Email;
 import Data.FileContainer;
@@ -112,7 +113,7 @@ public class ProfessorCourseController implements Constants {
 					
 					Assignment assign = new Assignment(null, courseView.getCourse(), selectedFile.getName(),
 							null, false, dueDate);
-					FileContainer container = new FileContainer(content, selectedFile.getName(), assign);
+					AssignmentFileContainer container = new AssignmentFileContainer(content, selectedFile.getName(), assign);
 					
 					professorModel.uploadAssignment(container);
 					displayAssignments();
