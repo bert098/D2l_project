@@ -59,7 +59,6 @@ public class StudentModel implements Constants{
 		sendOperation(GET_GRADES);
 		try {
 			StudentEnrollment temp = new StudentEnrollment(100, n, c.getId());
-			Thread.sleep(50);
 			objectOut.flush();
 			objectOut.writeObject(temp);
 			g = (ArrayList<Dropbox>)objectIn.readObject();
@@ -69,10 +68,7 @@ public class StudentModel implements Constants{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return g;
 		
 	}

@@ -29,7 +29,7 @@ public class GradesPanel extends JPanel{
 	private JButton assignDetailsButton = new JButton("Assignment Details");
 	
 	public void addAssignDetailsButtonActionListener(ActionListener a) {assignDetailsButton.addActionListener(a);}
-	
+	public Dropbox getSubmission () {return submissionList.getSelectedValue();}
 	public GradesPanel()
 	{
 		submissionList.setModel(submissionModel);

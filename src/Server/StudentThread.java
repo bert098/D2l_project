@@ -87,7 +87,6 @@ public class StudentThread implements Constants {
 			System.out.println("wrong operation");
 		}
 	}
-	
 	public void getStudentCourses() {
 		try {
 			String id = stringIn.readLine();

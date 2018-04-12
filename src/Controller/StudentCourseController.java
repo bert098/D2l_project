@@ -136,8 +136,16 @@ public class StudentCourseController {
 		panel.addAssignDetailsButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				if(panel.getSubmission() == null)
+				{
+					return;
+				}
+				else
+				{
+				JOptionPane.showMessageDialog(null,panel.getSubmission().getComment() ,
+						"Comments", JOptionPane.PLAIN_MESSAGE);
+				}
 				
-				System.out.println("Assign deets");
 			}
 		});
 	}
