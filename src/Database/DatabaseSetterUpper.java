@@ -34,8 +34,8 @@ public class DatabaseSetterUpper {
 		
 
 		Grade g1 = new Grade(u5, 100,c2 ,a1,1 );
-		Dropbox d4 = new Dropbox(4, a1, u5, 100, "Good shit");
-		Dropbox d5 = new Dropbox(5, a2, u5, 100, "Gooooooood shit");
+		Dropbox d4 = new Dropbox(4, a1, u5, 100, "Good shit", "");
+		Dropbox d5 = new Dropbox(5, a2, u5, 100, "Gooooooood shit", "");
 		data.insertSubmission(d4);
 		data.insertSubmission(d5);
 		data.insertGrade(g1);

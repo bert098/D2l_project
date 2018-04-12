@@ -121,7 +121,7 @@ public class SubmissionTable {
 				Student s = (Student)use.searchID(studentId);
 				user.close();
 				statement.close();
-				return new Dropbox(id, a,s,grade,comments );
+				return new Dropbox(id, a,s,grade,comments, time);
 			
 			}
 		
