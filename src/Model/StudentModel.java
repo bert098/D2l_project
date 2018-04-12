@@ -9,32 +9,65 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Random;
 
 import Data.Assignment;
 import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
-import Data.FileContainer;
 import Data.Dropbox;
-import Data.Grade;
 import Data.StudentEnrollment;
 import Data.SubmissionFileContainer;
 
+/**
+ * Student model class provides methods to communicate with the 
+ * server and receive data from the database. 
+ * @author Justin, Robert, Magnus
+ */
 public class StudentModel implements Constants{
 	
+	/**
+	 * Read string input from server
+	 */
 	private BufferedReader stringIn; 
+	
+	/**
+	 * Write string output to server
+	 */
 	private PrintWriter stringOut; 
+	
+	/**
+	 * Write object to server 
+	 */
 	private ObjectInputStream objectIn; 
+	
+	/**
+	 * Read object from server 
+	 */
 	private ObjectOutputStream objectOut; 
 	
+	/**
+	 * Construct student model with input and output streams 
+	 * for string and object
+	 * @param in String in
+	 * @param out String out 
+	 * @param oIn Object in
+	 * @param oOut Object out
+	 */
 	public StudentModel (BufferedReader in, PrintWriter out, ObjectInputStream oIn, ObjectOutputStream oOut) {
 		stringIn = in; 
 		stringOut = out; 
 		objectIn = oIn; 
 		objectOut = oOut; 
 	}
+	
+	/**
+	 * Send selected course to server and 
+	 * read arrayList of assignments from server and return 
+	 * @param c Course being sent 
+	 * @return ArrayList of assignments 
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Assignment> displayAssign(Course c)
 	{
 		ArrayList<Assignment> a = null;
@@ -55,6 +88,15 @@ public class StudentModel implements Constants{
 		return a;
 		
 	}
+	
+	/**
+	 * Send Selected course and selected student id and read ArrayList 
+	 * of submissions from server 
+	 * @param c Selected course being sent 
+	 * @param n Student id being sent 
+	 * @return ArrayList of submissions
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Dropbox> displayGrades(Course c, Integer n)
 	{
 		ArrayList<Dropbox> g = null;
@@ -64,17 +106,20 @@ public class StudentModel implements Constants{
 			objectOut.flush();
 			objectOut.writeObject(temp);
 			g = (ArrayList<Dropbox>)objectIn.readObject();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} 
 		return g;
-		
 	}
 	
+	/**
+	 * Send operation to server
+	 * @param operation operation being sent
+	 */
 	public void sendOperation(String operation) {
 		stringOut.flush();
 		stringOut.println(operation);
@@ -86,6 +131,10 @@ public class StudentModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Sent student id to server 
+	 * @param id student id
+	 */
 	public void sendStudentId(Integer id) {
 		stringOut.flush(); 
 		stringOut.println(id.toString());
@@ -97,6 +146,11 @@ public class StudentModel implements Constants{
 		}
 	}
 	 
+	/**
+	 * Get student course list from server
+	 * @return array list of courses from server
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Course> getStudentCourseList() {
 		try {
 			return (ArrayList<Course>) objectIn.readObject();
@@ -110,6 +164,11 @@ public class StudentModel implements Constants{
 		return null;
 	}
 	
+	/**
+	 * Send email to server and read message status
+	 * @param email Email being sent
+	 * @return true if email sent, false if not
+	 */
 	public boolean sendEmail(Email email)
 	{
 		try{
@@ -121,13 +180,20 @@ public class StudentModel implements Constants{
 			if(messageStatus.equals("MESSAGE_SENT")) {
 				return true;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 	
+	/**
+	 * Download assignment file from server by sending the selected 
+	 * assignment and reading the file bytes from the server. The 
+	 * assignment is then saved into the specified file path.
+	 * @param assign Selected assignment 
+	 * @param filepath File path being saved into
+	 */
 	public void downloadAssign(Assignment assign, String filepath)
 	{
 		try {
@@ -156,6 +222,11 @@ public class StudentModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Uploads assignment to server by sending 
+	 * a submission file container.
+	 * @param container SubmissionFileContainer holding the file
+	 */
 	public void submitAssignment(SubmissionFileContainer container)
 	{
 		try {

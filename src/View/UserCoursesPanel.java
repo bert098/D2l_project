@@ -16,23 +16,37 @@ import javax.swing.JScrollPane;
 
 import Data.Course;
 
+/**
+ * Abstract class used for displaying a user's courses.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public abstract class UserCoursesPanel extends JPanel{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -7700320768345519179L;
 	
-	protected DefaultListModel<Course> courseModel = new DefaultListModel<>(); 
+	/** Model for courseList. */
+	protected DefaultListModel<Course> courseModel = new DefaultListModel<>();
+	/** List for displaying a user's courses. */
 	protected JList<Course> courseList = new JList<Course>();
+	/** Scroll pane for courseList */
 	protected JScrollPane scrollPane = new JScrollPane();
-	
+	/** Button for opening a course's view. */
 	protected JButton openCourseButton = new JButton("Open");
 	
+	/**
+	 * Adds an action listener for openCourseButton.
+	 * @param a Action listener added to openCourseButton.
+	 */
 	public void addOpenCourseButtonActionListener(ActionListener a) {openCourseButton.addActionListener(a);}
 	
+	/** @return The currently selected course in courseList. */
 	public Course getSelectedCourse() {return courseList.getSelectedValue();}
 	
+	/**
+	 * Constructor used to initialize a new UserCoursesPanel.
+	 */
 	public UserCoursesPanel()
 	{
 		courseList.setModel(courseModel);
@@ -71,6 +85,10 @@ public abstract class UserCoursesPanel extends JPanel{
 		add(openCourseButton, gbc_openCourseButton);	
 	}
 	
+	/**
+	 * Displays the courses in the ArrayList.
+	 * @param courseArrayList Used to update courseModel.
+	 */
 	public void displayCourses(ArrayList<Course> courseArrayList)
 	{
 		courseModel.removeAllElements();

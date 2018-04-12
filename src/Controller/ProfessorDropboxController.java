@@ -13,12 +13,26 @@ import Data.Dropbox;
 import Model.ProfessorModel;
 import View.ProfessorDropboxView;
 
+/**
+ * Class that connects the ProfessorModel and ProfessorDropboxView using action listeners.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg	
+ *
+ */
 public class ProfessorDropboxController implements Constants{
 
+	/** dropboxView's assignment.  */
 	private Assignment assignment; 
+	/** The controller's ProfessorDropboxView. */
 	private ProfessorDropboxView dropboxView;
+	/** The controller's ProfessorModel. */
 	private ProfessorModel professorModel;
 	
+	/**
+	 * Constructor that initializes a new ProfessorDropboxController.
+	 * @param dropboxView Assigned to dropboxView.
+	 * @param model Assigned to professorModel.
+	 * @param assignment Assigned to assignment.
+	 */
 	public ProfessorDropboxController(ProfessorDropboxView dropboxView, ProfessorModel model, Assignment assignment)
 	{
 		this.assignment = assignment; 
@@ -28,6 +42,7 @@ public class ProfessorDropboxController implements Constants{
 		addDropboxListeners();
 	}
 	
+	/** Updates the submissions displayed in dropboxView. */
 	public void displaySubmissions() { 
 		professorModel.sendOperation(GET_SUBMISSIONS);
 		professorModel.sendAssignmentId(assignment.getId());
@@ -35,12 +50,16 @@ public class ProfessorDropboxController implements Constants{
 		dropboxView.displaySubmissions(submissionList);
 	}
 	
+	/** Adds the action listeners for the dropbox window. */
 	private void addDropboxListeners()
 	{
+		/**
+		 * Anonymous class for submit grade button. If the selected submission is not null uses professorModel to send the 
+		 * grading information from dropboxView to the server. Otherwise does nothing.
+		 */
 		dropboxView.addSubmitGradeButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Submit Grade");
 				Dropbox submission = dropboxView.getSelectedSubmission(); 
 				if (submission == null) {
 					return;
@@ -60,10 +79,13 @@ public class ProfessorDropboxController implements Constants{
 			}
 		});
 		
+		/**
+		 * Anonymous class for download assignment button. Opens a file chooser to specify the location to download the file then calls
+		 * downloadSubmission() from professorModel to download the file from the server.
+		 */
 		dropboxView.addDownloadAssignmentButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Download");
 				Dropbox submission = dropboxView.getSelectedSubmission();
 				
 				JFileChooser fileBrowser = new JFileChooser(); 

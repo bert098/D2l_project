@@ -11,8 +11,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 import Database.DatabaseHelper;
 import Data.Assignment;
 import Data.AssignmentFileContainer;
@@ -20,27 +18,61 @@ import Data.Constants;
 import Data.Course;
 import Data.Email;
 import Data.Dropbox;
-import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
-import Data.User;
 import Data.SubmissionFileContainer;
 
+/**
+ * Professor thread runs the server operations for the professor client.
+ * Client sends a operation which acts as a command for the thread to execute the proper method 
+ * to communicate with the database and client.
+ * @author Justin, Magnus, Robert
+ */
 public class ProfessorThread implements Constants {
+	
+	/**
+	 * Operation being run 
+	 */
 	private String operation; 
+	
+	/**
+	 * database class, provides access methods to all data base table in server 
+	 */
 	private DatabaseHelper database;
 	
+	/**
+	 * receives object from client 
+	 */
 	private ObjectOutputStream objectOut; 
 	
-	//input stream to receive messages from client 
+	/**
+	 * write object to client
+	 */
 	private ObjectInputStream objectIn;
 	
+	/**
+	 * Receive string input from client 
+	 */
 	private BufferedReader stringIn; 
 	
+	/**
+	 * write string to client 
+	 */
 	private PrintWriter stringOut;
 	
+	/**
+	 * check if client closes connection 
+	 */
 	private Boolean checkEnd; 
 	
+	/**
+	 * Constructs thread with socket connections to the client along with the database 
+	 * @param sIn string in 
+	 * @param sOut string out 
+	 * @param oOut object out 
+	 * @param oIn object in 
+	 * @param data database
+	 */
 	public ProfessorThread(BufferedReader sIn, PrintWriter sOut, ObjectOutputStream oOut, ObjectInputStream oIn, DatabaseHelper data) {
 		stringIn = sIn; 
 		stringOut = sOut; 
@@ -50,6 +82,11 @@ public class ProfessorThread implements Constants {
 		checkEnd = false;
 	}
 	
+	/**
+	 * run the thread by continuously reading the operations being sent from the client 
+	 * and executing the operation in readOperation(). Loop exits if client closes 
+	 * connection.
+	 */
 	public void run() {
 		while (true) {
 			try 
@@ -71,6 +108,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Reads the connection with a series of if statements to execute the 
+	 * proper method for the operation. 
+	 */
 	public void readOperation() {
 		if (operation.equals(PROF_COURSES)) {
 			getProfessorCourses(); 
@@ -131,6 +172,9 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * sends all the courses in the database to the professor client model
+	 */
 	public void getProfessorCourses() {
 		ArrayList<Course> courseList = new ArrayList<Course>();
 		courseList = database.courseTableToList();
@@ -144,9 +188,12 @@ public class ProfessorThread implements Constants {
 	
 	}
 	
+	/**
+	 * creates a course by reading the course from the client and inserting it 
+	 * into the database. 
+	 */
 	public void createCourse() 
 	{
-		
 		try
 		{
 			Course course = (Course)objectIn.readObject();
@@ -161,23 +208,31 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * activate the course by updating the active field in the database for the 
+	 * selected course on the client side 
+	 */
 	public void activateCourse() {
-			try {
-				Integer courseId;
-				courseId = (Integer)objectIn.readObject();
-				System.out.println(courseId);
-				database.updateCourseStatus(courseId, true);
-			} 
-			catch (ClassNotFoundException e) 
-			{
-				e.printStackTrace();
-			}	
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+		try {
+			Integer courseId;
+			courseId = (Integer)objectIn.readObject();
+			System.out.println(courseId);
+			database.updateCourseStatus(courseId, true);
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}	
+		catch (IOException e)
+		{	
+			e.printStackTrace();
+		}
 	}
 	
+	/**
+	 * deactivate the course by updating the active field in the database for the 
+	 * selected course on the client side 
+	 */
 	public void deactivateCourse() {
 		try {
 			Integer courseId;
@@ -194,7 +249,11 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}
-	//this
+	
+	/**
+	 * reads current course from client and searches all the students in the course and
+	 * sends if back to the client as an arraylist 
+	 */
 	public void searchStudentId() 
 	{
 		try {
@@ -212,7 +271,11 @@ public class ProfessorThread implements Constants {
 			e.printStackTrace();
 		}
 	}
-	//this
+	
+	/**
+	 * reads current course from client and searches all the students in the course and
+	 * sends if back to the client as an arraylist 
+	 */
 	public void searchStudentLastName() {
 		try {
 			Course course = (Course)objectIn.readObject();
@@ -230,47 +293,52 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Enroll student in class by reading student enrollment from client 
+	 * and inserting the enrollment into the database. Sends an updated 
+	 * student list with the enrollment back to the client for displaying 
+	 */
 	public void enrollStudent() {
-		
+		try {
+			StudentEnrollment st = (StudentEnrollment)objectIn.readObject();
+			
+			Student s = (Student)database.searchUserTableID(st.getStudentId());
+			if(s == null)
+			{
+				objectOut.flush();
+				objectOut.writeObject(null);
+			}
+			else
+			{
+				database.insertStudentEnrollment(st);
+				ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(st.getCourseId());
+				ArrayList<Student> studentList = new ArrayList<Student>();
+				for(int i = 0; i < a.size(); i++)
+				{
+					studentList.add((Student)database.searchUserTableID(a.get(i)));
+				}
+				objectOut.flush();
+				objectOut.writeObject(studentList);
+			}
+		} 
+		catch (ClassNotFoundException | IOException  | ClassCastException  e) {
 			try {
-				StudentEnrollment st = (StudentEnrollment)objectIn.readObject();
-				
-				Student s = (Student)database.searchUserTableID(st.getStudentId());
-				if(s == null)
-				{
-					JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
-							"Error Message", JOptionPane.PLAIN_MESSAGE);
-					objectOut.flush();
-					objectOut.writeObject(null);
-				}
-				else
-				{
-					database.insertStudentEnrollment(st);
-					ArrayList<Integer> a = database.searchStudentEnrollmentByStudent(st.getCourseId());
-					ArrayList<Student> studentList = new ArrayList<Student>();
-					for(int i = 0; i < a.size(); i++)
-					{
-						studentList.add((Student)database.searchUserTableID(a.get(i)));
-					}
-					objectOut.flush();
-					objectOut.writeObject(studentList);
-				}
-				} catch (ClassNotFoundException | IOException  | ClassCastException  e) {
-				JOptionPane.showMessageDialog(null, "Please enter a valid Student number.",
-						"Error Message", JOptionPane.PLAIN_MESSAGE);
-				try {
-					objectOut.flush();
-					objectOut.writeObject(null);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+				objectOut.flush();
+				objectOut.writeObject(null);
+			} 
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			e.printStackTrace();
+		}	
 	}
 
+	/**
+	 * Unenroll student in class by reading student enrollment from client 
+	 * and deleting the enrollment from the database. Sends an updated 
+	 * student list with the enrollment back to the client for displaying 
+	 */
 	public void unenrollStudent() {
 		try {
 			Student student = (Student)objectIn.readObject();
@@ -292,6 +360,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Access assignments in database and send all assignments in the database 
+	 * to the client as an arrayList.
+	 */
 	public void getAssignments() {
 		ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
 		assignmentList = database.assignmentTableToList();
@@ -304,6 +376,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Updates the grade and comment section in the database of a submission
+	 * with comments and grade from the client 
+	 */
 	public void gradeSubmission() {
 		try {
 			String comments = stringIn.readLine();
@@ -316,6 +392,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Gets an arraylist of submissions that match the assignment id that is read from
+	 * the client. The submission list is sent to the clinet for displaying.
+	 */
 	public void getSubmissions() {
 		ArrayList<Dropbox> submissionList = new ArrayList<Dropbox>();
 		try {
@@ -332,6 +412,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Activate the assignment by updating the active field in the database for the 
+	 * selected assignment on the client side 
+	 */
 	public void activateAssignment() {
 		try {
 			int assignId = Integer.parseInt(stringIn.readLine());
@@ -342,6 +426,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Deactivate the assignment by updating the active field in the database for the 
+	 * selected assignment on the client side 
+	 */
 	public void deactivateAssignment() {
 		try {
 			int assignId = Integer.parseInt(stringIn.readLine());
@@ -352,6 +440,11 @@ public class ProfessorThread implements Constants {
 		}
 	}	
 	
+	/**
+	 * Upload an assignment onto the server by receiving the file from the client and 
+	 * saving the file contents into the assignments file path specified in the project folder. 
+	 * Assignment information is added to the database. 
+	 */
 	public void uploadAssign() {
 		try {
 			AssignmentFileContainer container = (AssignmentFileContainer)objectIn.readObject();
@@ -386,6 +479,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Sends a submission file to the client by reading the selected submission from the client 
+	 * and retrieving the file linked to the submission path in the database.
+	 */
 	public void downloadSubmission() {
 		try { 
 			Dropbox submission = (Dropbox)objectIn.readObject();
@@ -400,6 +497,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Sends a email to all the students in the class by reading the email body from the
+	 * client and calling the email helper to send the email.
+	 */
 	public void sendEmail() {
 		try {
 			Email email = (Email)objectIn.readObject();			
@@ -419,6 +520,11 @@ public class ProfessorThread implements Constants {
 		}
 	}
 
+	/**
+	 * sends a list of all students enrolled in a course to client by reading
+	 * the course from the client and constructing an arraylist of students in the 
+	 * course for sending.
+	 */
 	public void getAll(){
 		ArrayList<Student> s = database.AllStudent();
 		try {
@@ -446,6 +552,10 @@ public class ProfessorThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Closes all input and output streams and sets checkEnd to true 
+	 * so that the run method can exit loop.
+	 */
 	public void exitThread() {
 		try {
 			objectOut.close();

@@ -16,28 +16,62 @@ import Data.AssignmentFileContainer;
 import Data.Constants;
 import Data.Course;
 import Data.Email;
-import Data.FileContainer;
 import Data.Dropbox;
-import Data.Grade;
 import Data.StudentEnrollment;
 import Data.SubmissionFileContainer;
 import Database.DatabaseHelper;
 
+/**
+ * Student thread runs the server operations for the student client.
+ * Client sends a operation which acts as a command for the thread to execute the proper method 
+ * to communicate with the database and client.
+ * @author Justin, Magnus, Robert
+ */
 public class StudentThread implements Constants {
+	
+	/**
+	 * Operation being run 
+	 */
 	private String operation; 
+	
+	/**
+	 * database class, provides access methods to all data base table in server 
+	 */
 	private DatabaseHelper database;
 	
+	/**
+	 * receives object from client 
+	 */
 	private ObjectOutputStream objectOut; 
 	
-	//input stream to receive messages from client 
+	/**
+	 * write object to client
+	 */
 	private ObjectInputStream objectIn;
 	
+	/**
+	 * Receive string input from client 
+	 */
 	private BufferedReader stringIn; 
 	
+	/**
+	 * write string to client 
+	 */
 	private PrintWriter stringOut;
 	
-	private Boolean checkEnd;
+	/**
+	 * check if client closes connection 
+	 */
+	private Boolean checkEnd; 
 	
+	/**
+	 * Constructs thread with socket connections to the client along with the database 
+	 * @param sIn string in 
+	 * @param sOut string out 
+	 * @param oOut object out 
+	 * @param oIn object in 
+	 * @param data database
+	 */
 	public StudentThread(BufferedReader sIn, PrintWriter sOut, ObjectOutputStream oOut, ObjectInputStream oIn, DatabaseHelper data) {
 		stringIn = sIn; 
 		stringOut = sOut;
@@ -47,6 +81,11 @@ public class StudentThread implements Constants {
 		checkEnd = false;
 	}
 	
+	/**
+	 * run the thread by continuously reading the operations being sent from the client 
+	 * and executing the operation in readOperation(). Loop exits if client closes 
+	 * connection.
+	 */
 	public void run() {
 		while (true) {
 			try {
@@ -67,6 +106,10 @@ public class StudentThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Reads the connection with a series of if statements to execute the 
+	 * proper method for the operation. 
+	 */
 	public void readOperation() {
 		if (operation.equals(STUDENT_COURSES)) {
 			getStudentCourses(); 
@@ -93,6 +136,11 @@ public class StudentThread implements Constants {
 			System.out.println("wrong operation");
 		}
 	}
+	
+	/**
+	 * Reads the course id from the client and constructs an arraylist of students 
+	 * enrolled in the course and sends it back to the client.
+	 */
 	public void getStudentCourses() {
 		try {
 			String id = stringIn.readLine();
@@ -117,6 +165,10 @@ public class StudentThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Reads the course from the client and constructs an arraylist of assignments 
+	 * enrolled in the course and sends it back to the client.
+	 */
 	public  void getStudentAssignments() { 
 		try {
 			Course c = (Course)objectIn.readObject();
@@ -132,12 +184,17 @@ public class StudentThread implements Constants {
 			}
 			objectOut.flush();
 			objectOut.writeObject(a);
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Read the selected assignment from the client and retrieves the 
+	 * assignment file from the server assignment files and sends it as a file container
+	 * to the client.
+	 */
 	public void downloadAssignment() { 
 		
 		try {
@@ -153,6 +210,11 @@ public class StudentThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Uploads an assignment from the client by receiving a submission file and storing it 
+	 * in the servers submissions file path. Server constructs a submission from the file and
+	 * inserts it into the database.
+	 */
 	public void submitAssignment() { 
 		try {
 			SubmissionFileContainer container = (SubmissionFileContainer)objectIn.readObject();
@@ -186,6 +248,11 @@ public class StudentThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Read the student enrollment from the client and construct a list of 
+	 * dropbox submissions for the assignment. the dropbox submissions
+	 * are sent back to the client to display grades. 
+	 */
 	public void getGrades() { 
 		try {
 			StudentEnrollment c = (StudentEnrollment)objectIn.readObject();
@@ -197,16 +264,21 @@ public class StudentThread implements Constants {
 			}
 			objectOut.flush();
 			objectOut.writeObject(d);
-		} catch (ClassNotFoundException e) {
+		} 
+		catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
+	/**
+	 * Read email from the client and constructs a email helper to send emails to the 
+	 * professor.
+	 */
 	public void sendEmail() {
 		try {
 			Email email = (Email)objectIn.readObject();		
@@ -227,6 +299,10 @@ public class StudentThread implements Constants {
 		}
 	}
 	
+	/**
+	 * Exits the thread by closing all input output streams.
+	 * Sets checkEnd to true;
+	 */
 	public void exitThread() {
 		try {
 			objectOut.close();
@@ -239,5 +315,4 @@ public class StudentThread implements Constants {
 			e.printStackTrace();
 		}
 	}
-
 }

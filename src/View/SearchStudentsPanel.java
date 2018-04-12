@@ -19,36 +19,71 @@ import javax.swing.JTextField;
 
 import Data.Student;
 
+/**
+ * Class used in the professor's gui for searching students.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public class SearchStudentsPanel extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -7863274930372698496L;
 	
+	/** Button group for holding search type buttons. */
 	private ButtonGroup buttonGroup = new ButtonGroup();
+	/** Field for inputing search information. */
 	private JTextField searchField = new JTextField();
+	/** Radio button for selecting to search by id. */
 	private JRadioButton idRadioButton = new JRadioButton("ID");
+	/** Radio button for selecting to search by last name */
 	private JRadioButton lastNameRadioButton = new JRadioButton("Last Name");
+	/** Button for searching students. */
 	private JButton searchButton = new JButton("Search");
+	/** Scroll pane for holding resultsList. */
 	private JScrollPane scrollPane = new JScrollPane();
+	/** List for holding the search results. */
 	private JList<Student> resultsList = new JList<Student>();
+	/** Button for unenrolling a student. */
 	private JButton unenrollButton = new JButton("Unenroll");
+	/** Button for enrolling a student. */
 	private JButton enrollButton = new JButton("Enroll");
+	/** Model for resultsList. */
 	private DefaultListModel<Student> studentModel = new DefaultListModel<>(); 
 	
+	/** @return The text in searchField. */
 	public String getSearchText() {return searchField.getText();}
 	
+	/** @return True if idRadioButton is selected. */
 	public boolean idSelected() {return idRadioButton.isSelected();}
+	/** @return True if lastNameRadioButton is selected. */
 	public boolean lastNameSelected() {return lastNameRadioButton.isSelected();}
+	/** @return The currently selected student in resultsList. */
 	public Student getSelectedStudent() {return resultsList.getSelectedValue();}
+	
+	/**
+	 * Adds an action listener for searchButton.
+	 * @param a Action listener added to searchButton.
+	 */
 	public void addSearchButtonActionListener(ActionListener a) {searchButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for unenrollButton.
+	 * @param a Action listener added to unenrollButton.
+	 */
 	public void addUnenrollButtonActionListener(ActionListener a) {unenrollButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for enrollButton.
+	 * @param a Action listener added to enrollButton.
+	 */
 	public void addEnrollButtonActionListener(ActionListener a) {enrollButton.addActionListener(a);}
 	
+	/** Hides enrollButton. */
 	public void hideEnrollButton() {enrollButton.setVisible(false);}
+	/** Hides unenrollButton. */
 	public void hideUnenrollButton() {unenrollButton.setVisible(false);}
 	
+	/**
+	 * Constructor for initializing a new SearchStudentsPanel.
+	 */
 	public SearchStudentsPanel()
 	{
 		resultsList.setModel(studentModel);
@@ -144,6 +179,12 @@ public class SearchStudentsPanel extends JPanel {
 		gbc_unenrollButton.gridy = 7;
 		add(unenrollButton, gbc_unenrollButton);
 	}
+	
+	/**
+	 * Displays the results of a search by Id.
+	 * @param courseArrayList Used to update studentModel.
+	 * @param s Used to update studentModel.
+	 */
 	public void displayStudentsId(ArrayList<Student> courseArrayList, String s) {
 		studentModel.removeAllElements();
 		for (int i = 0; i < courseArrayList.size(); i++) {
@@ -154,6 +195,11 @@ public class SearchStudentsPanel extends JPanel {
 		}
 		setVisible(true);
 	}
+	/**
+	 * Displays the results of a search by last name.
+	 * @param courseArrayList Used to update studentModel.
+	 * @param s Used to update studentModel.
+	 */
 	public void displayStudentsName(ArrayList<Student> courseArrayList, String s) {
 		studentModel.removeAllElements();
 		for (int i = 0; i < courseArrayList.size(); i++) {
@@ -164,6 +210,10 @@ public class SearchStudentsPanel extends JPanel {
 		}
 		setVisible(true);
 	}
+	/**
+	 * Displays all of the students in the provided ArrayList.
+	 * @param courseArrayList Used to update studentModel.
+	 */
 	public void displayAll(ArrayList<Student> courseArrayList) {
 		studentModel.removeAllElements();
 		if (courseArrayList == null) {

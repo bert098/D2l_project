@@ -16,17 +16,45 @@ import Data.Constants;
 import Data.Course;
 import Data.Email;
 import Data.Dropbox;
-import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
 import Data.SubmissionFileContainer;
 
+/**
+ * Professor model handles interactions between the client and the 
+ * server's professor thread. 
+ * @author Justin, Magnus, Robert
+ */
 public class ProfessorModel implements Constants{
+	
+	/**
+	 * Read string input from server 
+	 */
 	private BufferedReader stringIn; 
+	
+	/**
+	 * Write string to server 
+	 */
 	private PrintWriter stringOut; 
+	
+	/**
+	 * Read Object input from server 
+	 */
 	private ObjectInputStream objectIn; 
+	
+	/**
+	 * Write object to server 
+	 */
 	private ObjectOutputStream objectOut; 
 	
+	/**
+	 * Constructs professor model with input and output streams for 
+	 * objects and strings
+	 * @param in string in
+	 * @param out string out 
+	 * @param oIn object in
+	 * @param oOut object out
+	 */
 	public ProfessorModel(BufferedReader in, PrintWriter out, ObjectInputStream oIn, ObjectOutputStream oOut) {
 		stringIn = in; 
 		stringOut = out; 
@@ -34,6 +62,10 @@ public class ProfessorModel implements Constants{
 		objectOut = oOut; 
 	}
 	
+	/**
+	 * Send operation to professor thread to handle database interaction
+	 * @param operation operation being sent
+	 */
 	public void sendOperation(String operation) {
 		stringOut.flush();
 		stringOut.println(operation);
@@ -45,6 +77,11 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * read assignment list from server 
+	 * @return ArrayList of assignments
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Assignment> readAssignmentList() {
 		try { 
 			return (ArrayList<Assignment>) objectIn.readObject();
@@ -58,6 +95,11 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
+	/**
+	 * Read course list from server 
+	 * @return ArrayList of courses 
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Course> readCourseList() {
 		try {
 			return (ArrayList<Course>) objectIn.readObject();
@@ -71,11 +113,21 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
-	public void sendDeactivateAssignment(Integer assignId) { 
+	/**
+	 * Update assignment by sending id of assignment 
+	 * being deactivated 
+	 * @param assignId id of assignment
+	 */
+	public void sendUpdateAssignStatus(Integer assignId) { 
 		stringOut.flush();
 		stringOut.println(assignId.toString());
 	}
 	
+	/**
+	 * Create course by sending course information to 
+	 * server for inserting into database
+	 * @param course course being inserted
+	 */
 	public void createCourse(Course course)
 	{
 		try
@@ -83,14 +135,18 @@ public class ProfessorModel implements Constants{
 			sendOperation(CREATE_COURSE);
 			objectOut.flush();
 			objectOut.writeObject(course);
-			//System.out.println(course.toString());
-			
 		} 
 		catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
   
+	/**
+	 * Get arrayList of students by last name from a course
+	 * @param course course the students are enrolled in
+	 * @return arrayList of students
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Student> searchStudentName(Course course)
 	{
 		ArrayList<Student> s = null;
@@ -111,6 +167,12 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 	
+	/**
+	 * Get arrayList of students by id from a course
+	 * @param course course the students are enrolled in
+	 * @return arrayList of students
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Student> searchStudent(Course course)
 	{
 		ArrayList<Student> s = null;
@@ -121,8 +183,6 @@ public class ProfessorModel implements Constants{
 			objectOut.flush();
 			objectOut.writeObject(course);
 			 s = (ArrayList<Student>)objectIn.readObject();
-			
-			
 		} 
 		catch(IOException e) {
 			e.printStackTrace();
@@ -132,6 +192,13 @@ public class ProfessorModel implements Constants{
 		}
 		return s;
 	}
+	
+	/**
+	 * Get arrayList of all students from a course
+	 * @param course course the students are enrolled in
+	 * @return arrayList of students
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Student> searchAll(Course c)
 	{
 		ArrayList<Student> s = null;
@@ -141,8 +208,6 @@ public class ProfessorModel implements Constants{
 			objectOut.flush();
 			objectOut.writeObject(c);
 			 s = (ArrayList<Student>)objectIn.readObject();
-			
-			
 		} 
 		catch(IOException e) {
 			e.printStackTrace();
@@ -153,6 +218,12 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 
+	/**
+	 * Unenroll a student from a course 
+	 * @param student Student being unenrolled 
+	 * @return ArrayList of students 
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Student> unEnroll(Student student)
 	{
 		ArrayList<Student> s = null;
@@ -171,6 +242,12 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 	
+	/**
+	 * Enroll a student into a course 
+	 * @param student Student being enrolled 
+	 * @return ArrayList of students 
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Student> enroll(StudentEnrollment st)
 	{
 		ArrayList<Student> s = null;
@@ -198,6 +275,10 @@ public class ProfessorModel implements Constants{
 		return s;
 	}
 	
+	/**
+	 * Activate a course specified by the course id
+	 * @param courseId id of course
+	 */
 	public void activateCourse(Integer courseId)
 	{
 		try {
@@ -210,6 +291,10 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Deactivate a course specified by the course id 
+	 * @param courseId id of course 
+	 */
 	public void deactivateCourse(Integer courseId)
 	{
 		try {
@@ -222,6 +307,11 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Upload assignment onto server and insert into database.
+	 * Sends the assignment container to the server
+	 * @param container Assignment file container 
+	 */
 	public void uploadAssignment(AssignmentFileContainer container)
 	{
 		try{
@@ -229,11 +319,15 @@ public class ProfessorModel implements Constants{
 			objectOut.writeObject(container);
 			objectOut.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Send email to the server for sending to all students
+	 * @param email Email being sent
+	 * @return return true if email sent, false if email not sent
+	 */
 	public boolean sendEmail(Email email)
 	{
 		try{
@@ -245,13 +339,17 @@ public class ProfessorModel implements Constants{
 			if(messageStatus.equals("MESSAGE_SENT")) {
 				return true;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 	
+	/**
+	 * Send assignment id to server
+	 * @param assignId id being sent
+	 */
 	public void sendAssignmentId(Integer assignId) {
 		stringOut.flush();
 		stringOut.println(assignId.toString());
@@ -263,6 +361,11 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Read dropbox arrayList from server and return it
+	 * @return dropbox arrayList 
+	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Dropbox> readSubmissionList() {
 		try {
 			return (ArrayList<Dropbox>) objectIn.readObject();
@@ -276,6 +379,10 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
+	/**
+	 * Send comments to server 
+	 * @param comments comments being sent
+	 */
 	public void sendComments(String comments) {
 		stringOut.flush();
 		stringOut.println(comments);
@@ -287,6 +394,10 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Send grade to server as a string
+	 * @param grade grade as string
+	 */
 	public void sendGrade(String grade) {
 		stringOut.flush();
 		stringOut.println(grade);
@@ -298,6 +409,10 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Send submission id to server 
+	 * @param id id of submission
+	 */
 	public void sendSubmissionId(String id) {
 		stringOut.flush();
 		stringOut.println(id);
@@ -309,6 +424,11 @@ public class ProfessorModel implements Constants{
 		}
 	}
 	
+	/**
+	 * Download submission file being sent from the server to the file path
+	 * @param submission Selected submission being downloaded 
+	 * @param filePath File path of download
+	 */
 	public void downloadSubmission(Dropbox submission, String filePath) {
 		try { 
 			sendOperation(DOWNLOAD_SUB);

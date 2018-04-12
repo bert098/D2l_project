@@ -15,31 +15,50 @@ import Database.DatabaseHelper;
 import Database.DatabaseSetterUpper;
 
 /**
- * 
+ * Main server class connects server with client through sockets and 
+ * waits for a connection from the client side to runs a login thread for the client 
  * @author Justin Hung, Robert Dumitru, Magnus Lyngberg	
- *
  */
 public class MainServer {
 	
+	/**
+	 * Database manager for the server 
+	 */
 	private DatabaseHelper database;
 
-	// socket to connect to client 
+	/**
+	 * socket to connect to client 
+	 */
 	private Socket socket;
 	
-	//thread pool to handle multiple clients 
+	/**
+	 * thread pool to handle multiple clients 
+	 */
 	private ExecutorService threadPool; 
 	
-	//socket to connect to client 
+	/**
+	 * socket to connect to client 
+	 */
 	private ServerSocket serverSocket;
 	
-	// output stream to send messages to client 
+	/**
+	 * output stream to send objects to client 
+	 */
 	private ObjectOutputStream objectOut; 
 	
-	//input stream to receive messages from client 
+	/**
+	 * input stream to receive objects from client 
+	 */
 	private ObjectInputStream objectIn;
 	
+	/**
+	 * receive string input from client 
+	 */
 	private BufferedReader stringIn; 
 	
+	/**
+	 * write string output to client 
+	 */
 	private PrintWriter stringOut;
 	
 	
@@ -81,13 +100,13 @@ public class MainServer {
 	}
 	
 	/**
-	 * Run the Server.
-	 * @param args
-	 * @throws IOException
+	 * Run the Server. Change password in argument of DatabaseSetterupper to proper mySQL password
+	 * @param args none
+	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		DatabaseSetterUpper setupDatabase = new DatabaseSetterUpper("pokemon");
+		DatabaseSetterUpper setupDatabase = new DatabaseSetterUpper("Chordatgh!234");
 		MainServer mainServer= new MainServer(setupDatabase.getDatabase());
 		mainServer.run();
 	}

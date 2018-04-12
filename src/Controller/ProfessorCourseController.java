@@ -8,20 +8,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 
 import Data.Constants;
 import Data.Assignment;
 import Data.AssignmentFileContainer;
 import Data.Course;
 import Data.Email;
-import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
 
@@ -31,14 +26,27 @@ import View.ProfessorCourseView;
 import View.ProfessorDropboxView;
 import View.SearchStudentsPanel;
 import View.UserEmailPanel;
-import Data.Assignment;
 
+/**
+ * Class that connects ProfessorCourseView and ProfessorModel using action listeners.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg	
+ *
+ */
 public class ProfessorCourseController implements Constants {
 	
+	/** The course id of courseView. */
 	private Integer courseId;
+	/** Model used for communicating with the server. */
 	private ProfessorModel professorModel; 
+	/** ProfessorCourseView gui. */
 	private ProfessorCourseView courseView;
 	
+	/**
+	 * Constructor that initializes a new ProfessorCourseController.
+	 * @param courseView Assigned to courseView.
+	 * @param model Assigned to professorModel.
+	 * @param id Assigned to courseId.
+	 */
 	public ProfessorCourseController(ProfessorCourseView courseView, ProfessorModel model, Integer id)
 	{
 		courseId = id;
@@ -48,6 +56,7 @@ public class ProfessorCourseController implements Constants {
 		addProfessorCourseViewListeners();
 	}
 	
+	/** Adds all of the action listeners for courseView. */
 	private void addProfessorCourseViewListeners()
 	{
 		addAssignmentPanelListeners();
@@ -56,21 +65,26 @@ public class ProfessorCourseController implements Constants {
 		addEmailPanelListeners();
 	}
 	
+	/** Updates the assignments displayed in courseView. */
 	public void displayAssignments() { 
 		professorModel.sendOperation(GET_ASSIGN);
 		ArrayList<Assignment> assignmentList = professorModel.readAssignmentList(); 
 		courseView.displayAssignments(assignmentList, courseId);
 	}
 	
+	/** Adds the action listeners for courseView's ProfessorAssignmentsPanel panel using anonymous classes. */
 	private void addAssignmentPanelListeners()
 	{
 		ProfessorAssignmentsPanel panel = courseView.getProfessorAssignmentsPanel();
 		
+		/**
+		 * Anonymous class for open dropbox button. If the selected assignment in courseView is not null a new ProfessorDropboxController
+		 * and ProfessorDropboxView using the selected assignment. Does nothing otherwise.
+		 */
 		panel.addOpenDropboxButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Open Dropbox");
-				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
+				Assignment assignment = panel.getSelectedAssignment();
 				if (assignment == null) {
 					return;
 				}
@@ -79,11 +93,14 @@ public class ProfessorCourseController implements Constants {
 			}
 		});
 		
+		/**
+		 * Anonymous class for upload assignment button. Opens a file chooser to select a file and creates a new assignment and AssignmentFileContainer
+		 * and calls uploadAssignment from professorModel. Then updates the assignments displayed in courseView.
+		 */
 		panel.addUploadButtonActionListener(new ActionListener(){
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Upload");
 				
 				JFileChooser fileBrowser = new JFileChooser();
 				
@@ -99,6 +116,7 @@ public class ProfessorCourseController implements Constants {
 						FileInputStream fis = new FileInputStream(selectedFile);
 						BufferedInputStream bos = new BufferedInputStream(fis);
 						bos.read(content, 0, (int)length);
+						bos.close();
 					}
 					catch (FileNotFoundException e)
 					{
@@ -108,7 +126,6 @@ public class ProfessorCourseController implements Constants {
 					{
 						e.printStackTrace();
 					}
-					
 					String dueDate = (String)JOptionPane.showInputDialog("Enter the due date:");
 					
 					Assignment assign = new Assignment(null, courseView.getCourse(), selectedFile.getName(),
@@ -123,40 +140,50 @@ public class ProfessorCourseController implements Constants {
 			}
 		});
 		
+		/**
+		 * Anonymous class for activate assignment button. If an assignment is selected calls sendUpdateAssignStatus() with the ACTIVATE_ASSIGN
+		 * operation from professorModel. Then updates the assignments displayed in courseView.
+		 */
 		panel.addActivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Activate");
 				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
 				if (assignment == null) {
 					return;
 				}
 				professorModel.sendOperation(ACTIVATE_ASSIGN);
-				professorModel.sendDeactivateAssignment(assignment.getId());
-				System.out.println("odsifja");
+				professorModel.sendUpdateAssignStatus(assignment.getId());
 				displayAssignments();
 			}
 		});
 		
+		/**
+		 * Anonymous class for deactivate assignment button. If an assignment is selected calls sendUpdateAssignStatus() with the DEACTIVATE_ASSIGN
+		 * operation from professorModel. Then updates the assignments displayed in courseView.
+		 */
 		panel.addDeactivateAssignButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Deactivate");
 				Assignment assignment = courseView.getProfessorAssignmentsPanel().getSelectedAssignment();
 				if (assignment == null) {
 					return;
 				}
 				professorModel.sendOperation(DEACTIVATE_ASSIGN);
-				professorModel.sendDeactivateAssignment(assignment.getId());
+				professorModel.sendUpdateAssignStatus(assignment.getId());
 				displayAssignments();
 			}
 		});
 	}
 	
+	/** Adds the action listeners for courseView's SearchStudentsPanel panel (enrolled) using anonymous classes. */
 	private void addSearchEnrolledStudentsPanelListeners()
 	{
 		SearchStudentsPanel panel = courseView.getSearchEnrolledStudentsPanel();
 		
+		/**
+		 * Anonymous class for search button. Calls searchStudent() in professorModel based on user input in courseView and panel.
+		 * Updates courseView with the results from the method call.
+		 */
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -177,13 +204,10 @@ public class ProfessorCourseController implements Constants {
 			}
 		});
 		
-		panel.addEnrollButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		
+		/**
+		 * Anonymous class for the unenroll button. If a student is selected in panel calls unEnroll() and searchAll() from professorModel based
+		 * on user input in panel. Updates the search panels in courseView from the results of the method calls.
+		 */
 		panel.addUnenrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -202,10 +226,15 @@ public class ProfessorCourseController implements Constants {
 		});
 	}
 	
+	/** Adds the action listeners for courseView's SearchStudentsPanel panel (unenrolled) using anonymous classes. */
 	private void addSearchAllStudentsPanelListeners()
 	{
 		SearchStudentsPanel panel = courseView.getSearchAllStudentsPanel();
 		
+		/**
+		 * Anonymous class for search button. Calls searchStudent() in professorModel based on user input in courseView and panel.
+		 * Updates courseView with the results from the method call.
+		 */
 		panel.addSearchButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -225,6 +254,10 @@ public class ProfessorCourseController implements Constants {
 			}
 		});
 		
+		/**
+		 * Anonymous class for the enroll button. If a student is selected in panel calls Enroll() and searchAll() from professorModel based
+		 * on user input in panel. Updates the search panels in courseView from the results of the method calls.
+		 */
 		panel.addEnrollButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -242,20 +275,17 @@ public class ProfessorCourseController implements Constants {
 				}
 			}
 		});
-		
-		panel.addUnenrollButtonActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				//todo
-				System.out.println("unenroll");
-			}
-		});
 	}
 	
+	/** Adds the action listeners for courseView's UserEmailPanel panel using anonymous classes. */
 	private void addEmailPanelListeners()
 	{
 		UserEmailPanel panel = courseView.getUserEmailPanel();
 		
+		/**
+		 * Anonymous class for the send button. Creates a new Email from the information in panel and calls sendEmail() from professorModel.
+		 * Displays a dialogue displaying if the email was sent successfully from the result of the method call.
+		 */
 		panel.addSendButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -275,11 +305,12 @@ public class ProfessorCourseController implements Constants {
 			}
 		});
 		
+		/**
+		 * Anonymous class for the clear button. Calls clear() from panel.
+		 */
 		panel.addClearButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Clear");
 				panel.clear();
 			}
 		});

@@ -12,36 +12,48 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
-
+/**
+ * Abstract class used for displaying information about a user's course.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public abstract class UserCourseView extends JFrame{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5093225887456340253L;
 
+	/** serialVersionUID */
+	private static final long serialVersionUID = 5093225887456340253L;
+	/** The UserView that is used to open this view. */
 	protected UserView userView;
-	
+	/** Tabbed-pane for holding panels. */
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	
+	/** The course that is being viewed. */
 	protected Course course;
-	
+	/** Panel that allows a user to send emails. */
 	protected UserEmailPanel emailPanel;
 	
+	/** @return emailPanel */
 	public UserEmailPanel getUserEmailPanel() {return emailPanel;}
 	
+	/** Disables this window. */
 	public void deactivateWindow() {this.setEnabled(false);}
+	/** Enables this window. */
 	public void activateWindow() {this.setEnabled(true);}
 	
+	/** @return The user's email. */
 	public String getEmail() {return userView.getUserEmail();}
 	
+	/**
+	 * Constructor for initializing a new UserCourseView.
+	 * @param course Set to course.
+	 * @param userView Set to userView
+	 */
 	protected UserCourseView(Course course, UserView userView)
 	{
 		this.userView = userView;
 		this.course = course;
 		
-		setSize(510, 500);
-		setMinimumSize(new Dimension(510, 500));
+		setSize(565, 500);
+		setMinimumSize(new Dimension(565, 500));
 		setLocationRelativeTo(null);
 		
 		JLabel courseLabel = new JLabel(course.getName() + " " + course.getId());
@@ -59,17 +71,14 @@ public abstract class UserCourseView extends JFrame{
 		setVisible(true);
 	}
 	
+	/** Method for closing the window. */
 	private void closeWindow()
 	{
 		userView.setVisible(true);
 		this.dispose();
 	}
-	public Course getCourse()
-	{
-		return course;
-	}
-	public UserView getView()
-	{
-		return userView;
-	}
+	/** @return course. */
+	public Course getCourse() {return course;}
+	/** @return userView */
+	public UserView getView() {return userView;}
 }

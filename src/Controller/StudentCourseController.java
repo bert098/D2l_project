@@ -16,21 +16,38 @@ import Data.Email;
 import Data.Assignment;
 import Data.Course;
 import Data.Dropbox;
-import Data.Grade;
 import Data.SubmissionFileContainer;
 import Model.StudentModel;
 import View.GradesPanel;
-import View.ProfessorDropboxView;
 import View.StudentAssignmentsPanel;
 import View.StudentCourseView;
 import View.UserEmailPanel;
 
 public class StudentCourseController {
 
+	/**
+	 * Id of selected course
+	 */
+	@SuppressWarnings("unused")
 	private Integer courseId;
+	
+	/**
+	 * Student model for interacting with server 
+	 */
 	private StudentModel studentModel;
+	
+	/**
+	 * Course view for student
+	 */
 	private StudentCourseView courseView;
 	
+	/**
+	 * Constructs controller with course view, model and the selected course id.
+	 * Displays assignments and grades.
+	 * @param courseView Course view for student 
+	 * @param model Model for student 
+	 * @param id Selected course id
+	 */
 	public StudentCourseController(StudentCourseView courseView, StudentModel model, Integer id)
 	{
 		courseId = id;
@@ -42,14 +59,20 @@ public class StudentCourseController {
 		addGradesPanelListeners();
 	}
 	
+	/**
+	 * Display assignments by calling the student model
+	 */
 	public void displayAssignments()
 	{
 		Course c = courseView.getCourse();
 		ArrayList<Assignment> a = studentModel.displayAssign(c);
 		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		panel.displayAssignments(a);
-		
 	}
+	
+	/**
+	 * Display grades by calling the student model
+	 */
 	public void displayGrades()
 	{
 		Course c = courseView.getCourse();
@@ -59,12 +82,18 @@ public class StudentCourseController {
 		panel.displaySubmissions(g);
 	}
 	
+	/**
+	 * Calls methods to add action listeners for buttons in course view
+	 */
 	public void addStudentCourseViewListeners()
 	{
 		addAssignmentPanelListeners();
 		addEmailPanelListeners();
 	}
 	
+	/**
+	 * Adds action listeners for assignment panel buttons
+	 */
 	private void addAssignmentPanelListeners()
 	{
 		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
@@ -86,6 +115,7 @@ public class StudentCourseController {
 						try
 						{
 							FileInputStream fis = new FileInputStream(selectedFile);
+							@SuppressWarnings("resource")
 							BufferedInputStream bos = new BufferedInputStream(fis);
 							bos.read(content, 0, (int)length);
 						}
@@ -130,6 +160,9 @@ public class StudentCourseController {
 		});
 	}
 	
+	/**
+	 * Adds action listeners for email panel buttons
+	 */
 	private void addEmailPanelListeners()
 	{
 		UserEmailPanel panel = courseView.getUserEmailPanel();
@@ -163,6 +196,9 @@ public class StudentCourseController {
 		});
 	}
 	
+	/**
+	 * Adds actions listeners for grades panel buttons
+	 */
 	private void addGradesPanelListeners()
 	{
 		GradesPanel panel = courseView.getGradesPanel();

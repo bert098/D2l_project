@@ -1,0 +1,68 @@
+	public void charInsertionSort(char input[])	
+    {
+        int n = input.length;
+        for (int i = 1; i < n; ++i)
+        {
+            char key = input[i];
+            int j = i-1;
+ 
+            /* Move elements of input[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j>=0 && input[j] > key)
+            {
+                input[j+1] = input[j];
+                j = j-1;
+            }
+            input[j+1] = key;
+        }
+    }
+	
+	public String sortStringChar(String inputString)
+	{
+		char temp[] = inputString.toCharArray();
+		charInsertionSort(temp);
+		return new String(temp);
+	}
+	
+	public void convertToAnagramList()
+	{
+		LinkedList uniqueList = uniqueAnagrams(inputList);
+		anagramList = new LinkedList[uniqueList.getSize()];
+		
+		String[] uniqueArray = new String[uniqueList.getSize()]; 
+		for (int i = 0; i < uniqueList.getSize(); i++)
+		{
+			uniqueArray[i] = uniqueList.indexOf(i);
+		}
+		
+		String[] sortedList = new String[inputList.length];
+		for (int i = 0; i < inputList.length; i++) 
+		{
+			sortedList[i] = sortStringChar(inputList[i]);
+		}
+	
+		for (int i = 0; i < uniqueList.getSize(); i++)  
+		{
+			anagramList[i] = new LinkedList();
+			for (int j = 0; j < inputList.length; j++)
+			{
+				if (sortedList[j].equals(uniqueArray[i])) 
+				{
+					anagramList[i].pushBack(inputList[j]); 
+														  
+				}
+			}
+		}
+	}
+	
+	private LinkedList uniqueAnagrams(String[] list) 
+	{
+		LinkedList uniqueAnagrams = new LinkedList();
+		for (int i = 0; i < list.length; i++)
+		{
+			uniqueAnagrams.pushBack(sortStringChar(list[i])); 
+		}
+		uniqueAnagrams.removeDuplicates();
+		return uniqueAnagrams;
+	}

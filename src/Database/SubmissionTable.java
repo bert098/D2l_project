@@ -36,7 +36,9 @@ public class SubmissionTable {
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass =  password;
 		}
-		catch(Exception e) { e.printStackTrace(); }
+		catch(Exception e) {
+			
+		}
 	}
 	
 	// Use the jdbc connection to create a new database in MySQL. 
@@ -63,7 +65,7 @@ public class SubmissionTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+		
 		}
 	}
 	
@@ -98,7 +100,7 @@ public class SubmissionTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			
 		}
 	}
 	

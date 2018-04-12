@@ -31,14 +31,10 @@ public class DatabaseSetterUpper {
 		Dropbox d1 = new Dropbox(1, 1234, 1, "", -1, "", "finalproject", "oct 10");
 		Dropbox d2 = new Dropbox(2, 1234, 3, "", -1, "", "finalproject", "oct 11");
 		Dropbox d3 = new Dropbox(3, 14, 1, "", -1, "", "midproject", "oct 9");
-		
-
-		Grade g1 = new Grade(u5, 100,c2 ,a1,1 );
 
 		Dropbox d4 = new Dropbox(1890, 1123, 1111, "submissions/cool.docx", -1, "", 
 								"cool.docx", "2018/04/12 10:50:32");
 		
-		data.insertGrade(g1);
 		data.insertStudentEnrollment(e1);
 		data.insertStudentEnrollment(e2);
 		data.insertStudentEnrollment(e3);
