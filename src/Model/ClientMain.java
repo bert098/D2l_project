@@ -12,16 +12,58 @@ import Controller.*;
 import Data.Constants;
 import Data.User;
 
+/**
+ * Client main initializes a connection with the server through sockets and constructs 
+ * the input and output streams for strings and objects. Also handles the login client server
+ * interactions.
+ * @author Justin, Magnus, Robert
+ */
 public class ClientMain implements Constants {
 	
+	/**
+	 * socket connection to server 
+	 */
 	private Socket socket; 
+	
+	/**
+	 * Read string input from server 
+	 */
 	private BufferedReader stringIn; 
+	
+	/**
+	 * Write string to server 
+	 */
 	private PrintWriter stringOut; 
+	
+	/**
+	 * Read Object input from server 
+	 */
 	private ObjectInputStream objectIn; 
+	
+	/**
+	 * Write object to server 
+	 */
 	private ObjectOutputStream objectOut; 
+	
+	/**
+	 * Professor model serves as the client server connection between the professor thread 
+	 * and the professor client. 
+	 */
 	private ProfessorModel professorModel; 
+	
+	/**
+	 * Student model serves as the client server connection between the student thread 
+	 * and the student client. 
+	 */
 	private StudentModel studentModel; 
 	
+	/**
+	 * Construct the client by connecting the sockets to the specified 
+	 * server name and port. Sets up connection of the input and output stream for
+	 * objects and strings
+	 * @param serverName Name of server 
+	 * @param portNumber Port of server 
+	 */
 	public ClientMain(String serverName, int portNumber) {
 		try { 
 			socket = new Socket(serverName, portNumber);
@@ -37,38 +79,42 @@ public class ClientMain implements Constants {
 		}
 	}
 	
-	public StudentModel getStudentModel() {
-		return studentModel; 
+	/**
+	 * Get student model
+	 * @return student model
+	 */
+	public StudentModel getStudentModel() { 
+		return studentModel;
 	}
 	
-	public ObjectOutputStream getObjectOut() {
-		return objectOut; 
-	}
-	
-	public ObjectInputStream getObjectIn() {
-		return objectIn;
-	}
-	
-	public PrintWriter getStringOut() {
-		return stringOut; 
-	}
-	
-	public BufferedReader getStringIn() {
-		return stringIn; 
-	}
-	
+	/**
+	 * Get professor model 
+	 * @return professor model
+	 */
 	public ProfessorModel getProfessorModel() {
 		return professorModel; 
 	}
 	
+	/**
+	 * Write username to server 
+	 * @param userName username being sent 
+	 */
 	public void sendUserName(String userName) {
 		stringOut.println(userName);
 	}
 	
+	/**
+	 * Write password to server 
+	 * @param password password being sent 
+	 */
 	public void sendPassword(String password) {
 		stringOut.println(password);
 	}
 	
+	/**
+	 * Read user from server 
+	 * @return return user 
+	 */
 	public User readUser(){ 
 		try {
 			return (User) objectIn.readObject();

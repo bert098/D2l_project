@@ -10,7 +10,6 @@ public class DatabaseHelper {
 	private AssignmentTable assignmentTable;
 	private StudentEnrollmentTable studentEnrollmentTable;
 	private SubmissionTable submissionTable;
-	private GradeTable gradeTable;
 	
 	public DatabaseHelper(String pass)
 	{
@@ -19,7 +18,6 @@ public class DatabaseHelper {
 		assignmentTable = new AssignmentTable(pass);
 		studentEnrollmentTable = new StudentEnrollmentTable(pass);
 		submissionTable= new SubmissionTable(pass);
-		gradeTable = new GradeTable(pass);
 	}
 	
 	public void createAllTables()
@@ -29,7 +27,6 @@ public class DatabaseHelper {
 		assignmentTable.createAssignmentTable();
 		studentEnrollmentTable.createStudentEnrollmentTable();
 		submissionTable.createSubmissionTable();
-		gradeTable.createGradeTable();
 	}
 	public ArrayList<Course> courseTableToList() {
 		return courseTable.courseTableToList();
@@ -54,10 +51,7 @@ public class DatabaseHelper {
 	{
 		courseTable.addCourse(c);
 	}
-	public void  insertGrade(Grade g)
-	{
-		gradeTable.addGrade(g);
-	}
+
 	public void insertStudentEnrollment(StudentEnrollment s)
 	{
 		studentEnrollmentTable.addEnrollment(s);;
@@ -74,10 +68,7 @@ public class DatabaseHelper {
 	{
 		return assignmentTable.search(id);
 	}
-	public Grade searchGrade(int id)
-	{
-		return gradeTable.searchID(id);
-	}
+
 	public StudentEnrollment searchStudentEnrollment(int id)
 	{
 		return studentEnrollmentTable.searchID(id);
@@ -159,10 +150,6 @@ public class DatabaseHelper {
 	public AssignmentFileContainer getAssignFile(Assignment assign)
 	{
 		return assignmentTable.getAssignmentFile(assign);
-	}
-
-	public ArrayList<Grade> searchGrades(Integer studentId, Integer courseId) {
-		return gradeTable.searchIDAndCourse(studentId, courseId);
 	}
 	
 	public Dropbox getGrades(Integer studentId, Assignment assignment) {

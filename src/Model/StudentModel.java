@@ -18,7 +18,6 @@ import Data.Course;
 import Data.Email;
 import Data.FileContainer;
 import Data.Dropbox;
-import Data.Grade;
 import Data.StudentEnrollment;
 import Data.SubmissionFileContainer;
 

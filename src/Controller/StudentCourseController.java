@@ -16,7 +16,6 @@ import Data.Email;
 import Data.Assignment;
 import Data.Course;
 import Data.Dropbox;
-import Data.Grade;
 import Data.SubmissionFileContainer;
 import Model.StudentModel;
 import View.GradesPanel;
