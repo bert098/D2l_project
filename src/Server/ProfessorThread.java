@@ -24,6 +24,7 @@ import Data.FileContainer;
 import Data.Student;
 import Data.StudentEnrollment;
 import Data.User;
+import Data.SubmissionFileContainer;
 
 public class ProfessorThread implements Constants {
 	private String operation; 
@@ -112,6 +113,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if (operation.equals(UPLOAD_ASSIGN)) {
 			uploadAssign();
+		}
+		else if (operation.equals(DOWNLOAD_SUB)) {
+			downloadSubmission(); 
 		}
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail();
@@ -378,6 +382,20 @@ public class ProfessorThread implements Constants {
 		}	
 		catch (IOException e)
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void downloadSubmission() {
+		try { 
+			Dropbox submission = (Dropbox)objectIn.readObject();
+			
+			SubmissionFileContainer fileContainer = database.getSubmissionFile(submission);
+			
+			objectOut.flush();
+			objectOut.writeObject(fileContainer);
+		}
+		catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}

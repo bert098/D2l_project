@@ -169,8 +169,11 @@ public class DatabaseHelper {
 		return submissionTable.GradeForAssignment(studentId, assignment);
 	}
 	
+	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
+		return submissionTable.getSubmissionFile(submission);
+	}
+
 	public void addSubmission(Dropbox submission) {
 		submissionTable.addSubmission(submission);
 	}
-
 }

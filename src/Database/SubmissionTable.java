@@ -1,5 +1,10 @@
 package Database;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -121,7 +126,7 @@ public class SubmissionTable {
 				Student s = (Student)use.searchID(studentId);
 				user.close();
 				statement.close();
-				return new Dropbox(id, a,s,grade,comments, time);
+				return new Dropbox(id, a.getId(),s.getId(),path,grade,comments,title,time );
 			
 			}
 		
@@ -208,5 +213,47 @@ public class SubmissionTable {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
+		try {
+			String sql = "SELECT TITLE, PATH FROM SubmissionTable WHERE ID = ?";
+			
+			statement = jdbc_connection.prepareStatement(sql);
+			statement.setInt(1, submission.getId());
+			
+			ResultSet submissionSet = statement.executeQuery();
+			
+			submissionSet.next();
+			
+			String name = submissionSet.getString("TITLE");
+			String path = submissionSet.getString("PATH");
+			File file = new File(path);
+			
+			long length = file.length();
+			byte[] content = new byte[(int)length];
+			
+			FileInputStream fis = new FileInputStream(file);
+			BufferedInputStream bos = new BufferedInputStream(fis);
+			bos.read(content, 0, (int)length);
+			
+			bos.close();
+			
+			SubmissionFileContainer submissionContainer = new SubmissionFileContainer(content, name, submission);
+			return submissionContainer;
+		} 
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

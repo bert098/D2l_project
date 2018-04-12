@@ -46,10 +46,6 @@ public class StudentCourseController {
 	{
 		Course c = courseView.getCourse();
 		ArrayList<Assignment> a = studentModel.displayAssign(c);
-
-		
-		
-		
 		StudentAssignmentsPanel panel = courseView.getStudentAssignmentsPanel();
 		panel.displayAssignments(a);
 		
@@ -174,8 +170,16 @@ public class StudentCourseController {
 		panel.addAssignDetailsButtonActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Assign deets");
+				if(panel.getSubmission() == null)
+				{
+					return;
+				}
+				else
+				{
+				JOptionPane.showMessageDialog(null,panel.getSubmission().getComment() ,
+						"Comments", JOptionPane.PLAIN_MESSAGE);
+				}
+				
 			}
 		});
 	}
