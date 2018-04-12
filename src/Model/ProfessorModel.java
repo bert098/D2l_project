@@ -71,7 +71,7 @@ public class ProfessorModel implements Constants{
 		return null;
 	}
 	
-	public void sendDeactivateAssignment(Integer assignId) { 
+	public void sendUpdateAssignStatus(Integer assignId) { 
 		stringOut.flush();
 		stringOut.println(assignId.toString());
 	}
