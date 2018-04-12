@@ -36,6 +36,7 @@ public class StudentController implements Constants{
 		view.displayCourses(courseList);
 	}
 	
+	
 	public void addStudentViewListeners() 
 	{
 		StudentCoursesPanel panel = view.getStudentCoursesPanel();

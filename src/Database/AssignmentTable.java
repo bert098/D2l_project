@@ -150,7 +150,7 @@ public class AssignmentTable {
 			return null;
 		}
 	}
-	public ArrayList<Assignment> courseAssignmentTableToList(Course c) {
+	public ArrayList<Assignment> courseAssignmentTableToList(Integer c) {
 		try { 
 			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
 			String sql = "SELECT * FROM " + "AssignmentTable";
@@ -164,7 +164,7 @@ public class AssignmentTable {
 						  assignmentSet.getString("PATH"),
 						  assignmentSet.getBoolean("ACTIVE"),
 						  assignmentSet.getString("DUE_DATE"));
-				if(theAssignment.getCourseId().equals(c.getId()))
+				if(theAssignment.getCourseId().equals(c))
 				{
 				assignmentList.add(theAssignment);
 				}

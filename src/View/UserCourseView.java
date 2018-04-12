@@ -68,4 +68,8 @@ public abstract class UserCourseView extends JFrame{
 	{
 		return course;
 	}
+	public UserView getView()
+	{
+		return userView;
+	}
 }

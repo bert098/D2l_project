@@ -124,6 +124,39 @@ public class SubmissionTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}
+	public Dropbox GradeForAssignment(int ID, Assignment as)
+	{
+		String sql = "SELECT * FROM " + "SubmissionTable";
+		ResultSet user;
+		try {
+			statement = jdbc_connection.prepareStatement(sql);
+			user = statement.executeQuery();
+			while(user.next())
+			{
+				Integer id = user.getInt("ID");
+				Integer assignId = user.getInt("ASSIGN_ID");
+				Integer studentId = user.getInt("STUDENT_ID");
+				String path = user.getString("PATH");
+				String title = user.getString("TITLE");
+				Integer grade = user.getInt("SUBMISSION_GRADE");
+				String comments = user.getString("COMMENTS");
+				String time = user.getString("TIMESTAMP");
+				AssignmentTable assign = new AssignmentTable(pass);
+				UserTable use = new UserTable(pass);
+				Assignment a = assign.search(assignId);
+				Student s = (Student)use.searchID(studentId);
+				if(as.getId().equals(assignId) && studentId.equals(ID))
+				{
+					System.out.println(as.getId() + " " + assignId );
+					return new Dropbox(id, a,s,grade,comments );
+				}
+			
+			}
+		
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return null;
+	}
 	
 	public ArrayList<Dropbox> searchAssignment(int assignmentId) {
 		try { 
