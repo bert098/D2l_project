@@ -17,6 +17,10 @@ public class Grade implements Serializable{
 		assign_id = a.getId();
 		
 	}
+	@Override
+	public String toString() { 
+		return "Assignment id: " + assign_id + " Grade: " + grade;
+	}
 	public Integer getId() {return id;}
 	public Integer getStudentId() {return student_id;}
 	public Integer getGrade() {return grade;}

@@ -129,7 +129,7 @@ public class DatabaseHelper {
 		return userTable.getStudentEmails(studentEnrollmentTable.searchStudent(courseId), courseId);
 	}
 
-	public ArrayList<Assignment> assignmentList(Course c)
+	public ArrayList<Assignment> assignmentList(Integer c)
 	{
 		 return assignmentTable.courseAssignmentTableToList(c);
 	}
@@ -159,6 +159,14 @@ public class DatabaseHelper {
 	public AssignmentFileContainer getAssignFile(Assignment assign)
 	{
 		return assignmentTable.getAssignmentFile(assign);
+	}
+
+	public ArrayList<Grade> searchGrades(Integer studentId, Integer courseId) {
+		return gradeTable.searchIDAndCourse(studentId, courseId);
+	}
+	
+	public Dropbox getGrades(Integer studentId, Assignment assignment) {
+		return submissionTable.GradeForAssignment(studentId, assignment);
 	}
 
 }

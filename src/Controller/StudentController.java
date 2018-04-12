@@ -33,9 +33,9 @@ public class StudentController implements Constants{
 		studentModel.sendOperation(STUDENT_COURSES);
 		studentModel.sendStudentId(view.getUserId());
 		courseList = studentModel.getStudentCourseList();
-		
 		view.displayCourses(courseList);
 	}
+	
 	
 	public void addStudentViewListeners() 
 	{
@@ -50,8 +50,7 @@ public class StudentController implements Constants{
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
 					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
-							studentModel, panel.getSelectedCourse().getId());
-					
+							studentModel, panel.getSelectedCourse().getId());					
 				}
 				
 			}
@@ -61,8 +60,8 @@ public class StudentController implements Constants{
 	private void addCloseWindowListener() {
 		view.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {
-				   //todo
 				   System.out.println("Exit");
+				   studentModel.sendOperation(EXIT);
 				   System.exit(0);
 			   }
 		});

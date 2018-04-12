@@ -13,6 +13,9 @@ import Data.Constants;
 import Data.Course;
 import Data.Email;
 import Data.FileContainer;
+import Data.Dropbox;
+import Data.Grade;
+import Data.StudentEnrollment;
 import Database.DatabaseHelper;
 
 public class StudentThread implements Constants {
@@ -28,12 +31,15 @@ public class StudentThread implements Constants {
 	
 	private PrintWriter stringOut;
 	
+	private Boolean checkEnd;
+	
 	public StudentThread(BufferedReader sIn, PrintWriter sOut, ObjectOutputStream oOut, ObjectInputStream oIn, DatabaseHelper data) {
 		stringIn = sIn; 
-		stringOut = sOut; 
+		stringOut = sOut;
 		objectOut = oOut; 
 		objectIn = oIn;
 		database = data;
+		checkEnd = false;
 	}
 	
 	public void run() {
@@ -43,6 +49,9 @@ public class StudentThread implements Constants {
 				System.out.println(operation);
 				Thread.sleep(50);
 				readOperation(); 
+				if (checkEnd) {
+					return;
+				}
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
@@ -72,6 +81,9 @@ public class StudentThread implements Constants {
 		else if (operation.equals(SEND_EMAIL)) {
 			sendEmail(); 
 		}
+		else if (operation.equals(EXIT)) {
+			exitThread(); 
+		}
 		else {
 			System.out.println("wrong operation");
 		}
@@ -93,10 +105,11 @@ public class StudentThread implements Constants {
 		}
 	}
 	
-	public void getStudentAssignments() { 
+	public  void getStudentAssignments() { 
 		try {
 			Course c = (Course)objectIn.readObject();
-			ArrayList<Assignment> a = database.assignmentList(c);
+			 System.out.println("Got course on server");
+			ArrayList<Assignment> a = database.assignmentList(c.getId());
 			objectOut.flush();
 			objectOut.writeObject(a);
 		} catch (ClassNotFoundException | IOException e) {
@@ -125,7 +138,24 @@ public class StudentThread implements Constants {
 	}
 	
 	public void getGrades() { 
-		//todo
+		try {
+			StudentEnrollment c = (StudentEnrollment)objectIn.readObject();
+			ArrayList<Assignment> grades = database.assignmentList(c.getCourseId());
+			ArrayList<Dropbox> d = new ArrayList<Dropbox>();
+			for(int i = 0 ; i< grades.size(); i++)
+			{
+				d.add(database.getGrades(c.getStudentId(), grades.get(i)));
+			}
+			objectOut.flush();
+			objectOut.writeObject(d);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void sendEmail() {
@@ -144,6 +174,19 @@ public class StudentThread implements Constants {
 			}
 		}
 		catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exitThread() {
+		try {
+			objectOut.close();
+			objectIn.close();
+			stringIn.close();
+			stringOut.close();
+			checkEnd = true;
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

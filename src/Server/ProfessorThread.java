@@ -38,21 +38,28 @@ public class ProfessorThread implements Constants {
 	
 	private PrintWriter stringOut;
 	
+	private Boolean checkEnd; 
+	
 	public ProfessorThread(BufferedReader sIn, PrintWriter sOut, ObjectOutputStream oOut, ObjectInputStream oIn, DatabaseHelper data) {
 		stringIn = sIn; 
 		stringOut = sOut; 
 		objectOut = oOut; 
 		objectIn = oIn;
 		database = data;
+		checkEnd = false;
 	}
 	
 	public void run() {
 		while (true) {
-			try {
+			try 
+			{
 				operation = stringIn.readLine();
 				System.out.println(operation);
 				Thread.sleep(50);
 				readOperation(); 
+				if (checkEnd) {
+					return;
+				}
 			}
 			catch (IOException ex) {
 				ex.printStackTrace();
@@ -111,6 +118,9 @@ public class ProfessorThread implements Constants {
 		}
 		else if(operation.equals(ALL_STUDENTS)){
 			getAll();
+		}
+		else if(operation.equals(EXIT)) {
+			exitThread(); 
 		}
 		else {
 			System.out.println(operation + " is incorrect");
@@ -414,6 +424,19 @@ public class ProfessorThread implements Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exitThread() {
+		try {
+			objectOut.close();
+			objectIn.close();
+			stringIn.close();
+			stringOut.close();
+			checkEnd = true;
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
