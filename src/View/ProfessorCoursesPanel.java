@@ -6,19 +6,35 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+/**
+ * Class used in the professor gui for displaying a professor's courses.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public class ProfessorCoursesPanel extends UserCoursesPanel{
 
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = 3962664310003782620L;
 	
+	/** Button for activating a course. */
 	private JButton activateCourseButton = new JButton("Activate");
+	/** Button for deactivating a course. */
 	private JButton deactivateCourseButton = new JButton("Deactivate");
 	
+	/**
+	 * Adds an action listener for activateCourseButton.
+	 * @param a Action listener added to activateCourseButton.
+	 */
 	public void addActivateCourseButtonActionListener(ActionListener a) {activateCourseButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for deactivateCourseButton.
+	 * @param a Action listener added to deactivateCourseButton.
+	 */
 	public void addDeactivateCourseButtonActionListener(ActionListener a) {deactivateCourseButton.addActionListener(a);}
 	
+	/**
+	 * Constructor for initializing a new ProfessorCoursesPanel.
+	 */
 	public ProfessorCoursesPanel()
 	{
 		super();

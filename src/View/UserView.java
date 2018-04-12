@@ -12,20 +12,30 @@ import javax.swing.JTabbedPane;
 
 import Data.User;
 
+/**
+ * Abstract class for the window shown when a user logs in.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public abstract class UserView extends JFrame{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -4830528770169590307L;
-
+	
+	/** The user that has logged in. */
 	protected User user;
-
+	/** Tabbed pane for showing the view's panels. */
 	protected JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
+	/** @return The user's id. */
 	public Integer getUserId() {return user.getId();}
+	/** @return The user's email. */
 	public String getUserEmail() {return user.getEmail();}
 	
+	/**
+	 * Constructor that initializes a new UserView.
+	 * @param user Assigned to user.
+	 */
 	public UserView(User user)
 	{
 		this.user = user;

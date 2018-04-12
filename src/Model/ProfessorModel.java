@@ -114,11 +114,11 @@ public class ProfessorModel implements Constants{
 	}
 	
 	/**
-	 * Deactivate assignment by sending id of assignment 
+	 * Update assignment by sending id of assignment 
 	 * being deactivated 
 	 * @param assignId id of assignment
 	 */
-	public void sendDeactivateAssignment(Integer assignId) { 
+	public void sendUpdateAssignStatus(Integer assignId) { 
 		stringOut.flush();
 		stringOut.println(assignId.toString());
 	}
