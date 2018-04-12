@@ -51,7 +51,6 @@ public class CourseTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
 		}
 	}
 	public void addCourse(Course user)
@@ -82,7 +81,7 @@ public class CourseTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			
 		}
 	}
 	public Course searchCourse(int toolID)

@@ -2,11 +2,6 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 
 import Data.Professor;
 import Data.Student;
@@ -16,14 +11,40 @@ import View.LoginWindow;
 import View.ProfessorView;
 import View.StudentView;
 import Model.ClientMain;
-import Model.StudentModel;
 
+/**
+ * User controller handles the interactions between the login view and the 
+ * client main.
+ * @author Justin, Magnus, Robert
+ */
 public class UserController implements Constants {
+	
+	/**
+	 * Client main for interacting with the server 
+	 */
 	private ClientMain clientMain; 
+	
+	/**
+	 * Gui for login view 
+	 */
 	private LoginWindow loginWindow;  
+	
+	/**
+	 * Username of user
+	 */
 	private String userName;
+	
+	/**
+	 * Password of user
+	 */
 	private String password;
 	
+	/**
+	 * Constructor constructs the login window and adds an action listener for 
+	 * the login button. If login successful the actionPerformed method will construct either 
+	 * the professor controller or the student professor depending on user type.
+	 * @param client client model that handles server interactions
+	 */
 	public UserController(ClientMain client) { 
 		clientMain = client;
 		userName = ""; 
@@ -45,12 +66,14 @@ public class UserController implements Constants {
 				else if (user.getType()== PROFESSOR) { 
 					Professor theProfessor = new Professor(user.getId(), user.getUsername(), user.getPassword(),
 							user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
+					@SuppressWarnings("unused")
 					ProfessorController professorController = new ProfessorController(new ProfessorView(theProfessor), clientMain.getProfessorModel());
 					loginWindow.closeWindow();
 				}
 				else if (user.getType() == STUDENT) {
 					Student theStudent = new Student(user.getId(), user.getUsername(), user.getPassword(), 
 							user.getType(), user.getEmail(), user.getFirstName(), user.getLastName());
+					@SuppressWarnings("unused")
 					StudentController studentController = new StudentController(new StudentView(theStudent), clientMain.getStudentModel());
 					loginWindow.closeWindow();
 				}

@@ -24,7 +24,9 @@ public class UserTable {
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 		}
-		catch(Exception e) { e.printStackTrace(); }
+		catch(Exception e) {
+			
+		}
 	}
 	
 	// Use the jdbc connection to create a new database in MySQL. 
@@ -48,9 +50,10 @@ public class UserTable {
 			statement = jdbc_connection.prepareStatement(sql);
 			statement.executeUpdate();
 			statement.close();
-		}catch(SQLException e)
+		}
+		catch(SQLException e)
 		{
-			e.printStackTrace();
+		
 		}
 	}
 	public void addUser(User user)
@@ -79,7 +82,7 @@ public class UserTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			
 		}
 	}
 

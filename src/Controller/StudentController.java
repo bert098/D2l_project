@@ -8,17 +8,34 @@ import java.util.ArrayList;
 
 import Data.Course;
 import Data.Constants;
-import Data.Student;
 import Model.StudentModel;
 import View.StudentCourseView;
 import View.StudentCoursesPanel;
 import View.StudentView;
 
+/**
+ * Student controller controls the interactions between the student view and the student model.
+ * Provides anonymous classes for buttons in the student view.
+ * @author Justin, Robert, Magnus
+ */
 public class StudentController implements Constants{
-	private StudentModel studentModel;
-	private StudentView view;
-	private ArrayList<Course> courseList;
 	
+	/**
+	 * Student model for handling interactions between client and server 
+	 */
+	private StudentModel studentModel;
+	
+	/**
+	 * The view for the student
+	 */
+	private StudentView view;
+	
+	/**
+	 * Constructs the student controller with the student view and student model.
+	 * Displays courses from the database by calling addCourses().
+	 * @param view Student view
+	 * @param model Student model
+	 */
 	public StudentController(StudentView view, StudentModel model)
 	{
 		studentModel = model;
@@ -28,15 +45,20 @@ public class StudentController implements Constants{
 		addCloseWindowListener();
 	}
 	
+	/**
+	 * gets the course list from the database though the student model
+	 */
 	public void addCourses()
 	{
 		studentModel.sendOperation(STUDENT_COURSES);
 		studentModel.sendStudentId(view.getUserId());
-		courseList = studentModel.getStudentCourseList();
+		ArrayList<Course> courseList = studentModel.getStudentCourseList();
 		view.displayCourses(courseList);
 	}
 	
-	
+	/**
+	 * Adds action listeners for the open course button
+	 */
 	public void addStudentViewListeners() 
 	{
 		StudentCoursesPanel panel = view.getStudentCoursesPanel();
@@ -45,10 +67,9 @@ public class StudentController implements Constants{
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Open Course");
 				if(panel.getSelectedCourse() != null) {
 					view.setVisible(false);
+					@SuppressWarnings("unused")
 					StudentCourseController s = new StudentCourseController(new StudentCourseView(panel.getSelectedCourse(), view),
 							studentModel, panel.getSelectedCourse().getId());					
 				}
@@ -57,10 +78,12 @@ public class StudentController implements Constants{
 		});
 	}
 	
+	/**
+	 * Adds action listeners for closing the window
+	 */
 	private void addCloseWindowListener() {
 		view.addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {
-				   System.out.println("Exit");
 				   studentModel.sendOperation(EXIT);
 				   System.exit(0);
 			   }
