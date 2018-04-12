@@ -75,10 +75,9 @@ public class UserAssignmentsPanel extends JPanel{
 		assignmentModel.removeAllElements();
 		for (int i = 0; i < assignmentArrayList.size(); i++)
 		{
-			if(assignmentArrayList.get(i).getActive() == true)
-			{
+			
 				assignmentModel.addElement(assignmentArrayList.get(i));
-			}
+			
 		}
 		setVisible(true);
 	}
