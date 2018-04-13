@@ -192,7 +192,7 @@ public class ProfessorModel implements Constants{
 	
 	/**
 	 * Get arrayList of all students from a course
-	 * @param course course the students are enrolled in
+	 * @param c course the students are enrolled in
 	 * @return arrayList of students
 	 */
 	public ArrayList<Student> searchAll(Course c)
@@ -241,7 +241,7 @@ public class ProfessorModel implements Constants{
 	
 	/**
 	 * Enroll a student into a course 
-	 * @param student Student being enrolled 
+	 * @param st Student being enrolled 
 	 * @return ArrayList of students 
 	 */
 	public ArrayList<Student> enroll(StudentEnrollment st)
@@ -322,7 +322,7 @@ public class ProfessorModel implements Constants{
 	/**
 	 * Send email to the server for sending to all students
 	 * @param email Email being sent
-	 * @return 
+	 * @return true if the message sent
 	 */
 	public boolean sendEmail(Email email)
 	{

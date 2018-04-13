@@ -12,33 +12,47 @@ import Data.Professor;
 import Data.Student;
 import Data.StudentEnrollment;
 import Data.User;
-
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *	this class access the student enrollment table from the database
+ *	it has various methods used to retrieve specific data from the database
+ */
 public class StudentEnrollmentTable {
+	/**
+	 * The connection used to connect to the student enrollment table
+	 */
 	public Connection jdbc_connection;
+	/**
+	 * the prepared statement used 
+	 */
 	public PreparedStatement statement;
+	/**
+	 * the password to access the database
+	 */
 	private String pass;
-  
+	/**
+	   * the connection information for the specific database
+	   */
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root";
-
+	/**
+	 * the constructor for this class that establishes a connection to the database
+	 * @param password is the password to the database
+	 */
 	public StudentEnrollmentTable(String password)
 	{
 		try{
-			// If this throws an error, make sure you have added the mySQL connector JAR to the project
 			Class.forName("com.mysql.jdbc.Driver");
-			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass = password;
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
+	/**
+	 * creates the enrollment table
+	 */
 	public void createStudentEnrollmentTable()
 	{
 		String sql =   "CREATE TABLE " + "StudentEnrollmentTable" + "(" +
@@ -77,6 +91,11 @@ public class StudentEnrollmentTable {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * searches the table for a student enrollment 
+	 * @param ID the id of the  student enrollment 
+	 * @return the student enrollment 
+	 */
 	public StudentEnrollment searchID(int ID)
 	{
 		String sql = "SELECT * FROM " + "StudentEnrollmentTable" + " WHERE ID=?";
@@ -106,6 +125,11 @@ public class StudentEnrollmentTable {
 		}
 		return null;
 	}
+	/**
+	 * gets all the students enrolled in a course 
+	 * @param Id the id of the course
+	 * @return an arraylist of students enrolled  in a course
+	 */
 	public ArrayList<Integer> searchStudent(int Id) {
 		try { 
 			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
@@ -133,6 +157,11 @@ public class StudentEnrollmentTable {
 			return null;
 		}
 	}
+	/**
+	 * searches for all the courses a student is in 
+	 * @param studentId the id of the student 
+	 * @return an arraylist of the course ids
+	 */
 	public ArrayList<Integer> searchCoursesForStudent(int studentId) {
 		try { 
 			ArrayList<Integer> courseList = new ArrayList<Integer>(); 
@@ -159,6 +188,11 @@ public class StudentEnrollmentTable {
 			return null;
 		}
 	}
+	/**
+	 * removes a student from the enrollment table
+	 * @param id the id of the student 
+	 * @return the course id of the enrollment to be removed   
+	 */
 	public int  unEnrollStudent(int id) {
 		try { 
 			String sql = "SELECT * FROM " + "StudentEnrollmentTable" + " WHERE STUDENT_ID=?";
@@ -181,6 +215,10 @@ public class StudentEnrollmentTable {
 		}
 		
 	}
+	/**
+	 * deletes a student enrollment 
+	 * @param id the id of the enrollment to delete 
+	 */
 	public void  delete(int id) {
 		try { 
 			String sql = "DELETE FROM " + "StudentEnrollmentTable" + " WHERE STUDENT_ID=?";
@@ -197,7 +235,11 @@ public class StudentEnrollmentTable {
 		}
 		
 	}
-	
+	/**
+	 * searches for a student enrollment by student id 
+	 * @param Id the id of the student 
+	 * @return the student 
+	 */
 	public ArrayList<Integer> SearchStudentId(int Id) {
 		try { 
 			ArrayList<Integer> studentList = new ArrayList<Integer>(); 
@@ -224,6 +266,9 @@ public class StudentEnrollmentTable {
 			return null;
 		}
 	}
+	/**
+	 * closes the connection 
+	 */
 	public void closeConnection()
 	{
 		try {

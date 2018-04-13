@@ -1,9 +1,17 @@
 package Database;
 import Data.*;
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *
+ */
 public class DatabaseSetterUpper {
 	
 	private DatabaseHelper data; 
-	
+	/**
+	 * creates many default values on the database for testing 
+	 * @param password the password for the database
+	 */
 	public DatabaseSetterUpper(String password)
 	{
 		data = new DatabaseHelper(password);

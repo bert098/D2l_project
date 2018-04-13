@@ -19,15 +19,34 @@ import Data.FileContainer;
 import Data.Professor;
 import Data.Student;
 import Data.User;
-
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *	this class access the assignments table from the database
+ *	it has various methods used to retrieve specific data from the database
+ */
 public class AssignmentTable {
+	/**
+	 * The connection used to connect to the assignment table
+	 */
 	public Connection jdbc_connection;
+	/**
+	 * the prepared statement used 
+	 */
 	public PreparedStatement statement;
+	/**
+	 * the password to access the database
+	 */
 	private String pass;
-  
+  /**
+   * the connection information for the specific database
+   */
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root"; 
-	
+	/**
+	 * the constructor for this class that establishes a connection to the database
+	 * @param password is the password to the database
+	 */
 	public AssignmentTable(String password)
 	{
 		try{
@@ -38,6 +57,9 @@ public class AssignmentTable {
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
+	/**
+	 * creates the assignment database 
+	 */
 	public void createAssignmentTable()
 	{
 		String sql =   "CREATE TABLE " + "AssignmentTable" + "(" +
@@ -59,6 +81,11 @@ public class AssignmentTable {
 		}
 	}
 
+	/**
+	 * searches the database with an assignment id
+	 * @param ID the assignment id
+	 * @return an assignment if its found 
+	 */
 	public Assignment search(int ID)
 	{
 		String sql = "SELECT * FROM " + "AssignmentTable" + " WHERE ID=?";
@@ -88,7 +115,10 @@ public class AssignmentTable {
 		
 		return null;
 	}
-
+	/**
+	 * adds an assignment 
+	 * @param user is the assignment being added
+	 */
 	public void addAssignment(Assignment user)
 	{
 		String sql = "INSERT INTO " + "AssignmentTable" +
@@ -124,7 +154,10 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * gets an arraylist of every assignment 
+	 * @return the arraylist of assignments
+	 */
 	public ArrayList<Assignment> assignmentTableToList() {
 		try { 
 			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
@@ -150,6 +183,11 @@ public class AssignmentTable {
 			return null;
 		}
 	}
+	/**
+	 * gets all the assignments in a specific course
+	 * @param c the id of the course 
+	 * @return an arraylist of all the assignment in the course
+	 */
 	public ArrayList<Assignment> courseAssignmentTableToList(Integer c) {
 		try { 
 			ArrayList<Assignment> assignmentList = new ArrayList<Assignment>(); 
@@ -179,7 +217,11 @@ public class AssignmentTable {
 		}
 	}
 	
-	
+	/**
+	 * updates an assignments active value
+	 * @param id the id of the assignment 
+	 * @param status what to change the activity to 
+	 */
 	public void updateAssignmentStatus(int id, boolean status) {
 		try {
 			String sql = "UPDATE AssignmentTable SET " +
@@ -200,7 +242,11 @@ public class AssignmentTable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 *
+	 * @param assign the assignment that needs to be added to the file container
+	 * @return a FileContainer with the assignment 
+	 */
 	public AssignmentFileContainer getAssignmentFile(Assignment assign)
 	{
 		try {
@@ -243,6 +289,9 @@ public class AssignmentTable {
 		}
 		return null;
 	}
+	/**
+	 * closes the connection to the database 
+	 */
 	public void closeConnection()
 	{
 		try {

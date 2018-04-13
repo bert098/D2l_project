@@ -6,32 +6,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *	this class access the user table from the database
+ *	it has various methods used to retrieve specific data from the database
+ */
 public class UserTable {
+	/**
+	 * The connection used to connect to the user table
+	 */
 	public Connection jdbc_connection;
+	/**
+	 * the prepared statement used 
+	 */
 	public PreparedStatement statement;
 	
-  
+	/**
+	 * the password to access the database
+	 */
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root"; 
 
+		/**
+	   * the connection information for the specific database
+	   * @param password the password  to access the database
+	   */
 	public UserTable(String password)
 	{
 		try{
-			// If this throws an error, make sure you have added the mySQL connector JAR to the project
 			Class.forName("com.mysql.jdbc.Driver");
-			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
+	/**
+	 * creates a user table
+	 */
 	public void createUserTable()
 	{
 		String tableName = "UserTable";
@@ -53,6 +65,10 @@ public class UserTable {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * adds a user 
+	 * @param user the uer to be added
+	 */
 	public void addUser(User user)
 	{
 		String sql = "INSERT INTO " + "UserTable" +
@@ -82,7 +98,12 @@ public class UserTable {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * searches using username and password
+	 * @param UserName the username 
+	 * @param Password the password
+	 * @return the user if found 
+	 */
 	public User search(String UserName, String Password)
 	{
 		String sql = "SELECT * FROM " + "UserTable" + " WHERE USERNAME=?";
@@ -125,6 +146,11 @@ public class UserTable {
 		
 		return null;
 	}
+	/**
+	 * searchs through the table with a user id
+	 * @param ID the id of the user
+	 * @return the user
+	 */
 	public User searchID(int ID)
 	{
 		String sql = "SELECT * FROM " + "UserTable" + " WHERE ID=?";
@@ -163,7 +189,12 @@ public class UserTable {
 		
 		return null;
 	}
-	
+	/**
+	 * gets an arraylist of student emails in a course
+	 * @param idList the array list of ids 
+	 * @param courseId the course id 
+	 * @return an arraylist of emails 
+	 */
 	public ArrayList<String> getStudentEmails(ArrayList<Integer> idList, Integer courseId)
 	{
 		ArrayList<String> emailList = new ArrayList<String>();
@@ -174,7 +205,11 @@ public class UserTable {
 		}
 		return emailList;
 	}
-	
+	/**
+	 * gets an email of a user
+	 * @param id the id of the user
+	 * @return the email of the user
+	 */
 	public String getUserEmail(Integer id)
 	{
 		try {
@@ -190,7 +225,10 @@ public class UserTable {
 			return null;
 		}
 	}
-	
+	/**
+	 * gets all the students
+	 * @return an array  list  of students 
+	 */
 	public ArrayList<Student> getAll()
 	{
 		String sql = "SELECT * FROM " + "UserTable";
@@ -222,6 +260,9 @@ public class UserTable {
 		
 		return studentList;
 	}
+	/**
+	 * closes all the connections
+	 */
 	public void closeConnection()
 	{
 		try {

@@ -467,7 +467,7 @@ public class ProfessorThread implements Constants {
 			
 			Random rand = new Random();
 			assign.setId(rand.nextInt(9999));
-			database.addAssignment(assign);
+			database.insertAssignment(assign);
 		} 
 		catch (ClassNotFoundException e) 
 		{
