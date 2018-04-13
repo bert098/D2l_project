@@ -12,25 +12,39 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Class used in the professor gui for creating new courses.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ */
 public class CreateCourseView extends JPanel{
 
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = 1424663512425310103L;
 	
+	/** Field for inputing the course number. */
 	private JTextField courseNumField = new JTextField();
+	/** Field for inputing the course name. */
 	private JTextField courseNameField = new JTextField();
+	/** Check-box for setting whether a course is active. */
 	private JCheckBox courseActiveBox = new JCheckBox("Set Active");
+	/** Button for creating a new course. */
 	private JButton createCourseButton = new JButton("Create Course");
 	
+	/** @return The value in courseNumField. */
 	public Integer getCourseNum() {return Integer.parseInt(courseNumField.getText());}
+	/** @return The value in courseNameField. */
 	public String getCourseName() { return courseNameField.getText();}
+	/** @return True if  courseActiveBox is checked, false otherwise. */
 	public boolean getCourseIsActive() {return courseActiveBox.isSelected();}
 	
+	/**
+	 * Adds an action listener for createCourseButton.
+	 * @param a Action listener added to createCourseButton.
+	 */
 	public void addCreateCourseButtonActionListener(ActionListener a) {createCourseButton.addActionListener(a);}
 	
+	/** Constructor for initializing a new CreateCourseView. */
 	public CreateCourseView()
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();

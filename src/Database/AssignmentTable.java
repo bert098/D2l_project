@@ -77,7 +77,6 @@ public class AssignmentTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
 		}
 	}
 
@@ -151,7 +150,6 @@ public class AssignmentTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
 		}
 	}
 	/**

@@ -67,7 +67,6 @@ public class StudentEnrollmentTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
 		}
 	}
 	public void addEnrollment(StudentEnrollment user)
@@ -88,7 +87,7 @@ public class StudentEnrollmentTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+		
 		}
 	}
 	/**

@@ -67,7 +67,6 @@ public class CourseTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
 		}
 	}
 	/**
@@ -102,7 +101,7 @@ public class CourseTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			
 		}
 	}
 	/**

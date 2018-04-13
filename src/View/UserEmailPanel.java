@@ -16,31 +16,54 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * Class for creating a gui for sending emails.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
 public class UserEmailPanel extends JPanel{
 
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -6727002174304116141L;
 	
+	/** Text field for the email's title. */
 	private JTextField titleField = new JTextField();
+	/** Scroll pane for holding messageArea */
 	private JScrollPane scrollPane = new JScrollPane();
+	/** Text area for the email's message. */
 	private JTextArea messageArea = new JTextArea();
+	/** Button for sending an email. */
 	private JButton sendButton = new JButton("Send");
+	/** Button for clearing the email's message and title. */
 	private JButton clearButton = new JButton("Clear");
 	
+	/** @return The text in titleField. */
 	public String getTitle() {return titleField.getText();}
+	/** @return The text in messageArea */
 	public String getMessage() {return messageArea.getText();}
 	
+	/**
+	 * Adds an action listener for sendButton.
+	 * @param a Action listener added to sendButton.
+	 */
 	public void addSendButtonActionListener(ActionListener a) {sendButton.addActionListener(a);}
+	/**
+	 * Adds an action listener for clearButton.
+	 * @param a Action listener added to clearButton.
+	 */
 	public void addClearButtonActionListener(ActionListener a) {clearButton.addActionListener(a);}
 	
+	/** Clears messageArea and titleField. */
 	public void clear()
 	{
 		messageArea.setText("");
 		titleField.setText("");
 	}
 	
+	/**
+	 * Constructor for initializing a new UserEmailPanel.
+	 * @param windowMessage Set to the window's label.
+	 */
 	public UserEmailPanel(String windowMessage)
 	{
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -105,6 +128,11 @@ public class UserEmailPanel extends JPanel{
 		add(clearButton, gbc_clearButton);
 	}
 	
+	/**
+	 * Opens a dialogue prompting the user to enter the password for their email.
+	 * @param emailAddress The user's email address.
+	 * @return The user's password.
+	 */
 	public String getEmailPassword(String emailAddress)
 	{
 		JPasswordField passwordField = new JPasswordField(20);

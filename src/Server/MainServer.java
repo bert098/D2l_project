@@ -64,6 +64,7 @@ public class MainServer {
 	
 	/**
 	 * Construct a Server with Port 6969
+	 * @param data DatabaseHelper
 	 */
 	public MainServer(DatabaseHelper data) {
 		try {
@@ -102,7 +103,7 @@ public class MainServer {
 	/**
 	 * Run the Server. Change password in argument of DatabaseSetterupper to proper mySQL password
 	 * @param args none
-	 * @throws IOException 
+	 * @throws IOException Print stack trace
 	 */
 	public static void main(String[] args) throws IOException {
 		

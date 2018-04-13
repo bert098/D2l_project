@@ -54,7 +54,9 @@ public class SubmissionTable {
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass =  password;
 		}
-		catch(Exception e) { e.printStackTrace(); }
+		catch(Exception e) {
+			
+		}
 	}
 	/**
 	 * creates a submission table
@@ -78,7 +80,7 @@ public class SubmissionTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+		
 		}
 	}
 	/**
@@ -116,7 +118,7 @@ public class SubmissionTable {
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			
 		}
 	}
 	/**

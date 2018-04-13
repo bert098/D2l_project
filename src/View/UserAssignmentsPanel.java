@@ -16,23 +16,38 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class UserAssignmentsPanel extends JPanel{
+/**
+ * Abstract class that is used to display a user's assignments.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngberg
+ *
+ */
+public abstract class UserAssignmentsPanel extends JPanel{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -4042173038192790908L;
-
+	/** Scroll pane for holding assignmentList. */
 	private JScrollPane scrollPane = new JScrollPane();
+	/** List for displaying a user's assignments. */
 	protected JList<Assignment> assignmentList = new JList<Assignment>();
+	/** Modes for assignmentList. */
 	protected DefaultListModel<Assignment> assignmentModel = new DefaultListModel<>(); 
 	
-	protected JButton openDropboxButton;// = new JButton("Open Dropbox");
+	/** Button for opening a dropbox. */
+	protected JButton openDropboxButton;
 	
+	/**
+	 * Adds an action listener for openDropboxButton.
+	 * @param a Action listener added to openDropboxButton.
+	 */
 	public void addOpenDropboxButtonActionListener(ActionListener a) {openDropboxButton.addActionListener(a);}
 	
+	/** @return The selected assignment in assignmentList. */
 	public Assignment getSelectedAssignment() {return assignmentList.getSelectedValue();}
 	
+	/**
+	 * Constructor that initializes a new UserAssignmentsPanel.
+	 * @param dropboxButtonText Set to the text in openDropboxButton.
+	 */
 	public UserAssignmentsPanel(String dropboxButtonText)
 	{
 		assignmentList.setModel(assignmentModel);
@@ -70,16 +85,18 @@ public class UserAssignmentsPanel extends JPanel{
 		
 		scrollPane.setViewportView(assignmentList);
 	}
+	
+	/**
+	 * Displays the assignments in the ArrayList.
+	 * @param assignmentArrayList Used to update assignmentModel. 
+	 */
 	public void displayAssignments(ArrayList<Assignment> assignmentArrayList )
 	{
 		assignmentModel.removeAllElements();
 		for (int i = 0; i < assignmentArrayList.size(); i++)
 		{
-			
 				assignmentModel.addElement(assignmentArrayList.get(i));
-			
 		}
 		setVisible(true);
 	}
-			
 }

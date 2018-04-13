@@ -16,20 +16,34 @@ import javax.swing.JScrollPane;
 
 import Data.Dropbox;
 
+/**
+ * Class used in the student gui for displaying a student's grades.
+ * @author Justin Hung, Robert Dumitru, Magnus Lyngbergs
+ *
+ */
 public class GradesPanel extends JPanel{
 	
-	/**
-	 * 
-	 */
+	/** serialVersionUID */
 	private static final long serialVersionUID = -3962537570176346407L;
 	
+	/** List model for the Dropbox list. */
 	private DefaultListModel<Dropbox> submissionModel = new DefaultListModel<>();
+	/** List that will contain all of a student's submissions. */
 	private JList<Dropbox> submissionList = new JList<Dropbox>();
+	/** Scroll pane for holding submissionList */
 	private JScrollPane scrollPane = new JScrollPane();
+	/** Button for displaying more information about an assignment. */
 	private JButton assignDetailsButton = new JButton("Assignment Details");
 	
+	/**
+	 * Adds an action listener for assignDetailsButton.
+	 * @param a Action listener added to assignDetailsButton.
+	 */
 	public void addAssignDetailsButtonActionListener(ActionListener a) {assignDetailsButton.addActionListener(a);}
+	/** @return The selected item in submissionList. */
 	public Dropbox getSubmission () {return submissionList.getSelectedValue();}
+	
+	/** Constructor for initializing a new GradesPanel. */
 	public GradesPanel()
 	{
 		submissionList.setModel(submissionModel);
@@ -69,6 +83,10 @@ public class GradesPanel extends JPanel{
 		add(assignDetailsButton, gbc_assignDetailsButton);
 	}
 	
+	/**
+	 * Updates the contents of submissionModel.
+	 * @param dropboxArrayList Contents used to update submissionModel.
+	 */
 	public void displaySubmissions(ArrayList<Dropbox> dropboxArrayList)
 	{
 		submissionModel.removeAllElements();
