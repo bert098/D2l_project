@@ -16,22 +16,40 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import Data.*;
-
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *	this class access the submission table from the database
+ *	it has various methods used to retrieve specific data from the database
+ */
 public class SubmissionTable {
+	/**
+	 * The connection used to connect to the submission table
+	 */
 	public Connection jdbc_connection;
+	/**
+	 * the prepared statement used 
+	 */
 	public PreparedStatement statement;
+	/**
+	 * the password to access the database
+	 */
 	private String pass;
-	
+	/**
+	   * the connection information for the specific database
+	   */
   
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root";
 
+	/**
+	 * the constructor for this class that establishes a connection to the database
+	 * @param password is the password to the database
+	 */
 	public SubmissionTable(String password)
 	{
 		try{
-			// If this throws an error, make sure you have added the mySQL connector JAR to the project
 			Class.forName("com.mysql.jdbc.Driver");
-			// If this fails make sure your connectionInfo and login/password are correct
 			jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
 			System.out.println("Connected to: " + connectionInfo + "\n");
 			pass =  password;
@@ -40,12 +58,9 @@ public class SubmissionTable {
 			
 		}
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
+	/**
+	 * creates a submission table
+	 */
 	public void createSubmissionTable()
 	{
 		String sql =   "CREATE TABLE " + "SubmissionTable" + "(" +
@@ -68,7 +83,10 @@ public class SubmissionTable {
 		
 		}
 	}
-	
+	/**
+	 * adds a dropbox to the table
+	 * @param d the dropbox added
+	 */
 	public void addSubmission(Dropbox d)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -103,7 +121,11 @@ public class SubmissionTable {
 			
 		}
 	}
-	
+	/**
+	 * searches for a dropbox by id
+	 * @param ID the if of the dropbox
+	 * @return the dropbox
+	 */
 	public Dropbox search(int ID)
 	{
 		String sql = "SELECT * FROM " + "SubmissionTable" + " WHERE ASSIGN_ID=?";
@@ -135,6 +157,12 @@ public class SubmissionTable {
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}
+	/**
+	 * retrieves the grade for a submission 
+	 * @param ID the id of the student 
+	 * @param as the assignment to which the  grade belongs
+	 * @return the dropbox with the correct grade
+	 */
 	public Dropbox GradeForAssignment(int ID, Assignment as)
 	{
 		String sql = "SELECT * FROM " + "SubmissionTable";
@@ -171,7 +199,11 @@ public class SubmissionTable {
 		
 		return null;
 	}
-	
+	/**
+	 * all the sropboxes of a certain assignment 
+	 * @param assignmentId the assignment id 
+	 * @return the array list of dropboxes 
+	 */
 	public ArrayList<Dropbox> searchAssignment(int assignmentId) {
 		try { 
 			ArrayList<Dropbox> submissionList = new ArrayList<Dropbox>(); 
@@ -198,7 +230,12 @@ public class SubmissionTable {
 			return null;
 		}
 	}
-	
+	/**
+	 * updates a submission
+	 * @param comment the comment 
+	 * @param grade the grade that the student recieved 
+	 * @param id the id of the student 
+	 */
 	public void gradeSubmission(String comment, String grade, int id) {
 		try {
 			String sql = "UPDATE SubmissionTable SET " +
@@ -216,7 +253,11 @@ public class SubmissionTable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * makes a file container 
+	 * @param submission the submission that is being converted 
+	 * @return the submission file container 
+	 */
 	public SubmissionFileContainer getSubmissionFile(Dropbox submission) {
 		try {
 			String sql = "SELECT TITLE, PATH FROM SubmissionTable WHERE ID = ?";

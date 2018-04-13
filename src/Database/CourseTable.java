@@ -10,15 +10,34 @@ import java.util.ArrayList;
 import Data.Course;
 import Data.Professor;
 import Data.User;
-
+/**
+ * 
+ * @author Robert, Justin, Magnus
+ *	this class access the course table from the database
+ *	it has various methods used to retrieve specific data from the database
+ */
 public class CourseTable {
+	/**
+	 * The connection used to connect to the course table
+	 */
 	public Connection jdbc_connection;
+	/**
+	 * the prepared statement used 
+	 */
 	public PreparedStatement statement;
+	/**
+	 * the password to access the database
+	 */
 	private String pass;
-  
+	 /**
+	   * the connection information for the specific database
+	   */
 	public String connectionInfo = "jdbc:mysql://localhost:3306/demo?useSSL=false",  
 				  login          = "root";
-
+	/**
+	 * the constructor for this class that establishes a connection to the database
+	 * @param password is the password to the database
+	 */
 	public CourseTable(String password)
 	{
 		try{
@@ -31,12 +50,9 @@ public class CourseTable {
 		}
 		catch(Exception e) { e.printStackTrace(); }
 	}
-	
-	// Use the jdbc connection to create a new database in MySQL. 
-	// (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/InventoryDB")
-	
-
-	// Create a data table inside of the database to hold tools
+	/**
+	 * creates a table of courses 
+	 */
 	public void createCourseTable()
 	{
 		String sql =   "CREATE TABLE " + "CourseTable" + "(" +
@@ -53,6 +69,10 @@ public class CourseTable {
 		{
 		}
 	}
+	/**
+	 * adds a course to the table
+	 * @param user the course to be added
+	 */
 	public void addCourse(Course user)
 	{
 		String sql = "INSERT INTO " + "CourseTable" +
@@ -84,13 +104,18 @@ public class CourseTable {
 			
 		}
 	}
-	public Course searchCourse(int toolID)
+	/**
+	 * searches the table for a course
+	 * @param ID the id of the course
+	 * @return the course if found 
+	 */
+	public Course searchCourse(int ID)
 	{
 		String sql = "SELECT * FROM " + "CourseTable" + " WHERE ID=?";
 		ResultSet user;
 		try {
 			statement = jdbc_connection.prepareStatement(sql);
-			statement.setInt(1, toolID);
+			statement.setInt(1, ID);
 			user = statement.executeQuery();
 			if(user.next())
 			{
@@ -111,7 +136,10 @@ public class CourseTable {
 		
 		return null;
 	}
-	
+	/**
+	 * gets a list of all the courses 
+	 * @return an arraylist of all the courses
+	 */
 	public ArrayList<Course> courseTableToList() {
 		try { 
 			ArrayList<Course> courseList = new ArrayList<Course>(); 
@@ -136,7 +164,11 @@ public class CourseTable {
 			return null;
 		}
 	}
-	
+	/**
+	 * updates the status of a course
+	 * @param courseId the id of the course
+	 * @param status is the status of the course 
+	 */
 	public void updateCourseStatus(Integer courseId, boolean status)
 	{
 		try
@@ -162,6 +194,9 @@ public class CourseTable {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * closes the connection to the database 
+	 */
 	public void closeConnection()
 	{
 		try {
