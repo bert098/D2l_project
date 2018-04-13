@@ -8,7 +8,7 @@ import Model.ClientMain;
  *
  */
 public class Demo {
-	public static void main(String[] args) {
+	public static void main(String[] args) {	
 		ClientMain theClient = new ClientMain("localhost", 6969); 
 		@SuppressWarnings("unused")
 		UserController userController = new UserController(theClient); 
