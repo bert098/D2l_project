@@ -55,9 +55,16 @@ public class ProfessorDropboxView extends JFrame{
 	/** Button for downloading a student's submission. */
 	private JButton downloadAssignmentButton = new JButton("Download");
 	
-	/** Returns the contents of gradeField */
+	/** 
+	 * Returns the contents of gradeField 
+	 * @return String
+	 */
 	public String getGradeText() {return gradeField.getText();}
-	/** Returns the contents of commentsArea */
+	
+	/** 
+	 * Returns the contents of commentsArea 
+	 * @return String
+	 * */
 	public String getCommentsText() {return commentsArea.getText();}
 	
 	/**
@@ -204,7 +211,8 @@ public class ProfessorDropboxView extends JFrame{
 				"", JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	/** Returns the selected submission. */
+	/** Returns the selected submission.
+	 * @return Dropbox */
 	public Dropbox getSelectedSubmission() { 
 		return submissionsList.getSelectedValue();
 	}

@@ -20,7 +20,8 @@ public class StudentView extends UserView{
 	/** @return studentCoursesPanel */
 	public StudentCoursesPanel getStudentCoursesPanel() {return studentCoursesPanel;}
 	
-	/** Constructor for intializing a new StudentView. */
+	/** Constructor for intializing a new StudentView.
+	 * @param student student */
 	public StudentView(Student student) {
 		
 		super(student);

@@ -195,7 +195,7 @@ public class ProfessorModel implements Constants{
 	
 	/**
 	 * Get arrayList of all students from a course
-	 * @param course course the students are enrolled in
+	 * @param c course the students are enrolled in
 	 * @return arrayList of students
 	 */
 	@SuppressWarnings("unchecked")
@@ -244,7 +244,7 @@ public class ProfessorModel implements Constants{
 	
 	/**
 	 * Enroll a student into a course 
-	 * @param student Student being enrolled 
+	 * @param st Student being enrolled 
 	 * @return ArrayList of students 
 	 */
 	@SuppressWarnings("unchecked")
